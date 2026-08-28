@@ -1,9 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState, useRef } from "react";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 type FieldType = "TEXT" | "NUMBER" | "EMAIL" | "LONG_TEXT" | "SELECT" | "CHECKBOX" | "RADIO";
 
@@ -15,18 +32,111 @@ type Field = {
   options: string[] | null;
 };
 
+// --- Sortable Item Component ---
+function SortableField({
+  field,
+  isSelected,
+  onSelect,
+  onRemove,
+}: {
+  field: Field;
+  isSelected: boolean;
+  onSelect: () => void;
+  onRemove: (e: React.MouseEvent) => void;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: field.id,
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 10 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      onClick={(e) => {
+        e.stopPropagation();
+        onSelect();
+      }}
+      className={`group relative p-6 rounded-2xl bg-white border cursor-pointer transition-colors flex gap-4 items-start ${
+        isSelected ? "border-zinc-900 shadow-sm ring-1 ring-zinc-900" : "border-zinc-200 hover:border-zinc-300"
+      } ${isDragging ? "opacity-50 shadow-xl border-zinc-900" : ""}`}
+    >
+      {/* Drag Handle */}
+      <div
+        {...attributes}
+        {...listeners}
+        className="mt-1 flex items-center justify-center text-zinc-300 hover:text-zinc-600 cursor-grab active:cursor-grabbing p-1 -ml-2 rounded"
+      >
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 4.625C6.12132 4.625 6.625 4.12132 6.625 3.5C6.625 2.87868 6.12132 2.375 5.5 2.375C4.87868 2.375 4.375 2.87868 4.375 3.5C4.375 4.12132 4.87868 4.625 5.5 4.625ZM9.5 4.625C10.1213 4.625 10.625 4.12132 10.625 3.5C10.625 2.87868 10.1213 2.375 9.5 2.375C8.87868 2.375 8.375 2.87868 8.375 3.5C8.375 4.12132 8.87868 4.625 9.5 4.625ZM10.625 7.5C10.625 8.12132 10.1213 8.625 9.5 8.625C8.87868 8.625 8.375 8.12132 8.375 7.5C8.375 6.87868 8.87868 6.375 9.5 6.375C10.1213 6.375 10.625 6.87868 10.625 7.5ZM5.5 8.625C6.12132 8.625 6.625 8.12132 6.625 7.5C6.625 6.87868 6.12132 6.375 5.5 6.375C4.87868 6.375 4.375 6.87868 4.375 7.5C4.375 8.12132 4.87868 8.625 5.5 8.625ZM10.625 11.5C10.625 12.1213 10.1213 12.625 9.5 12.625C8.87868 12.625 8.375 12.1213 8.375 11.5C8.375 10.8786 8.87868 10.375 9.5 10.375C10.1213 10.375 10.625 10.8786 10.625 11.5ZM5.5 12.625C6.12132 12.625 6.625 12.1213 6.625 11.5C6.625 10.8786 6.12132 10.375 5.5 10.375C4.87868 10.375 4.375 10.8786 4.375 11.5C4.375 12.1213 4.87868 12.625 5.5 12.625Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
+      </div>
+
+      <div className="flex-1 min-w-0">
+        <label className="block text-[15px] font-semibold text-zinc-900 mb-2">
+          {field.label} {field.required && <span className="text-red-500">*</span>}
+        </label>
+
+        {/* Render Mock Inputs */}
+        {(field.type === "TEXT" || field.type === "EMAIL" || field.type === "NUMBER") && (
+          <div className="h-11 w-full rounded-lg border border-zinc-200 bg-zinc-50 pointer-events-none"></div>
+        )}
+        {field.type === "LONG_TEXT" && (
+          <div className="h-24 w-full rounded-lg border border-zinc-200 bg-zinc-50 pointer-events-none"></div>
+        )}
+        {field.type === "SELECT" && (
+          <div className="h-11 w-full rounded-lg border border-zinc-200 bg-zinc-50 pointer-events-none flex items-center justify-between px-3 text-zinc-400 text-sm">
+            <span>Select an option...</span>
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.18179 6.18181C4.35753 6.00608 4.64245 6.00608 4.81819 6.18181L7.49999 8.86362L10.1818 6.18181C10.3575 6.00608 10.6424 6.00608 10.8182 6.18181C10.9939 6.35755 10.9939 6.64247 10.8182 6.81821L7.81819 9.81821C7.73379 9.9026 7.61934 9.95001 7.49999 9.95001C7.38064 9.95001 7.26618 9.9026 7.18179 9.81821L4.18179 6.81821C4.00605 6.64247 4.00605 6.35755 4.18179 6.18181Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
+          </div>
+        )}
+        {(field.type === "RADIO" || field.type === "CHECKBOX") && (
+          <div className="space-y-3 pointer-events-none mt-3">
+            {field.options?.map((opt, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className={`w-4 h-4 border border-zinc-300 ${field.type === "RADIO" ? "rounded-full" : "rounded"}`}></div>
+                <span className="text-[14px] text-zinc-700">{opt}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Delete action */}
+      <button
+        onClick={onRemove}
+        className={`shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-zinc-400 hover:bg-red-50 hover:text-red-600 transition-colors ${
+          isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        }`}
+        title="Delete field"
+      >
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 1C5.22386 1 5 1.22386 5 1.5C5 1.77614 5.22386 2 5.5 2H9.5C9.77614 2 10 1.77614 10 1.5C10 1.22386 9.77614 1 9.5 1H5.5ZM3 3.5C3 3.22386 3.22386 3 3.5 3H11.5C11.7761 3 12 3.22386 12 3.5C12 3.77614 11.7761 4 11.5 4H11V12C11 12.5523 10.5523 13 10 13H5C4.44772 13 4 12.5523 4 12V4H3.5C3.22386 4 3 3.77614 3 3.5ZM5 4V12H10V4H5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
+      </button>
+    </div>
+  );
+}
+
+// --- Main Page Component ---
 export default function FormBuilderPage() {
   const params = useParams();
   const id = params.id as string;
-  const router = useRouter();
 
   const [form, setForm] = useState<any>(null);
   const [fields, setFields] = useState<Field[]>([]);
   const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null);
   
   const [isLoading, setIsLoading] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [syncStatus, setSyncStatus] = useState<"Saved" | "Saving..." | "Unsaved changes">("Saved");
+  const isFirstRender = useRef(true);
+
+  // DnD Sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  );
 
   useEffect(() => {
     const fetchForm = async () => {
@@ -35,13 +145,37 @@ export default function FormBuilderPage() {
         setForm(data);
         setFields(data.fields || []);
       } catch (err: any) {
-        setError(err.message || "Failed to load form");
+        setSyncStatus("Unsaved changes");
       } finally {
         setIsLoading(false);
       }
     };
     fetchForm();
   }, [id]);
+
+  // Debounced Auto-save
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    
+    setSyncStatus("Unsaved changes");
+    const timer = setTimeout(async () => {
+      try {
+        setSyncStatus("Saving...");
+        await api(`/forms/${id}/fields`, {
+          method: "POST",
+          body: JSON.stringify({ fields }),
+        });
+        setSyncStatus("Saved");
+      } catch (err) {
+        setSyncStatus("Unsaved changes");
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [fields, id]);
 
   const addField = (type: FieldType) => {
     const newField: Field = {
@@ -55,23 +189,15 @@ export default function FormBuilderPage() {
     setSelectedFieldId(newField.id);
   };
 
-  const removeField = (fieldId: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    setFields(fields.filter((f) => f.id !== fieldId));
-    if (selectedFieldId === fieldId) setSelectedFieldId(null);
-  };
-
-  const moveField = (index: number, direction: -1 | 1, e: React.MouseEvent) => {
-    e.stopPropagation();
-    const newFields = [...fields];
-    if (index + direction < 0 || index + direction >= newFields.length) return;
-    
-    // Swap
-    const temp = newFields[index];
-    newFields[index] = newFields[index + direction];
-    newFields[index + direction] = temp;
-    
-    setFields(newFields);
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      setFields((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
   };
 
   const updateSelectedField = (updates: Partial<Field>) => {
@@ -80,64 +206,10 @@ export default function FormBuilderPage() {
     );
   };
 
-  const updateOption = (optIndex: number, newValue: string) => {
-    setFields((prev) =>
-      prev.map((f) => {
-        if (f.id !== selectedFieldId || !f.options) return f;
-        const newOpts = [...f.options];
-        newOpts[optIndex] = newValue;
-        return { ...f, options: newOpts };
-      })
-    );
-  };
-
-  const addOption = () => {
-    setFields((prev) =>
-      prev.map((f) => {
-        if (f.id !== selectedFieldId || !f.options) return f;
-        return { ...f, options: [...f.options, `Option ${f.options.length + 1}`] };
-      })
-    );
-  };
-
-  const removeOption = (optIndex: number) => {
-    setFields((prev) =>
-      prev.map((f) => {
-        if (f.id !== selectedFieldId || !f.options) return f;
-        const newOpts = f.options.filter((_, i) => i !== optIndex);
-        return { ...f, options: newOpts };
-      })
-    );
-  };
-
-  const saveForm = async () => {
-    try {
-      setIsSaving(true);
-      await api(`/forms/${id}/fields`, {
-        method: "POST",
-        body: JSON.stringify({ fields }),
-      });
-      alert("Form saved successfully!");
-    } catch (err: any) {
-      alert("Failed to save: " + err.message);
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center h-screen bg-zinc-50">
         <div className="animate-spin w-8 h-8 border-4 border-zinc-200 border-t-zinc-900 rounded-full"></div>
-      </div>
-    );
-  }
-
-  if (error || !form) {
-    return (
-      <div className="p-10 text-red-600">
-        <p>{error || "Not found"}</p>
-        <Link href="/dashboard/forms" className="underline">&larr; Back</Link>
       </div>
     );
   }
@@ -145,136 +217,143 @@ export default function FormBuilderPage() {
   const selectedField = fields.find((f) => f.id === selectedFieldId);
 
   return (
-    <div className="h-[calc(100vh-64px)] md:h-screen flex flex-col font-sans bg-zinc-50 overflow-hidden">
+    <div className="h-screen flex flex-col font-sans bg-[#F9F9F9] overflow-hidden">
       {/* Top Header */}
-      <header className="h-16 bg-white border-b border-zinc-200 px-6 flex justify-between items-center shrink-0">
+      <header className="h-14 bg-white border-b border-zinc-200 px-4 flex justify-between items-center shrink-0">
         <div className="flex items-center gap-4">
-          <Link href="/dashboard/forms" className="text-zinc-400 hover:text-zinc-900 transition-colors">
-            &larr;
+          <Link href="/dashboard/forms" className="w-8 h-8 flex items-center justify-center rounded hover:bg-zinc-100 text-zinc-500 transition-colors">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.85355 3.14645C7.04882 3.34171 7.04882 3.65829 6.85355 3.85355L3.70711 7H12.5C12.7761 7 13 7.22386 13 7.5C13 7.77614 12.7761 8 12.5 8H3.70711L6.85355 11.1464C7.04882 11.3417 7.04882 11.6583 6.85355 11.8536C6.65829 12.0488 6.34171 12.0488 6.14645 11.8536L2.14645 7.85355C1.95118 7.65829 1.95118 7.34171 2.14645 7.14645L6.14645 3.14645C6.34171 2.95118 6.65829 2.95118 6.85355 3.14645Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
           </Link>
-          <h1 className="text-[16px] font-bold text-zinc-900 truncate max-w-sm">{form.name}</h1>
+          <div className="h-4 w-[1px] bg-zinc-200"></div>
+          <h1 className="text-[14px] font-semibold text-zinc-900 truncate max-w-sm">{form?.name}</h1>
         </div>
-        <button
-          onClick={saveForm}
-          disabled={isSaving}
-          className="px-4 py-2 bg-zinc-900 text-white text-[13px] font-semibold rounded-lg hover:bg-zinc-800 disabled:opacity-50 shadow-sm"
-        >
-          {isSaving ? "Saving..." : "Save Changes"}
-        </button>
+        
+        <div className="flex items-center gap-3">
+          <span className={`text-[13px] font-medium transition-colors ${syncStatus === 'Unsaved changes' ? 'text-amber-600' : 'text-zinc-400'}`}>
+            {syncStatus}
+          </span>
+          <div className="h-2 w-2 rounded-full bg-zinc-200 flex items-center justify-center">
+             <div className={`h-1.5 w-1.5 rounded-full ${syncStatus === 'Saved' ? 'bg-emerald-500' : syncStatus === 'Saving...' ? 'bg-blue-500 animate-pulse' : 'bg-amber-500'}`}></div>
+          </div>
+        </div>
       </header>
 
       {/* Main Workspace */}
       <div className="flex-1 flex overflow-hidden">
         
         {/* Left Sidebar: Toolbox */}
-        <div className="w-64 bg-white border-r border-zinc-200 flex flex-col shrink-0 overflow-y-auto">
-          <div className="p-4 border-b border-zinc-100">
-            <h2 className="text-[12px] font-bold text-zinc-400 uppercase tracking-wider">Blocks</h2>
-          </div>
-          <div className="p-2 space-y-1">
-            {[
-              { type: "TEXT", label: "Short Text" },
-              { type: "LONG_TEXT", label: "Long Text" },
-              { type: "EMAIL", label: "Email" },
-              { type: "NUMBER", label: "Number" },
-              { type: "SELECT", label: "Dropdown" },
-              { type: "RADIO", label: "Single Choice" },
-              { type: "CHECKBOX", label: "Multiple Choice" },
-            ].map((block) => (
-              <button
-                key={block.type}
-                onClick={() => addField(block.type as FieldType)}
-                className="w-full text-left px-4 py-2.5 text-[14px] font-medium text-zinc-700 rounded-lg hover:bg-zinc-100 hover:text-zinc-900 transition-colors"
-              >
-                + {block.label}
-              </button>
-            ))}
+        <div className="w-[240px] bg-white border-r border-zinc-200 flex flex-col shrink-0 overflow-y-auto">
+          <div className="p-5 space-y-6">
+            <div>
+              <h2 className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-3">Basic Inputs</h2>
+              <div className="space-y-1">
+                {[
+                  { type: "TEXT", label: "Short Text", icon: "T" },
+                  { type: "LONG_TEXT", label: "Long Text", icon: "¶" },
+                  { type: "EMAIL", label: "Email", icon: "@" },
+                  { type: "NUMBER", label: "Number", icon: "#" },
+                ].map((block) => (
+                  <button key={block.type} onClick={() => addField(block.type as FieldType)} className="w-full flex items-center gap-3 px-3 py-2 text-[13px] font-medium text-zinc-700 rounded-lg hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
+                    <span className="w-6 h-6 flex items-center justify-center bg-zinc-100 rounded text-zinc-500 text-[11px]">{block.icon}</span>
+                    {block.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-3">Choices</h2>
+              <div className="space-y-1">
+                {[
+                  { type: "SELECT", label: "Dropdown", icon: "▼" },
+                  { type: "RADIO", label: "Single Choice", icon: "○" },
+                  { type: "CHECKBOX", label: "Multiple Choice", icon: "☑" },
+                ].map((block) => (
+                  <button key={block.type} onClick={() => addField(block.type as FieldType)} className="w-full flex items-center gap-3 px-3 py-2 text-[13px] font-medium text-zinc-700 rounded-lg hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
+                    <span className="w-6 h-6 flex items-center justify-center bg-zinc-100 rounded text-zinc-500 text-[11px]">{block.icon}</span>
+                    {block.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Center: Canvas */}
-        <div className="flex-1 overflow-y-auto p-8 md:p-12 relative" onClick={() => setSelectedFieldId(null)}>
-          <div className="max-w-[600px] mx-auto space-y-4 pb-32">
+        <div className="flex-1 overflow-y-auto p-8 md:p-16 relative" onClick={() => setSelectedFieldId(null)}>
+          <div className="max-w-[640px] mx-auto pb-40">
             
-            <div className="mb-10 text-center">
-              <h1 className="text-[32px] font-bold text-zinc-900">{form.name}</h1>
-              {form.description && <p className="text-[16px] text-zinc-500 mt-2">{form.description}</p>}
+            <div className="mb-12">
+              <input
+                 type="text"
+                 value={form?.name}
+                 readOnly
+                 className="w-full text-[40px] font-bold text-zinc-900 bg-transparent outline-none placeholder:text-zinc-300 mb-2"
+                 placeholder="Form Title"
+              />
+              <textarea
+                 value={form?.description || ""}
+                 readOnly
+                 className="w-full text-[16px] text-zinc-500 bg-transparent outline-none resize-none placeholder:text-zinc-300"
+                 placeholder="Add a description..."
+                 rows={2}
+              />
             </div>
 
-            {fields.length === 0 ? (
-              <div className="text-center p-12 border border-dashed border-zinc-300 rounded-2xl bg-zinc-50">
-                <p className="text-[14px] text-zinc-500">Your form is empty.</p>
-                <p className="text-[13px] text-zinc-400 mt-1">Click blocks on the left to add them.</p>
-              </div>
-            ) : (
-              fields.map((field, index) => (
-                <div
-                  key={field.id}
-                  onClick={(e) => { e.stopPropagation(); setSelectedFieldId(field.id); }}
-                  className={`group relative p-6 rounded-2xl bg-white border cursor-pointer transition-all ${
-                    selectedFieldId === field.id
-                      ? "border-zinc-900 shadow-sm ring-1 ring-zinc-900"
-                      : "border-zinc-200 hover:border-zinc-400"
-                  }`}
-                >
-                  {/* Reorder & Delete actions */}
-                  <div className={`absolute -right-4 top-1/2 -translate-y-1/2 flex-col gap-1 ${selectedFieldId === field.id ? 'flex' : 'hidden group-hover:flex'}`}>
-                    <button onClick={(e) => moveField(index, -1, e)} className="w-8 h-8 bg-white border border-zinc-200 shadow-sm rounded-full flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:border-zinc-400">&uarr;</button>
-                    <button onClick={(e) => moveField(index, 1, e)} className="w-8 h-8 bg-white border border-zinc-200 shadow-sm rounded-full flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:border-zinc-400">&darr;</button>
-                    <button onClick={(e) => removeField(field.id, e)} className="w-8 h-8 bg-white border border-zinc-200 shadow-sm rounded-full flex items-center justify-center text-red-400 hover:text-red-600 hover:border-red-400 mt-2">&times;</button>
-                  </div>
-
-                  <label className="block text-[15px] font-semibold text-zinc-900 mb-2">
-                    {field.label} {field.required && <span className="text-red-500">*</span>}
-                  </label>
-
-                  {/* Render Mock Inputs */}
-                  {(field.type === "TEXT" || field.type === "EMAIL" || field.type === "NUMBER") && (
-                    <div className="h-10 w-full rounded-lg border border-zinc-200 bg-zinc-50 pointer-events-none"></div>
-                  )}
-                  {field.type === "LONG_TEXT" && (
-                    <div className="h-24 w-full rounded-lg border border-zinc-200 bg-zinc-50 pointer-events-none"></div>
-                  )}
-                  {field.type === "SELECT" && (
-                    <div className="h-10 w-full rounded-lg border border-zinc-200 bg-zinc-50 pointer-events-none flex items-center px-3 text-zinc-400 text-sm">Select an option...</div>
-                  )}
-                  {(field.type === "RADIO" || field.type === "CHECKBOX") && (
-                    <div className="space-y-2 pointer-events-none">
-                      {field.options?.map((opt, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                          <div className={`w-4 h-4 border border-zinc-300 ${field.type === 'RADIO' ? 'rounded-full' : 'rounded'}`}></div>
-                          <span className="text-[14px] text-zinc-700">{opt}</span>
-                        </div>
-                      ))}
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+              <SortableContext items={fields} strategy={verticalListSortingStrategy}>
+                <div className="space-y-4">
+                  {fields.length === 0 ? (
+                    <div className="text-center p-12 border-2 border-dashed border-zinc-200 rounded-2xl">
+                      <p className="text-[14px] text-zinc-500">This form is empty.</p>
+                      <p className="text-[13px] text-zinc-400 mt-1">Click a block on the left to add it here.</p>
                     </div>
+                  ) : (
+                    fields.map((field) => (
+                      <SortableField
+                        key={field.id}
+                        field={field}
+                        isSelected={selectedFieldId === field.id}
+                        onSelect={() => setSelectedFieldId(field.id)}
+                        onRemove={(e) => {
+                          e.stopPropagation();
+                          setFields(fields.filter((f) => f.id !== field.id));
+                          if (selectedFieldId === field.id) setSelectedFieldId(null);
+                        }}
+                      />
+                    ))
                   )}
                 </div>
-              ))
-            )}
+              </SortableContext>
+            </DndContext>
+            
           </div>
         </div>
 
         {/* Right Sidebar: Settings */}
-        <div className={`w-72 bg-white border-l border-zinc-200 flex flex-col shrink-0 overflow-y-auto transition-transform ${selectedField ? 'translate-x-0' : 'translate-x-full'}`} style={{ display: selectedField ? 'flex' : 'none' }}>
-          <div className="p-4 border-b border-zinc-100 flex justify-between items-center">
-            <h2 className="text-[12px] font-bold text-zinc-400 uppercase tracking-wider">Field Settings</h2>
-            <button onClick={() => setSelectedFieldId(null)} className="text-zinc-400 hover:text-zinc-900">&times;</button>
+        <div className={`w-[320px] bg-white border-l border-zinc-200 flex flex-col shrink-0 overflow-y-auto transition-all ${selectedField ? 'translate-x-0 border-l' : 'translate-x-[320px] border-transparent'} absolute right-0 top-14 bottom-0 z-20 shadow-xl md:shadow-none md:static md:translate-x-0`} style={{ display: selectedField ? 'flex' : 'none' }}>
+          <div className="h-14 border-b border-zinc-100 flex justify-between items-center px-5 shrink-0">
+            <h2 className="text-[13px] font-bold text-zinc-900">Properties</h2>
+            <button onClick={() => setSelectedFieldId(null)} className="text-zinc-400 hover:text-zinc-900">
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.557 2.99385 11.193 2.99385 10.9684 3.2184L7.49999 6.68682L4.03157 3.2184C3.80702 2.99385 3.44295 2.99385 3.2184 3.2184C2.99385 3.44295 2.99385 3.80702 3.2184 4.03157L6.68682 7.49999L3.2184 10.9684C2.99385 11.193 2.99385 11.557 3.2184 11.7816C3.44295 12.0062 3.80702 12.0062 4.03157 11.7816L7.49999 8.31316L10.9684 11.7816C11.193 12.0062 11.557 12.0062 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31316 7.49999L11.7816 4.03157Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
+            </button>
           </div>
           
           {selectedField && (
             <div className="p-5 space-y-6">
+              
               <div className="space-y-2">
-                <label className="text-[13px] font-semibold text-zinc-900">Label</label>
-                <input
-                  type="text"
+                <label className="text-[12px] font-semibold text-zinc-500 uppercase tracking-wider">Field Label</label>
+                <textarea
                   value={selectedField.label}
                   onChange={(e) => updateSelectedField({ label: e.target.value })}
-                  className="w-full text-[14px] px-3 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-zinc-900"
+                  className="w-full text-[14px] px-3 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 resize-none"
+                  rows={2}
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-[13px] font-semibold text-zinc-900">Type</label>
+                <label className="text-[12px] font-semibold text-zinc-500 uppercase tracking-wider">Field Type</label>
                 <select
                   value={selectedField.type}
                   onChange={(e) => {
@@ -285,7 +364,7 @@ export default function FormBuilderPage() {
                       options: needsOptions ? (selectedField.options || ["Option 1", "Option 2"]) : null
                     });
                   }}
-                  className="w-full text-[14px] px-3 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-zinc-900 bg-white"
+                  className="w-full text-[14px] px-3 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 bg-white"
                 >
                   <option value="TEXT">Short Text</option>
                   <option value="LONG_TEXT">Long Text</option>
@@ -297,34 +376,47 @@ export default function FormBuilderPage() {
                 </select>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3 pt-2">
                 <input
                   type="checkbox"
                   id="required-toggle"
                   checked={selectedField.required}
                   onChange={(e) => updateSelectedField({ required: e.target.checked })}
-                  className="w-4 h-4 rounded border-zinc-300 accent-zinc-900"
+                  className="w-4 h-4 rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900 cursor-pointer"
                 />
-                <label htmlFor="required-toggle" className="text-[14px] font-medium text-zinc-900 cursor-pointer">
-                  Required field
+                <label htmlFor="required-toggle" className="text-[14px] font-medium text-zinc-900 cursor-pointer select-none">
+                  Make this field required
                 </label>
               </div>
 
               {selectedField.options && (
-                <div className="space-y-3 pt-4 border-t border-zinc-100">
-                  <label className="text-[13px] font-semibold text-zinc-900">Options</label>
-                  {selectedField.options.map((opt, idx) => (
-                    <div key={idx} className="flex items-center gap-2">
-                      <input
-                        type="text"
-                        value={opt}
-                        onChange={(e) => updateOption(idx, e.target.value)}
-                        className="flex-1 text-[13px] px-2 py-1.5 border border-zinc-200 rounded focus:outline-none focus:border-zinc-900"
-                      />
-                      <button onClick={() => removeOption(idx)} className="text-zinc-400 hover:text-red-500 p-1">&times;</button>
-                    </div>
-                  ))}
-                  <button onClick={addOption} className="text-[13px] font-medium text-zinc-600 hover:text-zinc-900">
+                <div className="space-y-3 pt-6 border-t border-zinc-100">
+                  <label className="text-[12px] font-semibold text-zinc-500 uppercase tracking-wider">Options</label>
+                  <div className="space-y-2">
+                    {selectedField.options.map((opt, idx) => (
+                      <div key={idx} className="flex items-center gap-2 group/opt">
+                        <input
+                          type="text"
+                          value={opt}
+                          onChange={(e) => {
+                            const newOpts = [...selectedField.options!];
+                            newOpts[idx] = e.target.value;
+                            updateSelectedField({ options: newOpts });
+                          }}
+                          className="flex-1 text-[13px] px-3 py-1.5 border border-zinc-200 rounded-md focus:outline-none focus:border-zinc-900"
+                        />
+                        <button onClick={() => {
+                          const newOpts = selectedField.options!.filter((_, i) => i !== idx);
+                          updateSelectedField({ options: newOpts });
+                        }} className="text-zinc-400 hover:text-red-500 opacity-0 group-hover/opt:opacity-100 transition-opacity p-1">
+                          &times;
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <button onClick={() => {
+                    updateSelectedField({ options: [...selectedField.options!, `Option ${selectedField.options!.length + 1}`] });
+                  }} className="text-[13px] font-semibold text-zinc-600 hover:text-zinc-900 bg-zinc-100 hover:bg-zinc-200 px-3 py-1.5 rounded-md transition-colors w-full text-left">
                     + Add option
                   </button>
                 </div>
