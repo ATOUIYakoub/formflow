@@ -26,6 +26,12 @@ export class FormsController {
     return this.formsService.findOne(id, userId);
   }
 
+  @Post(':id/fields')
+  saveFields(@Param('id') id: string, @Body() data: { fields: any[] }, @Req() req: Request) {
+    const userId = (req.user as any).id;
+    return this.formsService.saveFields(id, data.fields, userId);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFormData: { name?: string; description?: string }, @Req() req: Request) {
     const userId = (req.user as any).id;

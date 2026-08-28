@@ -28,6 +28,9 @@ export class FormsService {
       where: { id },
       include: {
         workspace: true,
+        fields: {
+          orderBy: { position: 'asc' },
+        },
       },
     });
 
@@ -35,6 +38,42 @@ export class FormsService {
     if (form.workspace.ownerId !== userId) throw new ForbiddenException('Access denied');
 
     return form;
+  }
+
+  async saveFields(id: string, fields: any[], userId: string) {
+    // Ensure ownership
+    await this.findOne(id, userId);
+
+    // Run in a transaction to replace all fields safely
+    return this.prisma.$transaction(async (prisma) => {
+      // 1. Delete existing fields for this form
+      await prisma.formField.deleteMany({
+        where: { formId: id },
+      });
+
+      // 2. Insert new fields
+      if (fields && fields.length > 0) {
+        await prisma.formField.createMany({
+          data: fields.map((field, index) => ({
+            formId: id,
+            type: field.type,
+            label: field.label,
+            description: field.description || null,
+            placeholder: field.placeholder || null,
+            required: field.required || false,
+            position: index,
+            options: field.options || null,
+            validation: field.validation || null,
+          })),
+        });
+      }
+
+      // Return the updated form with fields
+      return prisma.form.findUnique({
+        where: { id },
+        include: { fields: { orderBy: { position: 'asc' } } },
+      });
+    });
   }
 
   async create(data: { name: string; description?: string }, userId: string) {
