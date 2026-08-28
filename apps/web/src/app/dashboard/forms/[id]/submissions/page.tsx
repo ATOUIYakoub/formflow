@@ -5,15 +5,17 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { api } from "@/lib/api";
 
-type Field = { id: string; label: string; type: string };
-type Answer = { fieldId: string; value: any; field?: Field };
+type Column = { id: string; label: string; type: string };
+type Answer = { fieldId: string; value: any; label: string | null; type: string | null };
 type Submission = {
   id: string;
+  version: number;
   createdAt: string;
   answers: Answer[];
 };
 type ListResponse = {
   items: Submission[];
+  columns: Column[];
   total: number;
   page: number;
   limit: number;
@@ -117,15 +119,13 @@ export default function SubmissionsPage() {
     }
   };
 
-  // Columns: first few fields of the form (like Name, Email, ...)
-  const columns: Field[] = (form?.fields || []).slice(0, 4);
+  // Columns: fields from the latest published version (resolved server-side)
+  const columns: Column[] = (data?.columns || []).slice(0, 4);
 
   const answerMap = (submission: Submission) => {
     const map: Record<string, any> = {};
     for (const a of submission.answers) {
       map[a.fieldId] = a.value;
-      // Fallback for answers saved before a field id changed
-      if (a.field) map[a.field.id] = a.value;
     }
     return map;
   };
@@ -310,7 +310,7 @@ export default function SubmissionsPage() {
               <div>
                 <h2 className="text-[16px] font-bold text-zinc-900">Submission details</h2>
                 <p className="text-[13px] text-zinc-500 mt-0.5">
-                  {formatDateTime(selected.createdAt)}
+                  {formatDateTime(selected.createdAt)} · Version {selected.version}
                 </p>
               </div>
               <button
@@ -328,7 +328,12 @@ export default function SubmissionsPage() {
                 selected.answers.map((answer, idx) => (
                   <div key={idx}>
                     <p className="text-[12px] font-semibold text-zinc-500 uppercase tracking-wider mb-1">
-                      {answer.field?.label || "Deleted field"}
+                      {answer.label || "Unknown field"}
+                      {answer.label === null && (
+                        <span className="ml-2 text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded align-middle">
+                          v{selected.version}
+                        </span>
+                      )}
                     </p>
                     <p className="text-[14px] text-zinc-900 whitespace-pre-wrap">
                       {formatValue(answer.value)}

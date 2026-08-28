@@ -32,6 +32,30 @@ type Field = {
   options: string[] | null;
 };
 
+type RuleOperator = "EQUALS" | "NOT_EQUALS" | "CONTAINS" | "GREATER_THAN" | "LESS_THAN" | "IS_EMPTY" | "IS_NOT_EMPTY";
+type RuleAction = "SHOW" | "HIDE";
+
+type Rule = {
+  id: string;
+  sourceFieldId: string;
+  operator: RuleOperator;
+  value?: any;
+  action: RuleAction;
+  targetFieldId: string;
+};
+
+const OPERATOR_LABELS: Record<RuleOperator, string> = {
+  EQUALS: "is equal to",
+  NOT_EQUALS: "is not equal to",
+  CONTAINS: "contains",
+  GREATER_THAN: "is greater than",
+  LESS_THAN: "is less than",
+  IS_EMPTY: "is empty",
+  IS_NOT_EMPTY: "is not empty",
+};
+
+const COMPARISON_OPERATORS: RuleOperator[] = ["EQUALS", "NOT_EQUALS", "CONTAINS", "GREATER_THAN", "LESS_THAN"];
+
 // --- Sortable Item Component ---
 function SortableField({
   field,
@@ -126,6 +150,7 @@ export default function FormBuilderPage() {
 
   const [form, setForm] = useState<any>(null);
   const [fields, setFields] = useState<Field[]>([]);
+  const [rules, setRules] = useState<Rule[]>([]);
   const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null);
   
   const [isLoading, setIsLoading] = useState(true);
@@ -144,6 +169,7 @@ export default function FormBuilderPage() {
         const data = await api(`/forms/${id}`);
         setForm(data);
         setFields(data.fields || []);
+        setRules(data.rules || []);
       } catch (err: any) {
         setSyncStatus("Unsaved changes");
       } finally {
@@ -206,6 +232,31 @@ export default function FormBuilderPage() {
     );
   };
 
+  // --- Rule management ---
+  const addRule = () => {
+    if (!selectedField) return;
+    const other = fields.find((f) => f.id !== selectedField.id);
+    setRules((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        sourceFieldId: selectedField.id,
+        operator: "EQUALS",
+        value: "",
+        action: "SHOW",
+        targetFieldId: other?.id || "",
+      },
+    ]);
+  };
+
+  const updateRule = (ruleId: string, updates: Partial<Rule>) => {
+    setRules((prev) => prev.map((r) => (r.id === ruleId ? { ...r, ...updates } : r)));
+  };
+
+  const removeRule = (ruleId: string) => {
+    setRules((prev) => prev.filter((r) => r.id !== ruleId));
+  };
+
   const updateFormMeta = (updates: { name?: string; description?: string }) => {
     setForm((prev: any) => (prev ? { ...prev, ...updates } : prev));
   };
@@ -235,6 +286,39 @@ export default function FormBuilderPage() {
 
     return () => clearTimeout(timer);
   }, [form?.name, form?.description, id]);
+
+  // Debounced Auto-save for rules
+  const isRulesFirstRender = useRef(true);
+  useEffect(() => {
+    if (isRulesFirstRender.current) {
+      isRulesFirstRender.current = false;
+      return;
+    }
+
+    setSyncStatus("Unsaved changes");
+    const timer = setTimeout(async () => {
+      try {
+        setSyncStatus("Saving...");
+        await api(`/forms/${id}/rules`, {
+          method: "POST",
+          body: JSON.stringify({
+            rules: rules.map(({ id: _id, sourceFieldId, operator, value, action, targetFieldId }) => ({
+              sourceFieldId,
+              operator,
+              value,
+              action,
+              targetFieldId,
+            })),
+          }),
+        });
+        setSyncStatus("Saved");
+      } catch (err) {
+        setSyncStatus("Unsaved changes");
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [rules, id]);
 
   const handlePublish = async () => {
     try {
@@ -429,6 +513,11 @@ export default function FormBuilderPage() {
                         onRemove={(e) => {
                           e.stopPropagation();
                           setFields(fields.filter((f) => f.id !== field.id));
+                          setRules((prev) =>
+                            prev.filter(
+                              (r) => r.sourceFieldId !== field.id && r.targetFieldId !== field.id
+                            )
+                          );
                           if (selectedFieldId === field.id) setSelectedFieldId(null);
                         }}
                       />
@@ -529,6 +618,75 @@ export default function FormBuilderPage() {
                     updateSelectedField({ options: [...selectedField.options!, `Option ${selectedField.options!.length + 1}`] });
                   }} className="text-[13px] font-semibold text-zinc-600 hover:text-zinc-900 bg-zinc-100 hover:bg-zinc-200 px-3 py-1.5 rounded-md transition-colors w-full text-left">
                     + Add option
+                  </button>
+                </div>
+              )}
+
+              {/* Conditional Logic */}
+              {fields.length > 1 && (
+                <div className="space-y-3 pt-6 border-t border-zinc-100">
+                  <label className="text-[12px] font-semibold text-zinc-500 uppercase tracking-wider">Conditional Logic</label>
+                  {rules.filter((r) => r.sourceFieldId === selectedField.id).map((rule) => (
+                    <div key={rule.id} className="p-3 bg-zinc-50 rounded-xl space-y-2 border border-zinc-100">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-bold text-zinc-400 uppercase">IF</span>
+                        <button
+                          onClick={() => removeRule(rule.id)}
+                          className="text-zinc-400 hover:text-red-500 p-1"
+                          title="Delete rule"
+                        >
+                          &times;
+                        </button>
+                      </div>
+                      <p className="text-[12px] text-zinc-500 truncate">answer to <span className="font-semibold text-zinc-800">{selectedField.label}</span></p>
+                      <div className="flex gap-2">
+                        <select
+                          value={rule.operator}
+                          onChange={(e) => updateRule(rule.id, { operator: e.target.value as RuleOperator })}
+                          className="flex-1 text-[12px] px-2 py-1.5 border border-zinc-200 rounded-md bg-white focus:outline-none focus:border-zinc-900"
+                        >
+                          {(Object.keys(OPERATOR_LABELS) as RuleOperator[]).map((op) => (
+                            <option key={op} value={op}>{OPERATOR_LABELS[op]}</option>
+                          ))}
+                        </select>
+                        {COMPARISON_OPERATORS.includes(rule.operator) && (
+                          <input
+                            type={selectedField.type === "NUMBER" ? "number" : "text"}
+                            value={rule.value ?? ""}
+                            onChange={(e) => updateRule(rule.id, { value: e.target.value })}
+                            placeholder="value"
+                            className="w-24 text-[12px] px-2 py-1.5 border border-zinc-200 rounded-md focus:outline-none focus:border-zinc-900"
+                          />
+                        )}
+                      </div>
+                      <p className="text-[11px] font-bold text-zinc-400 uppercase pt-1">THEN</p>
+                      <div className="flex gap-2">
+                        <select
+                          value={rule.action}
+                          onChange={(e) => updateRule(rule.id, { action: e.target.value as RuleAction })}
+                          className="text-[12px] px-2 py-1.5 border border-zinc-200 rounded-md bg-white focus:outline-none focus:border-zinc-900"
+                        >
+                          <option value="SHOW">Show</option>
+                          <option value="HIDE">Hide</option>
+                        </select>
+                        <select
+                          value={rule.targetFieldId}
+                          onChange={(e) => updateRule(rule.id, { targetFieldId: e.target.value })}
+                          className="flex-1 text-[12px] px-2 py-1.5 border border-zinc-200 rounded-md bg-white focus:outline-none focus:border-zinc-900"
+                        >
+                          <option value="" disabled>Select field...</option>
+                          {fields.filter((f) => f.id !== selectedField.id).map((f) => (
+                            <option key={f.id} value={f.id}>{f.label}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  ))}
+                  <button
+                    onClick={addRule}
+                    className="text-[13px] font-semibold text-zinc-600 hover:text-zinc-900 bg-zinc-100 hover:bg-zinc-200 px-3 py-1.5 rounded-md transition-colors w-full text-left"
+                  >
+                    + Add rule
                   </button>
                 </div>
               )}

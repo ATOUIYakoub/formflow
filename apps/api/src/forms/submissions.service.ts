@@ -9,6 +9,22 @@ export interface ListSubmissionsOptions {
   to?: string;
 }
 
+type SnapshotField = { id: string; label: string; type: string };
+
+// Resolve answer labels/types against the submission's own version snapshot,
+// so old submissions display correctly even after the form was modified.
+function resolveAnswers(answers: any[], snapshot: any) {
+  const fieldMap = new Map<string, SnapshotField>(
+    ((snapshot?.fields || []) as SnapshotField[]).map((f) => [f.id, f])
+  );
+  return answers.map((a) => ({
+    fieldId: a.fieldId,
+    value: a.value,
+    label: fieldMap.get(a.fieldId)?.label ?? null,
+    type: fieldMap.get(a.fieldId)?.type ?? null,
+  }));
+}
+
 @Injectable()
 export class SubmissionsService {
   constructor(private prisma: PrismaService) {}
@@ -71,20 +87,39 @@ export class SubmissionsService {
         skip,
         take: limit,
         include: {
-          answers: {
-            include: {
-              field: {
-                select: { id: true, label: true, type: true, position: true },
-              },
-            },
-          },
+          answers: true,
+          formVersion: true,
         },
       }),
       this.prisma.submission.count({ where }),
     ]);
 
+    // Table columns come from the latest published version snapshot
+    // (falling back to the current draft fields if never published).
+    const latestVersion = await this.prisma.formVersion.findFirst({
+      where: { formId },
+      orderBy: { version: 'desc' },
+    });
+    const columns: SnapshotField[] = latestVersion
+      ? (((latestVersion.snapshot as any).fields || []) as SnapshotField[]).map((f) => ({
+          id: f.id,
+          label: f.label,
+          type: f.type,
+        }))
+      : await this.prisma.formField.findMany({
+          where: { formId },
+          orderBy: { position: 'asc' },
+          select: { id: true, label: true, type: true },
+        });
+
     return {
-      items,
+      items: items.map((s) => ({
+        id: s.id,
+        version: s.version,
+        createdAt: s.createdAt,
+        answers: resolveAnswers(s.answers, s.formVersion?.snapshot),
+      })),
+      columns,
       total,
       page,
       limit,
@@ -98,13 +133,8 @@ export class SubmissionsService {
     const submission = await this.prisma.submission.findUnique({
       where: { id: submissionId },
       include: {
-        answers: {
-          include: {
-            field: {
-              select: { id: true, label: true, type: true, position: true },
-            },
-          },
-        },
+        answers: true,
+        formVersion: true,
       },
     });
 
@@ -112,7 +142,12 @@ export class SubmissionsService {
       throw new NotFoundException('Submission not found');
     }
 
-    return submission;
+    return {
+      id: submission.id,
+      version: submission.version,
+      createdAt: submission.createdAt,
+      answers: resolveAnswers(submission.answers, submission.formVersion?.snapshot),
+    };
   }
 
   async remove(formId: string, submissionId: string, userId: string) {

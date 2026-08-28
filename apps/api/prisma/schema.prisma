@@ -25,6 +25,21 @@ enum FieldType {
   FILE
 }
 
+enum RuleOperator {
+  EQUALS
+  NOT_EQUALS
+  CONTAINS
+  GREATER_THAN
+  LESS_THAN
+  IS_EMPTY
+  IS_NOT_EMPTY
+}
+
+enum RuleAction {
+  SHOW
+  HIDE
+}
+
 model User {
   id           String      @id @default(uuid())
   email        String      @unique
@@ -67,6 +82,8 @@ model Form {
   workspace   Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   fields      FormField[]
   submissions Submission[]
+  rules       FormRule[]
+  versions    FormVersion[]
 
   @@index([workspaceId])
   @@map("forms")
@@ -88,22 +105,61 @@ model FormField {
 
   form        Form               @relation(fields: [formId], references: [id], onDelete: Cascade)
   answers     SubmissionAnswer[]
+  sourceRules FormRule[]         @relation("RuleSource")
+  targetRules FormRule[]         @relation("RuleTarget")
 
   @@index([formId])
   @@map("form_fields")
 }
 
-model Submission {
-  id        String   @id @default(uuid())
-  formId    String   @map("form_id")
-  version   Int      // The version of the form when submitted
-  createdAt DateTime @default(now()) @map("created_at")
+model FormRule {
+  id            String       @id @default(uuid())
+  formId        String       @map("form_id")
+  sourceFieldId String       @map("source_field_id")
+  operator      RuleOperator
+  value         Json?        // Comparison value (ignored for IS_EMPTY / IS_NOT_EMPTY)
+  action        RuleAction
+  targetFieldId String       @map("target_field_id")
+  createdAt     DateTime     @default(now()) @map("created_at")
 
-  form      Form               @relation(fields: [formId], references: [id], onDelete: Cascade)
-  answers   SubmissionAnswer[]
+  form        Form      @relation(fields: [formId], references: [id], onDelete: Cascade)
+  sourceField FormField @relation("RuleSource", fields: [sourceFieldId], references: [id], onDelete: Cascade)
+  targetField FormField @relation("RuleTarget", fields: [targetFieldId], references: [id], onDelete: Cascade)
 
   @@index([formId])
+  @@map("form_rules")
+}
+
+model Submission {
+  id             String       @id @default(uuid())
+  formId         String       @map("form_id")
+  version        Int          // The version number of the form when submitted
+  formVersionId  String?      @map("form_version_id") // Exact version snapshot (null for legacy submissions)
+  createdAt      DateTime     @default(now()) @map("created_at")
+
+  form        Form        @relation(fields: [formId], references: [id], onDelete: Cascade)
+  formVersion FormVersion? @relation(fields: [formVersionId], references: [id], onDelete: SetNull)
+  answers     SubmissionAnswer[]
+
+  @@index([formId])
+  @@index([formVersionId])
   @@map("submissions")
+}
+
+model FormVersion {
+  id        String   @id @default(uuid())
+  formId    String   @map("form_id")
+  version   Int
+  // Immutable snapshot: { name, description, fields: [...], rules: [...] }
+  snapshot  Json
+  createdAt DateTime @default(now()) @map("created_at")
+
+  form        Form         @relation(fields: [formId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+
+  @@unique([formId, version])
+  @@index([formId])
+  @@map("form_versions")
 }
 
 model SubmissionAnswer {

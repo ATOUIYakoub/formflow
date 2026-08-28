@@ -1,12 +1,48 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 // We won't use the authenticated `api` utility here because this is public.
 // We just use standard fetch.
 const API_URL = "http://localhost:3001/api";
+
+type Rule = {
+  id: string;
+  sourceFieldId: string;
+  operator: string;
+  value?: any;
+  action: "SHOW" | "HIDE";
+  targetFieldId: string;
+};
+
+function evaluateCondition(operator: string, answer: any, expected: any): boolean {
+  const str = (v: any) =>
+    Array.isArray(v) ? v.join(", ") : v === null || v === undefined ? "" : String(v);
+
+  const a = str(answer).trim();
+  const b = str(expected).trim();
+
+  switch (operator) {
+    case "EQUALS":
+      return a.toLowerCase() === b.toLowerCase();
+    case "NOT_EQUALS":
+      return a.toLowerCase() !== b.toLowerCase();
+    case "CONTAINS":
+      return a.toLowerCase().includes(b.toLowerCase());
+    case "GREATER_THAN":
+      return parseFloat(a) > parseFloat(b);
+    case "LESS_THAN":
+      return parseFloat(a) < parseFloat(b);
+    case "IS_EMPTY":
+      return a === "";
+    case "IS_NOT_EMPTY":
+      return a !== "";
+    default:
+      return false;
+  }
+}
 
 export default function PublicFormPage() {
   const params = useParams();
@@ -21,8 +57,11 @@ export default function PublicFormPage() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
+
+  const watchedValues = watch();
 
   useEffect(() => {
     const fetchForm = async () => {
@@ -40,15 +79,44 @@ export default function PublicFormPage() {
     fetchForm();
   }, [slug]);
 
+  // Evaluate rules -> visibility map (recomputed on every value change)
+  const visibleIds = useMemo(() => {
+    if (!form) return new Set<string>();
+
+    const fields: { id: string }[] = form.fields || [];
+    const rules: Rule[] = form.rules || [];
+    const showRules = rules.filter((r) => r.action === "SHOW");
+    const hideRules = rules.filter((r) => r.action === "HIDE");
+    const showTargets = new Set(showRules.map((r) => r.targetFieldId));
+
+    const map: Record<string, boolean> = {};
+    for (const f of fields) {
+      // Fields targeted by a SHOW rule start hidden; others start visible
+      map[f.id] = !showTargets.has(f.id);
+    }
+    // SHOW rule met -> visible
+    for (const r of showRules) {
+      if (evaluateCondition(r.operator, watchedValues?.[r.sourceFieldId], r.value)) {
+        map[r.targetFieldId] = true;
+      }
+    }
+    // HIDE rule met -> hidden (overrides SHOW)
+    for (const r of hideRules) {
+      if (evaluateCondition(r.operator, watchedValues?.[r.sourceFieldId], r.value)) {
+        map[r.targetFieldId] = false;
+      }
+    }
+    return new Set(Object.keys(map).filter((id) => map[id]));
+  }, [form, watchedValues]);
+
   const onSubmit = async (data: any) => {
     try {
       setIsSubmitting(true);
-      
-      // Transform react-hook-form data (key is field.id) to our API structure
-      const answers = Object.entries(data).map(([fieldId, value]) => ({
-        fieldId,
-        value,
-      }));
+
+      // Only submit answers for currently visible fields
+      const answers = Object.entries(data)
+        .filter(([fieldId]) => visibleIds.has(fieldId))
+        .map(([fieldId, value]) => ({ fieldId, value }));
 
       const res = await fetch(`${API_URL}/public/forms/${slug}/submissions`, {
         method: "POST",
@@ -111,7 +179,7 @@ export default function PublicFormPage() {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-          {form.fields.map((field: any) => (
+          {form.fields.filter((field: any) => visibleIds.has(field.id)).map((field: any) => (
             <div key={field.id} className="bg-white p-6 md:p-8 rounded-2xl border border-zinc-200 shadow-sm">
               <label className="block text-base font-semibold text-zinc-900 mb-3">
                 {field.label} {field.required && <span className="text-red-500">*</span>}
@@ -121,7 +189,7 @@ export default function PublicFormPage() {
               {(field.type === "TEXT" || field.type === "EMAIL" || field.type === "NUMBER") && (
                 <input
                   type={field.type === "EMAIL" ? "email" : field.type === "NUMBER" ? "number" : "text"}
-                  {...register(field.id, { required: field.required ? "This field is required" : false })}
+                  {...register(field.id, { required: field.required && visibleIds.has(field.id) ? "This field is required" : false })}
                   placeholder="Your answer"
                   className="w-full h-11 px-4 bg-zinc-50 border border-zinc-200 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-all"
                 />
@@ -130,7 +198,7 @@ export default function PublicFormPage() {
               {/* Long Text */}
               {field.type === "LONG_TEXT" && (
                 <textarea
-                  {...register(field.id, { required: field.required ? "This field is required" : false })}
+                  {...register(field.id, { required: field.required && visibleIds.has(field.id) ? "This field is required" : false })}
                   placeholder="Your answer"
                   rows={4}
                   className="w-full p-4 bg-zinc-50 border border-zinc-200 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-all resize-none"
@@ -140,7 +208,7 @@ export default function PublicFormPage() {
               {/* Select */}
               {field.type === "SELECT" && (
                 <select
-                  {...register(field.id, { required: field.required ? "Please select an option" : false })}
+                  {...register(field.id, { required: field.required && visibleIds.has(field.id) ? "Please select an option" : false })}
                   className="w-full h-11 px-4 bg-zinc-50 border border-zinc-200 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-all appearance-none"
                 >
                   <option value="">Choose an option...</option>
@@ -159,7 +227,7 @@ export default function PublicFormPage() {
                         <input
                           type="radio"
                           value={opt}
-                          {...register(field.id, { required: field.required ? "Please select an option" : false })}
+                          {...register(field.id, { required: field.required && visibleIds.has(field.id) ? "Please select an option" : false })}
                           className="w-5 h-5 border-zinc-300 text-zinc-900 focus:ring-zinc-900 cursor-pointer"
                         />
                       </div>
@@ -177,7 +245,7 @@ export default function PublicFormPage() {
                       <input
                         type="checkbox"
                         value={opt}
-                        {...register(field.id, { required: field.required ? "This field is required" : false })}
+                        {...register(field.id, { required: field.required && visibleIds.has(field.id) ? "This field is required" : false })}
                         className="w-5 h-5 rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900 cursor-pointer"
                       />
                       <span className="text-[15px] text-zinc-700">{opt}</span>
