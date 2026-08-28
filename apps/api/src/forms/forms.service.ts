@@ -113,4 +113,76 @@ export class FormsService {
       where: { id },
     });
   }
+
+  async publish(id: string, userId: string) {
+    const form = await this.findOne(id, userId);
+    
+    // Generate a simple unique slug if it doesn't have one
+    const slug = form.slug || Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 6);
+
+    return this.prisma.form.update({
+      where: { id },
+      data: {
+        status: 'PUBLISHED',
+        publishedAt: new Date(),
+        slug,
+      },
+    });
+  }
+
+  async unpublish(id: string, userId: string) {
+    await this.findOne(id, userId);
+    
+    return this.prisma.form.update({
+      where: { id },
+      data: {
+        status: 'DRAFT',
+      },
+    });
+  }
+
+  // --- Public Methods (No userId check) ---
+
+  async getPublicForm(slug: string) {
+    const form = await this.prisma.form.findUnique({
+      where: { slug },
+      include: {
+        fields: {
+          orderBy: { position: 'asc' },
+        },
+      },
+    });
+
+    if (!form || form.status !== 'PUBLISHED') {
+      throw new NotFoundException('Form not found or not published');
+    }
+
+    return form;
+  }
+
+  async submitPublicForm(slug: string, answers: { fieldId: string; value: any }[]) {
+    const form = await this.getPublicForm(slug);
+
+    // Save submission and answers in a transaction
+    return this.prisma.$transaction(async (prisma) => {
+      const submission = await prisma.submission.create({
+        data: {
+          formId: form.id,
+          version: form.version,
+        },
+      });
+
+      if (answers && answers.length > 0) {
+        await prisma.submissionAnswer.createMany({
+          data: answers.map((ans) => ({
+            submissionId: submission.id,
+            fieldId: ans.fieldId,
+            value: ans.value,
+          })),
+        });
+      }
+
+      return submission;
+    });
+  }
 }

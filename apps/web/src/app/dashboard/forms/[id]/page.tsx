@@ -206,6 +206,29 @@ export default function FormBuilderPage() {
     );
   };
 
+  const handlePublish = async () => {
+    try {
+      const updatedForm = await api(`/forms/${id}/publish`, { method: "POST" });
+      setForm(updatedForm);
+    } catch (err: any) {
+      alert("Failed to publish: " + err.message);
+    }
+  };
+
+  const handleUnpublish = async () => {
+    try {
+      const updatedForm = await api(`/forms/${id}/unpublish`, { method: "POST" });
+      setForm(updatedForm);
+    } catch (err: any) {
+      alert("Failed to unpublish: " + err.message);
+    }
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(`${window.location.origin}/f/${form.slug}`);
+    alert("Link copied to clipboard!");
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen bg-zinc-50">
@@ -215,6 +238,7 @@ export default function FormBuilderPage() {
   }
 
   const selectedField = fields.find((f) => f.id === selectedFieldId);
+  const isPublished = form?.status === "PUBLISHED";
 
   return (
     <div className="h-screen flex flex-col font-sans bg-[#F9F9F9] overflow-hidden">
@@ -225,15 +249,54 @@ export default function FormBuilderPage() {
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.85355 3.14645C7.04882 3.34171 7.04882 3.65829 6.85355 3.85355L3.70711 7H12.5C12.7761 7 13 7.22386 13 7.5C13 7.77614 12.7761 8 12.5 8H3.70711L6.85355 11.1464C7.04882 11.3417 7.04882 11.6583 6.85355 11.8536C6.65829 12.0488 6.34171 12.0488 6.14645 11.8536L2.14645 7.85355C1.95118 7.65829 1.95118 7.34171 2.14645 7.14645L6.14645 3.14645C6.34171 2.95118 6.65829 2.95118 6.85355 3.14645Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
           </Link>
           <div className="h-4 w-[1px] bg-zinc-200"></div>
-          <h1 className="text-[14px] font-semibold text-zinc-900 truncate max-w-sm">{form?.name}</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-[14px] font-semibold text-zinc-900 truncate max-w-[200px]">{form?.name}</h1>
+            {isPublished ? (
+              <span className="px-1.5 py-0.5 rounded-md bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-wide">Published</span>
+            ) : (
+              <span className="px-1.5 py-0.5 rounded-md bg-zinc-100 text-zinc-500 text-[10px] font-bold uppercase tracking-wide">Draft</span>
+            )}
+          </div>
         </div>
         
-        <div className="flex items-center gap-3">
-          <span className={`text-[13px] font-medium transition-colors ${syncStatus === 'Unsaved changes' ? 'text-amber-600' : 'text-zinc-400'}`}>
-            {syncStatus}
-          </span>
-          <div className="h-2 w-2 rounded-full bg-zinc-200 flex items-center justify-center">
-             <div className={`h-1.5 w-1.5 rounded-full ${syncStatus === 'Saved' ? 'bg-emerald-500' : syncStatus === 'Saving...' ? 'bg-blue-500 animate-pulse' : 'bg-amber-500'}`}></div>
+        <div className="flex items-center gap-6">
+          {/* Sync Status */}
+          <div className="flex items-center gap-2">
+            <span className={`text-[12px] font-medium transition-colors ${syncStatus === 'Unsaved changes' ? 'text-amber-600' : 'text-zinc-400'}`}>
+              {syncStatus}
+            </span>
+            <div className="h-2 w-2 rounded-full bg-zinc-200 flex items-center justify-center">
+               <div className={`h-1.5 w-1.5 rounded-full ${syncStatus === 'Saved' ? 'bg-emerald-500' : syncStatus === 'Saving...' ? 'bg-blue-500 animate-pulse' : 'bg-amber-500'}`}></div>
+            </div>
+          </div>
+
+          <div className="h-4 w-[1px] bg-zinc-200"></div>
+
+          {/* Publish Actions */}
+          <div className="flex items-center gap-2">
+            {isPublished ? (
+              <>
+                <button
+                  onClick={copyLink}
+                  className="px-3 py-1.5 bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 text-[13px] font-semibold rounded-md shadow-sm transition-colors"
+                >
+                  Copy Link
+                </button>
+                <button
+                  onClick={handleUnpublish}
+                  className="px-3 py-1.5 text-zinc-500 hover:text-red-600 text-[13px] font-medium transition-colors"
+                >
+                  Unpublish
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={handlePublish}
+                className="px-3 py-1.5 bg-zinc-900 text-white hover:bg-zinc-800 text-[13px] font-semibold rounded-md shadow-sm transition-colors"
+              >
+                Publish Form
+              </button>
+            )}
           </div>
         </div>
       </header>

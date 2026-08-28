@@ -43,4 +43,16 @@ export class FormsController {
     const userId = (req.user as any).id;
     return this.formsService.remove(id, userId);
   }
+
+  @Post(':id/publish')
+  publish(@Param('id') id: string, @Req() req: Request) {
+    const userId = (req.user as any).id;
+    return this.formsService.publish(id, userId);
+  }
+
+  @Post(':id/unpublish')
+  unpublish(@Param('id') id: string, @Req() req: Request) {
+    const userId = (req.user as any).id;
+    return this.formsService.unpublish(id, userId);
+  }
 }
