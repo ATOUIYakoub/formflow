@@ -23,6 +23,11 @@ export class AuthService {
       email,
       passwordHash,
       name,
+      workspaces: {
+        create: {
+          name: 'Personal Workspace',
+        },
+      },
     });
 
     return this.generateToken(user);
