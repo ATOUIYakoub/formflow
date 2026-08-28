@@ -7,7 +7,7 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "dotenv -e .env -- npm run dev --workspaces --if-present",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
     "dev:api": "dotenv -e .env -- npm run dev --workspace=apps/api",
     "dev:web": "dotenv -e .env -- npm run dev --workspace=apps/web",
     "build": "dotenv -e .env -- npm run build --workspaces --if-present",
@@ -22,6 +22,7 @@
     "db:down": "docker compose down"
   },
   "devDependencies": {
+    "concurrently": "^10.0.5",
     "dotenv-cli": "^11.0.0"
   }
 }
