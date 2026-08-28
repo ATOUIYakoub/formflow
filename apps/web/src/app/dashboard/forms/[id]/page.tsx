@@ -206,6 +206,36 @@ export default function FormBuilderPage() {
     );
   };
 
+  const updateFormMeta = (updates: { name?: string; description?: string }) => {
+    setForm((prev: any) => (prev ? { ...prev, ...updates } : prev));
+  };
+
+  // Debounced Auto-save for title / description
+  const isMetaFirstRender = useRef(true);
+  useEffect(() => {
+    if (!form) return;
+    if (isMetaFirstRender.current) {
+      isMetaFirstRender.current = false;
+      return;
+    }
+
+    setSyncStatus("Unsaved changes");
+    const timer = setTimeout(async () => {
+      try {
+        setSyncStatus("Saving...");
+        await api(`/forms/${id}`, {
+          method: "PATCH",
+          body: JSON.stringify({ name: form.name, description: form.description || null }),
+        });
+        setSyncStatus("Saved");
+      } catch (err) {
+        setSyncStatus("Unsaved changes");
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [form?.name, form?.description, id]);
+
   const handlePublish = async () => {
     try {
       const updatedForm = await api(`/forms/${id}/publish`, { method: "POST" });
@@ -268,6 +298,24 @@ export default function FormBuilderPage() {
             <div className="h-2 w-2 rounded-full bg-zinc-200 flex items-center justify-center">
                <div className={`h-1.5 w-1.5 rounded-full ${syncStatus === 'Saved' ? 'bg-emerald-500' : syncStatus === 'Saving...' ? 'bg-blue-500 animate-pulse' : 'bg-amber-500'}`}></div>
             </div>
+          </div>
+
+          <div className="h-4 w-[1px] bg-zinc-200"></div>
+
+          {/* Nav */}
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/dashboard/forms/${id}`}
+              className="px-3 py-1.5 bg-zinc-900 text-white text-[13px] font-semibold rounded-md shadow-sm"
+            >
+              Builder
+            </Link>
+            <Link
+              href={`/dashboard/forms/${id}/submissions`}
+              className="px-3 py-1.5 bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 text-[13px] font-semibold rounded-md shadow-sm transition-colors"
+            >
+              Submissions{form?._count?.submissions ? ` (${form._count.submissions})` : ""}
+            </Link>
           </div>
 
           <div className="h-4 w-[1px] bg-zinc-200"></div>
@@ -349,15 +397,15 @@ export default function FormBuilderPage() {
             <div className="mb-12">
               <input
                  type="text"
-                 value={form?.name}
-                 readOnly
-                 className="w-full text-[40px] font-bold text-zinc-900 bg-transparent outline-none placeholder:text-zinc-300 mb-2"
+                 value={form?.name || ""}
+                 onChange={(e) => updateFormMeta({ name: e.target.value })}
+                 className="w-full text-[40px] font-bold text-zinc-900 bg-transparent outline-none placeholder:text-zinc-300 mb-2 rounded-lg px-2 -mx-2 hover:bg-zinc-100/70 focus:bg-white focus:ring-1 focus:ring-zinc-900 transition-colors"
                  placeholder="Form Title"
               />
               <textarea
                  value={form?.description || ""}
-                 readOnly
-                 className="w-full text-[16px] text-zinc-500 bg-transparent outline-none resize-none placeholder:text-zinc-300"
+                 onChange={(e) => updateFormMeta({ description: e.target.value })}
+                 className="w-full text-[16px] text-zinc-500 bg-transparent outline-none resize-none placeholder:text-zinc-300 rounded-lg px-2 -mx-2 py-1 hover:bg-zinc-100/70 focus:bg-white focus:ring-1 focus:ring-zinc-900 transition-colors"
                  placeholder="Add a description..."
                  rows={2}
               />

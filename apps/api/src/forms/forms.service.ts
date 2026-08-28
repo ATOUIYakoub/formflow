@@ -31,6 +31,9 @@ export class FormsService {
         fields: {
           orderBy: { position: 'asc' },
         },
+        _count: {
+          select: { submissions: true },
+        },
       },
     });
 
@@ -44,28 +47,43 @@ export class FormsService {
     // Ensure ownership
     await this.findOne(id, userId);
 
-    // Run in a transaction to replace all fields safely
+    // Run in a transaction to sync fields safely, preserving field IDs
+    // so existing submission answers keep pointing to the right field.
     return this.prisma.$transaction(async (prisma) => {
-      // 1. Delete existing fields for this form
+      const keptIds = (fields || []).map((f) => f.id).filter(Boolean);
+
+      // 1. Delete fields that were removed from the form
       await prisma.formField.deleteMany({
-        where: { formId: id },
+        where: { formId: id, ...(keptIds.length > 0 ? { id: { notIn: keptIds } } : {}) },
       });
 
-      // 2. Insert new fields
-      if (fields && fields.length > 0) {
-        await prisma.formField.createMany({
-          data: fields.map((field, index) => ({
-            formId: id,
-            type: field.type,
-            label: field.label,
-            description: field.description || null,
-            placeholder: field.placeholder || null,
-            required: field.required || false,
-            position: index,
-            options: field.options || null,
-            validation: field.validation || null,
-          })),
-        });
+      // 2. Upsert each field (create with the client-provided id, or update in place)
+      for (const [index, field] of (fields || []).entries()) {
+        const existing = await prisma.formField.findUnique({ where: { id: field.id } });
+        const data = {
+          type: field.type,
+          label: field.label,
+          description: field.description || null,
+          placeholder: field.placeholder || null,
+          required: field.required || false,
+          position: index,
+          options: field.options || null,
+          validation: field.validation || null,
+        };
+
+        if (existing && existing.formId === id) {
+          await prisma.formField.update({ where: { id: existing.id }, data });
+        } else {
+          await prisma.formField.create({
+            data: {
+              // Reuse the client-provided id unless it collides with a field
+              // from another form, in which case generate a fresh one.
+              id: !existing ? field.id : undefined,
+              formId: id,
+              ...data,
+            },
+          });
+        }
       }
 
       // Return the updated form with fields
