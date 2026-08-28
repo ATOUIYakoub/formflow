@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,13 +7,116 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Minimal User model to validate the DB connection.
-// Will be expanded when authentication is implemented.
+enum FormStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum FieldType {
+  TEXT
+  EMAIL
+  NUMBER
+  LONG_TEXT
+  SELECT
+  RADIO
+  CHECKBOX
+  DATE
+  FILE
+}
+
 model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  passwordHash String      @map("password_hash")
+  name         String?
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+
+  workspaces   Workspace[]
+
+  @@map("users")
+}
+
+model Workspace {
   id        String   @id @default(uuid())
-  email     String   @unique
+  name      String
+  ownerId   String   @map("owner_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("users")
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  forms     Form[]
+
+  @@index([ownerId])
+  @@map("workspaces")
+}
+
+model Form {
+  id          String     @id @default(uuid())
+  name        String
+  description String?
+  slug        String?    @unique
+  status      FormStatus @default(DRAFT)
+  version     Int        @default(1)
+  workspaceId String     @map("workspace_id")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+  publishedAt DateTime?  @map("published_at")
+
+  workspace   Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  fields      FormField[]
+  submissions Submission[]
+
+  @@index([workspaceId])
+  @@map("forms")
+}
+
+model FormField {
+  id          String    @id @default(uuid())
+  formId      String    @map("form_id")
+  type        FieldType
+  label       String
+  description String?
+  placeholder String?
+  required    Boolean   @default(false)
+  position    Int
+  options     Json?     // For SELECT, RADIO, CHECKBOX choices
+  validation  Json?     // For min, max, pattern, etc.
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  form        Form               @relation(fields: [formId], references: [id], onDelete: Cascade)
+  answers     SubmissionAnswer[]
+
+  @@index([formId])
+  @@map("form_fields")
+}
+
+model Submission {
+  id        String   @id @default(uuid())
+  formId    String   @map("form_id")
+  version   Int      // The version of the form when submitted
+  createdAt DateTime @default(now()) @map("created_at")
+
+  form      Form               @relation(fields: [formId], references: [id], onDelete: Cascade)
+  answers   SubmissionAnswer[]
+
+  @@index([formId])
+  @@map("submissions")
+}
+
+model SubmissionAnswer {
+  id           String   @id @default(uuid())
+  submissionId String   @map("submission_id")
+  fieldId      String   @map("field_id")
+  value        Json     // Flexible to store string, number, array, boolean, etc.
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  field        FormField  @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+
+  @@index([submissionId])
+  @@index([fieldId])
+  @@map("submission_answers")
 }

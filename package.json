@@ -7,17 +7,21 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspaces --if-present",
-    "dev:api": "npm run dev --workspace=apps/api",
-    "dev:web": "npm run dev --workspace=apps/web",
-    "build": "npm run build --workspaces --if-present",
-    "build:api": "npm run build --workspace=apps/api",
-    "build:web": "npm run build --workspace=apps/web",
+    "dev": "dotenv -e .env -- npm run dev --workspaces --if-present",
+    "dev:api": "dotenv -e .env -- npm run dev --workspace=apps/api",
+    "dev:web": "dotenv -e .env -- npm run dev --workspace=apps/web",
+    "build": "dotenv -e .env -- npm run build --workspaces --if-present",
+    "build:api": "dotenv -e .env -- npm run build --workspace=apps/api",
+    "build:web": "dotenv -e .env -- npm run build --workspace=apps/web",
     "lint": "npm run lint --workspaces --if-present",
-    "prisma:generate": "npm run prisma:generate --workspace=apps/api",
-    "prisma:migrate": "npm run prisma:migrate --workspace=apps/api",
-    "prisma:studio": "npm run prisma:studio --workspace=apps/api",
+    "prisma:generate": "dotenv -e .env -- npm run prisma:generate --workspace=apps/api",
+    "prisma:migrate": "dotenv -e .env -- npm run prisma:migrate --workspace=apps/api",
+    "prisma:studio": "dotenv -e .env -- npm run prisma:studio --workspace=apps/api",
+    "prisma:seed": "dotenv -e .env -- npm run prisma:seed --workspace=apps/api",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^11.0.0"
   }
 }
