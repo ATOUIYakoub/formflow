@@ -15,7 +15,7 @@ type SnapshotField = { id: string; label: string; type: string };
 // so old submissions display correctly even after the form was modified.
 function resolveAnswers(answers: any[], snapshot: any) {
   const fieldMap = new Map<string, SnapshotField>(
-    ((snapshot?.fields || []) as SnapshotField[]).map((f) => [f.id, f])
+    ((snapshot?.fields || []) as SnapshotField[]).map((f: SnapshotField) => [f.id, f])
   );
   return answers.map((a) => ({
     fieldId: a.fieldId,
@@ -72,7 +72,7 @@ export class SubmissionsService {
           AND a.value::text ILIKE ${'%' + term + '%'}
       `;
 
-      where.id = { in: matching.map((r) => r.id) };
+      where.id = { in: matching.map((r: { id: string }) => r.id) };
 
       // Short-circuit: no matches at all
       if (matching.length === 0) {
@@ -101,7 +101,7 @@ export class SubmissionsService {
       orderBy: { version: 'desc' },
     });
     const columns: SnapshotField[] = latestVersion
-      ? (((latestVersion.snapshot as any).fields || []) as SnapshotField[]).map((f) => ({
+      ? (((latestVersion.snapshot as any).fields || []) as SnapshotField[]).map((f: SnapshotField) => ({
           id: f.id,
           label: f.label,
           type: f.type,
@@ -113,7 +113,7 @@ export class SubmissionsService {
         });
 
     return {
-      items: items.map((s) => ({
+      items: items.map((s: any) => ({
         id: s.id,
         version: s.version,
         createdAt: s.createdAt,

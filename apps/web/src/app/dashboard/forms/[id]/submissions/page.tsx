@@ -24,11 +24,27 @@ type ListResponse = {
 
 const PAGE_SIZE = 10;
 
+function isFileObject(value: any): boolean {
+  return value && typeof value === 'object' && 'key' in value && 'filename' in value && 'url' in value;
+}
+
 function formatValue(value: any): string {
   if (value === null || value === undefined) return "—";
+  if (isFileObject(value)) return value.filename;
   if (Array.isArray(value)) return value.join(", ");
   if (typeof value === "boolean") return value ? "Yes" : "No";
   return String(value);
+}
+
+function formatFileCell(value: any): React.ReactNode {
+  if (isFileObject(value)) {
+    return (
+      <a href={value.url} target="_blank" rel="noopener noreferrer" className="text-zinc-900 hover:text-zinc-600 underline">
+        {value.filename}
+      </a>
+    );
+  }
+  return formatValue(value);
 }
 
 function formatDate(iso: string): string {
@@ -245,7 +261,7 @@ export default function SubmissionsPage() {
                       >
                         {columns.map((field) => (
                           <td key={field.id} className="px-5 py-3.5 text-[14px] text-zinc-700 max-w-[240px] truncate">
-                            {values[field.id] !== undefined ? formatValue(values[field.id]) : "—"}
+                            {values[field.id] !== undefined ? formatFileCell(values[field.id]) : "—"}
                           </td>
                         ))}
                         <td className="px-5 py-3.5 text-[14px] text-zinc-500 whitespace-nowrap">
@@ -325,21 +341,46 @@ export default function SubmissionsPage() {
               {selected.answers.length === 0 ? (
                 <p className="text-[14px] text-zinc-500">This submission has no answers.</p>
               ) : (
-                selected.answers.map((answer, idx) => (
-                  <div key={idx}>
-                    <p className="text-[12px] font-semibold text-zinc-500 uppercase tracking-wider mb-1">
-                      {answer.label || "Unknown field"}
-                      {answer.label === null && (
-                        <span className="ml-2 text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded align-middle">
-                          v{selected.version}
-                        </span>
+                selected.answers.map((answer, idx) => {
+                  const val = answer.value;
+                  const isFile = isFileObject(val);
+                  return (
+                    <div key={idx}>
+                      <p className="text-[12px] font-semibold text-zinc-500 uppercase tracking-wider mb-1">
+                        {answer.label || "Unknown field"}
+                        {answer.label === null && (
+                          <span className="ml-2 text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded align-middle">
+                            v{selected.version}
+                          </span>
+                        )}
+                      </p>
+                      {isFile ? (
+                        <div className="flex items-center gap-3 p-3 bg-zinc-50 rounded-lg border border-zinc-200">
+                          <a href={val.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-zinc-900 hover:text-zinc-600">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-zinc-600">
+                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                              <polyline points="14 2 14 8 20 8" />
+                              <line x1="16" y1="13" x2="8" y2="13" />
+                              <line x1="16" y1="17" x2="8" y2="17" />
+                              <polyline points="10 9 9 9 8 9" />
+                            </svg>
+                            <span className="font-medium truncate max-w-[300px]">{val.filename}</span>
+                          </a>
+                          <span className="text-xs text-zinc-500">({(val.size / 1024).toFixed(1)} KB)</span>
+                          {val.mimeType?.startsWith('image/') && (
+                            <a href={val.url} target="_blank" rel="noopener noreferrer" className="ml-2 text-zinc-400 hover:text-zinc-600">
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                            </a>
+                          )}
+                        </div>
+                      ) : (
+                        <p className="text-[14px] text-zinc-900 whitespace-pre-wrap">
+                          {formatValue(val)}
+                        </p>
                       )}
-                    </p>
-                    <p className="text-[14px] text-zinc-900 whitespace-pre-wrap">
-                      {formatValue(answer.value)}
-                    </p>
-                  </div>
-                ))
+                    </div>
+                  );
+                })
               )}
             </div>
 

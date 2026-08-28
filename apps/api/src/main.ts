@@ -3,11 +3,21 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import * as cookieParser from 'cookie-parser';
+import { join } from 'path';
+import { existsSync, mkdirSync } from 'fs';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.use(cookieParser());
+
+  // Ensure uploads directory exists and serve it statically
+  const uploadDir = process.env.UPLOAD_DIR || join(process.cwd(), 'uploads');
+  if (!existsSync(uploadDir)) {
+    mkdirSync(uploadDir, { recursive: true });
+  }
+  app.useStaticAssets(uploadDir, { prefix: '/uploads' });
 
   // Global API prefix
   app.setGlobalPrefix('api');

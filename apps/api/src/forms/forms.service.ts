@@ -52,8 +52,8 @@ export class FormsService {
 
     // Run in a transaction to sync fields safely, preserving field IDs
     // so existing submission answers keep pointing to the right field.
-    return this.prisma.$transaction(async (prisma) => {
-      const keptIds = (fields || []).map((f) => f.id).filter(Boolean);
+    return this.prisma.$transaction(async (prisma: typeof this.prisma) => {
+      const keptIds = (fields || []).map((f: any) => f.id).filter(Boolean);
 
       // 1. Delete fields that were removed from the form
       await prisma.formField.deleteMany({
@@ -144,7 +144,7 @@ export class FormsService {
 
     // Validate that source/target fields belong to this form
     const fieldIds = new Set(
-      (await this.prisma.formField.findMany({ where: { formId: id }, select: { id: true } })).map((f) => f.id)
+      (await this.prisma.formField.findMany({ where: { formId: id }, select: { id: true } })).map((f: { id: string }) => f.id)
     );
 
     for (const rule of rules || []) {
@@ -317,7 +317,7 @@ export class FormsService {
     const cleanAnswers = (answers || []).filter((a) => validFieldIds.has(a.fieldId));
 
     // Save submission and answers in a transaction, pinned to the exact version
-    return this.prisma.$transaction(async (prisma) => {
+    return this.prisma.$transaction(async (prisma: typeof this.prisma) => {
       const submission = await prisma.submission.create({
         data: {
           formId: form.id,

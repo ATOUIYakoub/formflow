@@ -53,15 +53,45 @@ export default function PublicFormPage() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploading, setUploading] = useState<Record<string, boolean>>({});
 
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm();
 
   const watchedValues = watch();
+
+  // Upload a file to the API and set the file metadata as the field value
+  const handleFileUpload = async (fieldId: string, file: File) => {
+    setUploading((prev) => ({ ...prev, [fieldId]: true }));
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch(`${API_URL}/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ message: 'Upload failed' }));
+        throw new Error(err.message || 'Upload failed');
+      }
+
+      const storedFile = await res.json();
+      // Store file metadata as the field value
+      setValue(fieldId, storedFile, { shouldValidate: true });
+    } catch (err: any) {
+      alert(err.message);
+      setValue(fieldId, null, { shouldValidate: true });
+    } finally {
+      setUploading((prev) => ({ ...prev, [fieldId]: false }));
+    }
+  };
 
   useEffect(() => {
     const fetchForm = async () => {
@@ -254,7 +284,67 @@ export default function PublicFormPage() {
                 </div>
               )}
 
-              {errors[field.id] && (
+              {/* File Upload */}
+              {field.type === "FILE" && (
+                <div className="space-y-2">
+                  <label className="relative flex flex-col items-center justify-center p-6 border-2 border-dashed border-zinc-200 rounded-lg cursor-pointer hover:border-zinc-300 hover:bg-zinc-50 transition-colors">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-zinc-400 mb-2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 21l5-5-5-5M9 21l-5-5 5-5" />
+                    </svg>
+                    <p className="text-zinc-600">Drag & drop a file here, or click to select</p>
+                    <p className="text-xs text-zinc-400 mt-1">Max 10MB · PDF, images, documents</p>
+                    <input
+                      type="file"
+                      {...register(field.id, { required: field.required && visibleIds.has(field.id) ? "This field is required" : false })}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleFileUpload(field.id, file);
+                      }}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      disabled={uploading[field.id]}
+                    />
+                  </label>
+
+                  {errors[field.id] && (
+                    <p className="text-red-500 text-[13px] font-medium">{errors[field.id]?.message as string}</p>
+                  )}
+
+                  {/* Show uploaded file preview */}
+                  {watchedValues[field.id] && (
+                    <div className="flex items-center gap-3 p-3 bg-zinc-50 rounded-lg border border-zinc-200">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-zinc-600">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                        <line x1="16" y1="17" x2="8" y2="17" />
+                        <polyline points="10 9 9 9 8 9" />
+                      </svg>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-zinc-900 truncate">{watchedValues[field.id].filename}</p>
+                        <p className="text-xs text-zinc-500">{(watchedValues[field.id].size / 1024).toFixed(1)} KB</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setValue(field.id, null, { shouldValidate: true })}
+                        className="text-zinc-400 hover:text-red-500 p-1"
+                        disabled={uploading[field.id]}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                    </div>
+                  )}
+
+                  {uploading[field.id] && (
+                    <div className="flex items-center gap-2 text-sm text-zinc-500">
+                      <div className="w-4 h-4 border-2 border-zinc-200 border-t-zinc-900 rounded-full animate-spin"></div>
+                      <span>Uploading...</span>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Generic error display (skip for FILE which handles inline) */}
+              {field.type !== "FILE" && errors[field.id] && (
                 <p className="text-red-500 text-[13px] font-medium mt-2">
                   {errors[field.id]?.message as string}
                 </p>

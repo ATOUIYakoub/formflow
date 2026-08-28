@@ -22,7 +22,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-type FieldType = "TEXT" | "NUMBER" | "EMAIL" | "LONG_TEXT" | "SELECT" | "CHECKBOX" | "RADIO";
+type FieldType = "TEXT" | "NUMBER" | "EMAIL" | "LONG_TEXT" | "SELECT" | "CHECKBOX" | "RADIO" | "FILE";
 
 type Field = {
   id: string;
@@ -110,6 +110,12 @@ function SortableField({
         )}
         {field.type === "LONG_TEXT" && (
           <div className="h-24 w-full rounded-lg border border-zinc-200 bg-zinc-50 pointer-events-none"></div>
+        )}
+        {field.type === "FILE" && (
+          <div className="h-11 w-full rounded-lg border border-zinc-200 bg-zinc-50 pointer-events-none flex items-center gap-3 px-3 text-zinc-400 text-sm">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 3H7.5L6.5 2H3C2.44772 2 2 2.44772 2 3V12C2 12.5523 2.44772 13 3 13H12C12.5523 13 13 12.5523 13 12V4.5L12.5 3ZM3 3V12H12V7H8V3H3Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
+            <span>Drag & drop or click to upload</span>
+          </div>
         )}
         {field.type === "SELECT" && (
           <div className="h-11 w-full rounded-lg border border-zinc-200 bg-zinc-50 pointer-events-none flex items-center justify-between px-3 text-zinc-400 text-sm">
@@ -447,6 +453,7 @@ export default function FormBuilderPage() {
                   { type: "LONG_TEXT", label: "Long Text", icon: "¶" },
                   { type: "EMAIL", label: "Email", icon: "@" },
                   { type: "NUMBER", label: "Number", icon: "#" },
+                  { type: "FILE", label: "File Upload", icon: "📎" },
                 ].map((block) => (
                   <button key={block.type} onClick={() => addField(block.type as FieldType)} className="w-full flex items-center gap-3 px-3 py-2 text-[13px] font-medium text-zinc-700 rounded-lg hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
                     <span className="w-6 h-6 flex items-center justify-center bg-zinc-100 rounded text-zinc-500 text-[11px]">{block.icon}</span>
@@ -570,6 +577,7 @@ export default function FormBuilderPage() {
                   <option value="LONG_TEXT">Long Text</option>
                   <option value="EMAIL">Email</option>
                   <option value="NUMBER">Number</option>
+                  <option value="FILE">File Upload</option>
                   <option value="SELECT">Dropdown</option>
                   <option value="RADIO">Single Choice</option>
                   <option value="CHECKBOX">Multiple Choice</option>
