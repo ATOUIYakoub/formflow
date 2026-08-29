@@ -4,6 +4,13 @@ import { join, extname } from 'path';
 import { randomUUID } from 'crypto';
 import { StorageProvider, StoredFile } from './storage.interface';
 
+function sanitizeFilename(filename: string): string {
+  // Remove path traversal attempts
+  const cleaned = filename.replace(/[^a-zA-Z0-9._-]/g, '_');
+  // Limit length
+  return cleaned.substring(0, 100);
+}
+
 @Injectable()
 export class LocalStorageProvider implements StorageProvider {
   private readonly uploadDir: string;
@@ -11,7 +18,6 @@ export class LocalStorageProvider implements StorageProvider {
 
   constructor() {
     this.uploadDir = process.env.UPLOAD_DIR || join(process.cwd(), 'uploads');
-    // Use absolute URL so links work from the frontend origin
     this.baseUrl = process.env.UPLOAD_BASE_URL || `http://localhost:${process.env.API_PORT || 3001}/uploads`;
 
     if (!existsSync(this.uploadDir)) {
@@ -20,7 +26,8 @@ export class LocalStorageProvider implements StorageProvider {
   }
 
   async upload(file: Express.Multer.File): Promise<StoredFile> {
-    const extension = extname(file.originalname);
+    const safeOriginalName = sanitizeFilename(file.originalname);
+    const extension = extname(safeOriginalName).toLowerCase();
     const key = `${randomUUID()}${extension}`;
     const filepath = join(this.uploadDir, key);
 
@@ -28,7 +35,7 @@ export class LocalStorageProvider implements StorageProvider {
 
     return {
       key,
-      filename: file.originalname,
+      filename: safeOriginalName,
       mimeType: file.mimetype,
       size: file.size,
       url: `${this.baseUrl}/${key}`,

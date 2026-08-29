@@ -2,6 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } fro
 import { FormsService } from './forms.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Request } from 'express';
+import { ValidationPipe } from '../common/pipes/validation.pipe';
+import { CreateFormDto } from './dto/create-form.dto';
+import { UpdateFormDto } from './dto/update-form.dto';
+import { SaveFieldsDto } from './dto/form-field.dto';
+import { SaveRulesDto } from './dto/form-rule.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('forms')
@@ -9,9 +14,9 @@ export class FormsController {
   constructor(private readonly formsService: FormsService) {}
 
   @Post()
-  create(@Body() createFormData: { name: string; description?: string }, @Req() req: Request) {
+  create(@Body(new ValidationPipe()) dto: CreateFormDto, @Req() req: Request) {
     const userId = (req.user as any).id;
-    return this.formsService.create(createFormData, userId);
+    return this.formsService.create(dto, userId);
   }
 
   @Get()
@@ -27,25 +32,25 @@ export class FormsController {
   }
 
   @Post(':id/fields')
-  saveFields(@Param('id') id: string, @Body() data: { fields: any[] }, @Req() req: Request) {
+  saveFields(@Param('id') id: string, @Body(new ValidationPipe()) dto: SaveFieldsDto, @Req() req: Request) {
     const userId = (req.user as any).id;
-    return this.formsService.saveFields(id, data.fields, userId);
+    return this.formsService.saveFields(id, dto.fields, userId);
   }
 
   @Post(':id/rules')
   saveRules(
     @Param('id') id: string,
-    @Body() data: { rules: any[] },
+    @Body(new ValidationPipe()) dto: SaveRulesDto,
     @Req() req: Request
   ) {
     const userId = (req.user as any).id;
-    return this.formsService.saveRules(id, data.rules, userId);
+    return this.formsService.saveRules(id, dto.rules, userId);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFormData: { name?: string; description?: string }, @Req() req: Request) {
+  update(@Param('id') id: string, @Body(new ValidationPipe()) dto: UpdateFormDto, @Req() req: Request) {
     const userId = (req.user as any).id;
-    return this.formsService.update(id, updateFormData, userId);
+    return this.formsService.update(id, dto, userId);
   }
 
   @Delete(':id')

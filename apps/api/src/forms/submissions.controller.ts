@@ -1,7 +1,9 @@
 import { Controller, Get, Delete, Param, Query, UseGuards, Req } from '@nestjs/common';
-import { SubmissionsService, ListSubmissionsOptions } from './submissions.service';
+import { SubmissionsService } from './submissions.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Request } from 'express';
+import { ValidationPipe } from '../common/pipes/validation.pipe';
+import { ListSubmissionsQueryDto } from './dto/list-submissions.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('forms/:formId/submissions')
@@ -11,7 +13,7 @@ export class SubmissionsController {
   @Get()
   list(
     @Param('formId') formId: string,
-    @Query() query: ListSubmissionsOptions,
+    @Query(new ValidationPipe()) query: ListSubmissionsQueryDto,
     @Req() req: Request
   ) {
     const userId = (req.user as any).id;

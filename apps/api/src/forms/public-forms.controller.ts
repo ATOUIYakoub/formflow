@@ -1,6 +1,12 @@
 import { Controller, Get, Post, Body, Param, Headers } from '@nestjs/common';
 import { FormsService } from './forms.service';
 import { AnalyticsService } from './analytics.service';
+import { Throttle } from '@nestjs/throttler';
+import { ValidationPipe } from '../common/pipes/validation.pipe';
+
+class SubmitFormDto {
+  answers: { fieldId: string; value: any }[];
+}
 
 @Controller('public/forms')
 export class PublicFormsController {
@@ -10,6 +16,7 @@ export class PublicFormsController {
   ) {}
 
   @Get(':slug')
+  @Throttle({ default: { limit: 30, ttl: 60000 } }) // 30 views per minute
   async getPublicForm(@Param('slug') slug: string, @Headers('referer') referer?: string) {
     const form = await this.formsService.getPublicForm(slug);
     await this.analyticsService.trackView(form.id);
@@ -17,6 +24,7 @@ export class PublicFormsController {
   }
 
   @Post(':slug/start')
+  @Throttle({ default: { limit: 30, ttl: 60000 } }) // 30 starts per minute
   async trackStart(@Param('slug') slug: string) {
     const form = await this.formsService.getPublicForm(slug);
     await this.analyticsService.trackStart(form.id);
@@ -24,9 +32,10 @@ export class PublicFormsController {
   }
 
   @Post(':slug/submissions')
+  @Throttle({ default: { limit: 10, ttl: 60000 } }) // 10 submissions per minute
   async submitForm(
     @Param('slug') slug: string,
-    @Body() body: { answers: { fieldId: string; value: any }[] }
+    @Body(new ValidationPipe()) body: SubmitFormDto
   ) {
     return this.formsService.submitPublicForm(slug, body.answers);
   }

@@ -2,6 +2,8 @@ import { Controller, Get, Query, Param, UseGuards, Req } from '@nestjs/common';
 import { AnalyticsService, AnalyticsFilters } from './analytics.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Request } from 'express';
+import { ValidationPipe } from '../common/pipes/validation.pipe';
+import { AnalyticsFiltersDto } from './dto/analytics-filters.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('forms/:id/analytics')
@@ -12,13 +14,9 @@ export class AnalyticsController {
   async getOverview(
     @Param('id') formId: string,
     @Req() req: Request,
-    @Query('from') from?: string,
-    @Query('to') to?: string
+    @Query(new ValidationPipe()) filters: AnalyticsFiltersDto
   ) {
     const userId = (req.user as any).id;
-    const filters: AnalyticsFilters = {};
-    if (from) filters.from = from;
-    if (to) filters.to = to;
     return this.analyticsService.getOverview(formId, userId, filters);
   }
 
@@ -26,13 +24,9 @@ export class AnalyticsController {
   async getSubmissionsPerDay(
     @Param('id') formId: string,
     @Req() req: Request,
-    @Query('from') from?: string,
-    @Query('to') to?: string
+    @Query(new ValidationPipe()) filters: AnalyticsFiltersDto
   ) {
     const userId = (req.user as any).id;
-    const filters: AnalyticsFilters = {};
-    if (from) filters.from = from;
-    if (to) filters.to = to;
     return this.analyticsService.getSubmissionsPerDay(formId, userId, filters);
   }
 
@@ -40,13 +34,9 @@ export class AnalyticsController {
   async getViewsPerDay(
     @Param('id') formId: string,
     @Req() req: Request,
-    @Query('from') from?: string,
-    @Query('to') to?: string
+    @Query(new ValidationPipe()) filters: AnalyticsFiltersDto
   ) {
     const userId = (req.user as any).id;
-    const filters: AnalyticsFilters = {};
-    if (from) filters.from = from;
-    if (to) filters.to = to;
     return this.analyticsService.getViewsPerDay(formId, userId, filters);
   }
 
@@ -54,13 +44,9 @@ export class AnalyticsController {
   async getStartsPerDay(
     @Param('id') formId: string,
     @Req() req: Request,
-    @Query('from') from?: string,
-    @Query('to') to?: string
+    @Query(new ValidationPipe()) filters: AnalyticsFiltersDto
   ) {
     const userId = (req.user as any).id;
-    const filters: AnalyticsFilters = {};
-    if (from) filters.from = from;
-    if (to) filters.to = to;
     return this.analyticsService.getStartsPerDay(formId, userId, filters);
   }
 }

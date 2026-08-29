@@ -3,6 +3,10 @@ import { AuthService } from './auth.service';
 import { Response, Request } from 'express';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
+import { ValidationPipe } from '../common/pipes/validation.pipe';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -10,21 +14,20 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
+  @Throttle({ default: { limit: 5, ttl: 60000 } }) // 5 per minute
   @ApiOperation({ summary: 'Register a new user' })
-  async register(@Body() body: any, @Res({ passthrough: true }) res: Response) {
-    // Note: Validation should ideally be done with a DTO and class-validator
-    const { email, password, name } = body;
-    const { access_token } = await this.authService.register(email, password, name);
+  async register(@Body(new ValidationPipe()) dto: RegisterDto, @Res({ passthrough: true }) res: Response) {
+    const { access_token } = await this.authService.register(dto.email, dto.password, dto.name);
     
     this.setCookie(res, access_token);
     return { message: 'Registered successfully' };
   }
 
   @Post('login')
+  @Throttle({ default: { limit: 10, ttl: 60000 } }) // 10 per minute
   @ApiOperation({ summary: 'Log in and receive a cookie' })
-  async login(@Body() body: any, @Res({ passthrough: true }) res: Response) {
-    const { email, password } = body;
-    const { access_token } = await this.authService.login(email, password);
+  async login(@Body(new ValidationPipe()) dto: LoginDto, @Res({ passthrough: true }) res: Response) {
+    const { access_token } = await this.authService.login(dto.email, dto.password);
     
     this.setCookie(res, access_token);
     return { message: 'Logged in successfully' };
@@ -36,7 +39,8 @@ export class AuthController {
     res.cookie('jwt', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      expires: new Date(0), // Expire immediately
+      expires: new Date(0),
+      sameSite: 'strict',
     });
     return { message: 'Logged out successfully' };
   }
@@ -45,16 +49,15 @@ export class AuthController {
   @Get('me')
   @ApiOperation({ summary: 'Get current user profile' })
   getProfile(@Req() req: Request) {
-    // req.user is set by the JwtStrategy
     return req.user;
   }
 
   private setCookie(res: Response, token: string) {
     res.cookie('jwt', token, {
-      httpOnly: true, // Prevents JS from reading the cookie
-      secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in prod
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-      sameSite: 'lax',
+      sameSite: 'strict',
     });
   }
 }
