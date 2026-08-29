@@ -1,9 +1,13 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class FormsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private notificationService: NotificationService,
+  ) {}
 
   async findAll(userId: string) {
     return this.prisma.form.findMany({
@@ -296,6 +300,7 @@ export class FormsService {
   async submitPublicForm(slug: string, answers: { fieldId: string; value: any }[]) {
     const form = await this.prisma.form.findUnique({
       where: { slug },
+      include: { workspace: { include: { owner: true } } },
     });
 
     if (!form || form.status !== 'PUBLISHED') {
@@ -312,12 +317,12 @@ export class FormsService {
     }
 
     // Only accept answers for fields that exist in the published snapshot
-    const snapshot = formVersion.snapshot as { fields: { id: string }[] };
+    const snapshot = formVersion.snapshot as { fields: { id: string; label: string; type: string }[] };
     const validFieldIds = new Set((snapshot.fields || []).map((f) => f.id));
     const cleanAnswers = (answers || []).filter((a) => validFieldIds.has(a.fieldId));
 
     // Save submission and answers in a transaction, pinned to the exact version
-    return this.prisma.$transaction(async (prisma: typeof this.prisma) => {
+    const result = await this.prisma.$transaction(async (prisma: typeof this.prisma) => {
       const submission = await prisma.submission.create({
         data: {
           formId: form.id,
@@ -341,5 +346,37 @@ export class FormsService {
         version: formVersion.version,
       };
     });
+
+    // Queue notification email to form owner (async, don't await)
+    const ownerEmail = form.workspace?.owner?.email;
+    if (ownerEmail) {
+      const fieldMap = new Map(snapshot.fields.map((f) => [f.id, f]));
+      const formattedAnswers: { label: string; value: string }[] = [];
+
+      for (const a of cleanAnswers) {
+        const field = fieldMap.get(a.fieldId);
+        if (!field) continue;
+        // Skip file fields
+        if (field.type === 'FILE') continue;
+        formattedAnswers.push({
+          label: field.label || 'Unknown field',
+          value: typeof a.value === 'object' ? JSON.stringify(a.value) : String(a.value),
+        });
+      }
+
+      this.notificationService.queueSubmissionNotification(ownerEmail, {
+        formName: form.name,
+        formSlug: form.slug!,
+        submissionId: result.id,
+        submittedAt: new Date(),
+        answers: formattedAnswers,
+        baseUrl: process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:3000',
+      }).catch((err) => {
+        // Log but don't fail the submission if notification fails
+        console.error('Failed to queue submission notification:', err);
+      });
+    }
+
+    return result;
   }
 }
