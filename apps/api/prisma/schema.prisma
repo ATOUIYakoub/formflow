@@ -176,3 +176,17 @@ model SubmissionAnswer {
   @@index([fieldId])
   @@map("submission_answers")
 }
+
+model FormAnalytics {
+  id        String   @id @default(uuid())
+  formId    String   @map("form_id")
+  date      DateTime @db.Date
+  views     Int      @default(0)
+  starts    Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([formId, date])
+  @@index([formId])
+  @@map("form_analytics")
+}

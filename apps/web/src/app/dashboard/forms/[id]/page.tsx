@@ -406,6 +406,12 @@ export default function FormBuilderPage() {
             >
               Submissions{form?._count?.submissions ? ` (${form._count.submissions})` : ""}
             </Link>
+            <Link
+              href={`/dashboard/forms/${id}/analytics`}
+              className="px-3 py-1.5 bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 text-[13px] font-semibold rounded-md shadow-sm transition-colors"
+            >
+              Analytics
+            </Link>
           </div>
 
           <div className="h-4 w-[1px] bg-zinc-200"></div>
