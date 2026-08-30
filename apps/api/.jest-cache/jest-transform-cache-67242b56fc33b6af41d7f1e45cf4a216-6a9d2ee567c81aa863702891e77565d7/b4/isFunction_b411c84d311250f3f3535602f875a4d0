@@ -1,0 +1,9 @@
+9959e0c72547bd38c32877b4700c3d07
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isFunction = void 0;
+function isFunction(value) {
+    return typeof value === 'function';
+}
+exports.isFunction = isFunction;
+//# sourceMappingURL=isFunction.js.map

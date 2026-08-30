@@ -1,0 +1,11 @@
+f99978d62774d1d1db5cb2172ed75e7b
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.forwardRef = void 0;
+/**
+ * @publicApi
+ */
+const forwardRef = (fn) => ({
+    forwardRef: fn,
+});
+exports.forwardRef = forwardRef;

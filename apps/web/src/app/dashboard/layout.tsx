@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { Logo } from "@/components/Logo";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -47,9 +48,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <aside className="w-64 bg-white border-r border-zinc-200 flex flex-col hidden md:flex">
         <div className="h-16 flex items-center px-6 border-b border-zinc-200">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-zinc-900 text-white rounded-lg flex items-center justify-center font-bold text-lg">
-              F
-            </div>
+              <Logo className="w-8 h-8" />
             <span className="text-[18px] font-bold text-zinc-900 tracking-tight">FormFlow</span>
           </div>
         </div>
@@ -98,9 +97,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Mobile Header (Hidden on md+) */}
         <header className="md:hidden h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-zinc-900 text-white rounded-lg flex items-center justify-center font-bold text-lg">
-              F
-            </div>
+              <Logo className="w-8 h-8" />
             <span className="text-[18px] font-bold text-zinc-900 tracking-tight">FormFlow</span>
           </div>
           <button onClick={handleLogout} className="text-[14px] font-medium text-zinc-600">

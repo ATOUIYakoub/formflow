@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { Logo } from "@/components/Logo";
 
 // We won't use the authenticated `api` utility here because this is public.
 // We just use standard fetch.
@@ -364,7 +365,8 @@ export default function PublicFormPage() {
         </form>
 
         <div className="mt-12 text-center">
-          <a href="/" target="_blank" className="text-zinc-400 hover:text-zinc-600 text-sm font-medium transition-colors">
+          <a href="/" target="_blank" className="inline-flex items-center gap-2 text-zinc-400 hover:text-zinc-600 text-sm font-medium transition-colors">
+            <Logo className="w-4 h-4" />
             Powered by <strong>FormFlow</strong>
           </a>
         </div>
