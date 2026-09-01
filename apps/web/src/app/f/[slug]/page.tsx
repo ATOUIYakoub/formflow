@@ -7,7 +7,7 @@ import { Logo } from "@/components/Logo";
 
 // We won't use the authenticated `api` utility here because this is public.
 // We just use standard fetch.
-const API_URL = "http://localhost:3001/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002/api";
 
 type Rule = {
   id: string;

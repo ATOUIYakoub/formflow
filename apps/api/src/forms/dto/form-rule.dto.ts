@@ -1,5 +1,6 @@
-import { IsString, IsEnum, IsOptional, MaxLength } from 'class-validator';
+import { IsString, IsEnum, IsOptional, MaxLength, IsArray, ValidateNested } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import { RuleOperator, RuleAction } from '@prisma/client';
 
 export class FormRuleDto {
@@ -28,5 +29,8 @@ export class FormRuleDto {
 
 export class SaveRulesDto {
   @ApiProperty({ type: [FormRuleDto] })
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => FormRuleDto)
   rules: FormRuleDto[];
 }

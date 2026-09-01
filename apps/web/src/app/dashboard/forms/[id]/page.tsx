@@ -28,8 +28,11 @@ type Field = {
   id: string;
   type: FieldType;
   label: string;
+  description?: string;
+  placeholder?: string;
   required: boolean;
   options: string[] | null;
+  validation?: Record<string, any>;
 };
 
 type RuleOperator = "EQUALS" | "NOT_EQUALS" | "CONTAINS" | "GREATER_THAN" | "LESS_THAN" | "IS_EMPTY" | "IS_NOT_EMPTY";
@@ -196,9 +199,20 @@ export default function FormBuilderPage() {
     const timer = setTimeout(async () => {
       try {
         setSyncStatus("Saving...");
+        // Strip extra properties (formId, createdAt, updatedAt, position) before sending
+        const cleanFields = fields.map(({ id, type, label, description, placeholder, required, options, validation }) => ({
+          id,
+          type,
+          label,
+          description,
+          placeholder,
+          required,
+          options,
+          validation,
+        }));
         await api(`/forms/${id}/fields`, {
           method: "POST",
-          body: JSON.stringify({ fields }),
+          body: JSON.stringify({ fields: cleanFields }),
         });
         setSyncStatus("Saved");
       } catch (err) {
