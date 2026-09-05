@@ -1,0 +1,16 @@
+a1fce080903215efb0dae87b3111e25a
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.iterator = exports.getSymbolIterator = void 0;
+function getSymbolIterator() {
+  if (typeof Symbol !== 'function' || !Symbol.iterator) {
+    return '@@iterator';
+  }
+  return Symbol.iterator;
+}
+exports.getSymbolIterator = getSymbolIterator;
+exports.iterator = getSymbolIterator();
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJnZXRTeW1ib2xJdGVyYXRvciIsIlN5bWJvbCIsIml0ZXJhdG9yIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9zeW1ib2wvaXRlcmF0b3IudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLFNBQWdCQSxpQkFBaUJBLENBQUE7RUFDL0IsSUFBSSxPQUFPQyxNQUFNLEtBQUssVUFBVSxJQUFJLENBQUNBLE1BQU0sQ0FBQ0MsUUFBUSxFQUFFO0lBQ3BELE9BQU8sWUFBbUI7O0VBRzVCLE9BQU9ELE1BQU0sQ0FBQ0MsUUFBUTtBQUN4QjtBQU5BQyxPQUFBLENBQUFILGlCQUFBLEdBQUFBLGlCQUFBO0FBUWFHLE9BQUEsQ0FBQUQsUUFBUSxHQUFHRixpQkFBaUIsRUFBRSIsImlnbm9yZUxpc3QiOltdfQ==

@@ -1,0 +1,13 @@
+d4d536bdc148a74a83fa895db4bc173c
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isPromise = void 0;
+var isFunction_1 = require("./isFunction");
+function isPromise(value) {
+  return isFunction_1.isFunction(value === null || value === void 0 ? void 0 : value.then);
+}
+exports.isPromise = isPromise;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJpc0Z1bmN0aW9uXzEiLCJyZXF1aXJlIiwiaXNQcm9taXNlIiwidmFsdWUiLCJpc0Z1bmN0aW9uIiwidGhlbiIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvdXRpbC9pc1Byb21pc2UudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUFBLFlBQUEsR0FBQUMsT0FBQTtBQU1BLFNBQWdCQyxTQUFTQSxDQUFDQyxLQUFVO0VBQ2xDLE9BQU9ILFlBQUEsQ0FBQUksVUFBVSxDQUFDRCxLQUFLLGFBQUxBLEtBQUssdUJBQUxBLEtBQUssQ0FBRUUsSUFBSSxDQUFDO0FBQ2hDO0FBRkFDLE9BQUEsQ0FBQUosU0FBQSxHQUFBQSxTQUFBIiwiaWdub3JlTGlzdCI6W119

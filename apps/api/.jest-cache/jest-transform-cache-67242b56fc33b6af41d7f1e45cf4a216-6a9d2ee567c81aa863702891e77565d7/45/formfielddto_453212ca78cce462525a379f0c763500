@@ -1,0 +1,87 @@
+04d56278c11e0ba01258e35429cfae63
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SaveFieldsDto = exports.FormFieldDto = void 0;
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
+const swagger_1 = require("@nestjs/swagger");
+const client_1 = require("@prisma/client");
+class FormFieldDto {
+}
+exports.FormFieldDto = FormFieldDto;
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: 'uuid-from-client' }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], FormFieldDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.FieldType, example: client_1.FieldType.TEXT }),
+    (0, class_validator_1.IsEnum)(client_1.FieldType),
+    __metadata("design:type", String)
+], FormFieldDto.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Email Address', maxLength: 200 }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(200, { message: 'Label too long' }),
+    __metadata("design:type", String)
+], FormFieldDto.prototype, "label", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: 'Enter your email', maxLength: 500 }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(500, { message: 'Description too long' }),
+    __metadata("design:type", String)
+], FormFieldDto.prototype, "description", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: 'you@example.com', maxLength: 200 }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(200, { message: 'Placeholder too long' }),
+    __metadata("design:type", String)
+], FormFieldDto.prototype, "placeholder", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], FormFieldDto.prototype, "required", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 0 }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], FormFieldDto.prototype, "position", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ type: [String], example: ['Option 1', 'Option 2'] }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsString)({ each: true }),
+    (0, class_validator_1.MaxLength)(100, { each: true, message: 'Option too long' }),
+    __metadata("design:type", Array)
+], FormFieldDto.prototype, "options", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: { min: 0, max: 100 } }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Object)
+], FormFieldDto.prototype, "validation", void 0);
+class SaveFieldsDto {
+}
+exports.SaveFieldsDto = SaveFieldsDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [FormFieldDto] }),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => FormFieldDto),
+    __metadata("design:type", Array)
+], SaveFieldsDto.prototype, "fields", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcZm9ybXNcXGR0b1xcZm9ybS1maWVsZC5kdG8udHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBQUEscURBQTZIO0FBQzdILHlEQUF5QztBQUN6Qyw2Q0FBbUU7QUFDbkUsMkNBQTJDO0FBRTNDLE1BQWEsWUFBWTtDQStDeEI7QUEvQ0Qsb0NBK0NDO0FBM0NDO0lBSEMsSUFBQSw2QkFBbUIsRUFBQyxFQUFFLE9BQU8sRUFBRSxrQkFBa0IsRUFBRSxDQUFDO0lBQ3BELElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEsMEJBQVEsR0FBRTs7d0NBQ0M7QUFJWjtJQUZDLElBQUEscUJBQVcsRUFBQyxFQUFFLElBQUksRUFBRSxrQkFBUyxFQUFFLE9BQU8sRUFBRSxrQkFBUyxDQUFDLElBQUksRUFBRSxDQUFDO0lBQ3pELElBQUEsd0JBQU0sRUFBQyxrQkFBUyxDQUFDOzswQ0FDRjtBQUtoQjtJQUhDLElBQUEscUJBQVcsRUFBQyxFQUFFLE9BQU8sRUFBRSxlQUFlLEVBQUUsU0FBUyxFQUFFLEdBQUcsRUFBRSxDQUFDO0lBQ3pELElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsMkJBQVMsRUFBQyxHQUFHLEVBQUUsRUFBRSxPQUFPLEVBQUUsZ0JBQWdCLEVBQUUsQ0FBQzs7MkNBQ2hDO0FBTWQ7SUFKQyxJQUFBLDZCQUFtQixFQUFDLEVBQUUsT0FBTyxFQUFFLGtCQUFrQixFQUFFLFNBQVMsRUFBRSxHQUFHLEVBQUUsQ0FBQztJQUNwRSxJQUFBLDRCQUFVLEdBQUU7SUFDWixJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDJCQUFTLEVBQUMsR0FBRyxFQUFFLEVBQUUsT0FBTyxFQUFFLHNCQUFzQixFQUFFLENBQUM7O2lEQUMvQjtBQU1yQjtJQUpDLElBQUEsNkJBQW1CLEVBQUMsRUFBRSxPQUFPLEVBQUUsaUJBQWlCLEVBQUUsU0FBUyxFQUFFLEdBQUcsRUFBRSxDQUFDO0lBQ25FLElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsMkJBQVMsRUFBQyxHQUFHLEVBQUUsRUFBRSxPQUFPLEVBQUUsc0JBQXNCLEVBQUUsQ0FBQzs7aURBQy9CO0FBS3JCO0lBSEMsSUFBQSw2QkFBbUIsRUFBQyxFQUFFLE9BQU8sRUFBRSxLQUFLLEVBQUUsQ0FBQztJQUN2QyxJQUFBLDRCQUFVLEdBQUU7SUFDWixJQUFBLDJCQUFTLEdBQUU7OzhDQUNPO0FBS25CO0lBSEMsSUFBQSxxQkFBVyxFQUFDLEVBQUUsT0FBTyxFQUFFLENBQUMsRUFBRSxDQUFDO0lBQzNCLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEscUJBQUcsRUFBQyxDQUFDLENBQUM7OzhDQUNVO0FBT2pCO0lBTEMsSUFBQSw2QkFBbUIsRUFBQyxFQUFFLElBQUksRUFBRSxDQUFDLE1BQU0sQ0FBQyxFQUFFLE9BQU8sRUFBRSxDQUFDLFVBQVUsRUFBRSxVQUFVLENBQUMsRUFBRSxDQUFDO0lBQzFFLElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEseUJBQU8sR0FBRTtJQUNULElBQUEsMEJBQVEsRUFBQyxFQUFFLElBQUksRUFBRSxJQUFJLEVBQUUsQ0FBQztJQUN4QixJQUFBLDJCQUFTLEVBQUMsR0FBRyxFQUFFLEVBQUUsSUFBSSxFQUFFLElBQUksRUFBRSxPQUFPLEVBQUUsaUJBQWlCLEVBQUUsQ0FBQzs7NkNBQ3hDO0FBSW5CO0lBRkMsSUFBQSw2QkFBbUIsRUFBQyxFQUFFLE9BQU8sRUFBRSxFQUFFLEdBQUcsRUFBRSxDQUFDLEVBQUUsR0FBRyxFQUFFLEdBQUcsRUFBRSxFQUFFLENBQUM7SUFDdEQsSUFBQSw0QkFBVSxHQUFFOztnREFDb0I7QUFHbkMsTUFBYSxhQUFhO0NBTXpCO0FBTkQsc0NBTUM7QUFEQztJQUpDLElBQUEscUJBQVcsRUFBQyxFQUFFLElBQUksRUFBRSxDQUFDLFlBQVksQ0FBQyxFQUFFLENBQUM7SUFDckMsSUFBQSx5QkFBTyxHQUFFO0lBQ1QsSUFBQSxnQ0FBYyxFQUFDLEVBQUUsSUFBSSxFQUFFLElBQUksRUFBRSxDQUFDO0lBQzlCLElBQUEsd0JBQUksRUFBQyxHQUFHLEVBQUUsQ0FBQyxZQUFZLENBQUM7OzZDQUNGIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcWWFrb3ViXFxEb2N1bWVudHNcXFByb2plY3RzXFxmb3JtZmxvd1xcYXBwc1xcYXBpXFxzcmNcXGZvcm1zXFxkdG9cXGZvcm0tZmllbGQuZHRvLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IElzU3RyaW5nLCBJc09wdGlvbmFsLCBJc0Jvb2xlYW4sIElzTnVtYmVyLCBJc0VudW0sIElzQXJyYXksIFZhbGlkYXRlTmVzdGVkLCBNYXhMZW5ndGgsIE1pbiB9IGZyb20gJ2NsYXNzLXZhbGlkYXRvcic7XG5pbXBvcnQgeyBUeXBlIH0gZnJvbSAnY2xhc3MtdHJhbnNmb3JtZXInO1xuaW1wb3J0IHsgQXBpUHJvcGVydHksIEFwaVByb3BlcnR5T3B0aW9uYWwgfSBmcm9tICdAbmVzdGpzL3N3YWdnZXInO1xuaW1wb3J0IHsgRmllbGRUeXBlIH0gZnJvbSAnQHByaXNtYS9jbGllbnQnO1xuXG5leHBvcnQgY2xhc3MgRm9ybUZpZWxkRHRvIHtcbiAgQEFwaVByb3BlcnR5T3B0aW9uYWwoeyBleGFtcGxlOiAndXVpZC1mcm9tLWNsaWVudCcgfSlcbiAgQElzT3B0aW9uYWwoKVxuICBASXNTdHJpbmcoKVxuICBpZD86IHN0cmluZztcblxuICBAQXBpUHJvcGVydHkoeyBlbnVtOiBGaWVsZFR5cGUsIGV4YW1wbGU6IEZpZWxkVHlwZS5URVhUIH0pXG4gIEBJc0VudW0oRmllbGRUeXBlKVxuICB0eXBlOiBGaWVsZFR5cGU7XG5cbiAgQEFwaVByb3BlcnR5KHsgZXhhbXBsZTogJ0VtYWlsIEFkZHJlc3MnLCBtYXhMZW5ndGg6IDIwMCB9KVxuICBASXNTdHJpbmcoKVxuICBATWF4TGVuZ3RoKDIwMCwgeyBtZXNzYWdlOiAnTGFiZWwgdG9vIGxvbmcnIH0pXG4gIGxhYmVsOiBzdHJpbmc7XG5cbiAgQEFwaVByb3BlcnR5T3B0aW9uYWwoeyBleGFtcGxlOiAnRW50ZXIgeW91ciBlbWFpbCcsIG1heExlbmd0aDogNTAwIH0pXG4gIEBJc09wdGlvbmFsKClcbiAgQElzU3RyaW5nKClcbiAgQE1heExlbmd0aCg1MDAsIHsgbWVzc2FnZTogJ0Rlc2NyaXB0aW9uIHRvbyBsb25nJyB9KVxuICBkZXNjcmlwdGlvbj86IHN0cmluZztcblxuICBAQXBpUHJvcGVydHlPcHRpb25hbCh7IGV4YW1wbGU6ICd5b3VAZXhhbXBsZS5jb20nLCBtYXhMZW5ndGg6IDIwMCB9KVxuICBASXNPcHRpb25hbCgpXG4gIEBJc1N0cmluZygpXG4gIEBNYXhMZW5ndGgoMjAwLCB7IG1lc3NhZ2U6ICdQbGFjZWhvbGRlciB0b28gbG9uZycgfSlcbiAgcGxhY2Vob2xkZXI/OiBzdHJpbmc7XG5cbiAgQEFwaVByb3BlcnR5T3B0aW9uYWwoeyBleGFtcGxlOiBmYWxzZSB9KVxuICBASXNPcHRpb25hbCgpXG4gIEBJc0Jvb2xlYW4oKVxuICByZXF1aXJlZD86IGJvb2xlYW47XG5cbiAgQEFwaVByb3BlcnR5KHsgZXhhbXBsZTogMCB9KVxuICBASXNOdW1iZXIoKVxuICBATWluKDApXG4gIHBvc2l0aW9uOiBudW1iZXI7XG5cbiAgQEFwaVByb3BlcnR5T3B0aW9uYWwoeyB0eXBlOiBbU3RyaW5nXSwgZXhhbXBsZTogWydPcHRpb24gMScsICdPcHRpb24gMiddIH0pXG4gIEBJc09wdGlvbmFsKClcbiAgQElzQXJyYXkoKVxuICBASXNTdHJpbmcoeyBlYWNoOiB0cnVlIH0pXG4gIEBNYXhMZW5ndGgoMTAwLCB7IGVhY2g6IHRydWUsIG1lc3NhZ2U6ICdPcHRpb24gdG9vIGxvbmcnIH0pXG4gIG9wdGlvbnM/OiBzdHJpbmdbXTtcblxuICBAQXBpUHJvcGVydHlPcHRpb25hbCh7IGV4YW1wbGU6IHsgbWluOiAwLCBtYXg6IDEwMCB9IH0pXG4gIEBJc09wdGlvbmFsKClcbiAgdmFsaWRhdGlvbj86IFJlY29yZDxzdHJpbmcsIGFueT47XG59XG5cbmV4cG9ydCBjbGFzcyBTYXZlRmllbGRzRHRvIHtcbiAgQEFwaVByb3BlcnR5KHsgdHlwZTogW0Zvcm1GaWVsZER0b10gfSlcbiAgQElzQXJyYXkoKVxuICBAVmFsaWRhdGVOZXN0ZWQoeyBlYWNoOiB0cnVlIH0pXG4gIEBUeXBlKCgpID0+IEZvcm1GaWVsZER0bylcbiAgZmllbGRzOiBGb3JtRmllbGREdG9bXTtcbn0iXSwidmVyc2lvbiI6M30=

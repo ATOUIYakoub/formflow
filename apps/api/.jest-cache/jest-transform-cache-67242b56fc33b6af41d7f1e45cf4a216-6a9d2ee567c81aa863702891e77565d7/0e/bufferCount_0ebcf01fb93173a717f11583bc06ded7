@@ -1,0 +1,105 @@
+9779210abef39f3b78601387ad33e573
+"use strict";
+
+var __values = void 0 && (void 0).__values || function (o) {
+  var s = typeof Symbol === "function" && Symbol.iterator,
+    m = s && o[s],
+    i = 0;
+  if (m) return m.call(o);
+  if (o && typeof o.length === "number") return {
+    next: function () {
+      if (o && i >= o.length) o = void 0;
+      return {
+        value: o && o[i++],
+        done: !o
+      };
+    }
+  };
+  throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.bufferCount = void 0;
+var lift_1 = require("../util/lift");
+var OperatorSubscriber_1 = require("./OperatorSubscriber");
+var arrRemove_1 = require("../util/arrRemove");
+function bufferCount(bufferSize, startBufferEvery) {
+  if (startBufferEvery === void 0) {
+    startBufferEvery = null;
+  }
+  startBufferEvery = startBufferEvery !== null && startBufferEvery !== void 0 ? startBufferEvery : bufferSize;
+  return lift_1.operate(function (source, subscriber) {
+    var buffers = [];
+    var count = 0;
+    source.subscribe(OperatorSubscriber_1.createOperatorSubscriber(subscriber, function (value) {
+      var e_1, _a, e_2, _b;
+      var toEmit = null;
+      if (count++ % startBufferEvery === 0) {
+        buffers.push([]);
+      }
+      try {
+        for (var buffers_1 = __values(buffers), buffers_1_1 = buffers_1.next(); !buffers_1_1.done; buffers_1_1 = buffers_1.next()) {
+          var buffer = buffers_1_1.value;
+          buffer.push(value);
+          if (bufferSize <= buffer.length) {
+            toEmit = toEmit !== null && toEmit !== void 0 ? toEmit : [];
+            toEmit.push(buffer);
+          }
+        }
+      } catch (e_1_1) {
+        e_1 = {
+          error: e_1_1
+        };
+      } finally {
+        try {
+          if (buffers_1_1 && !buffers_1_1.done && (_a = buffers_1.return)) _a.call(buffers_1);
+        } finally {
+          if (e_1) throw e_1.error;
+        }
+      }
+      if (toEmit) {
+        try {
+          for (var toEmit_1 = __values(toEmit), toEmit_1_1 = toEmit_1.next(); !toEmit_1_1.done; toEmit_1_1 = toEmit_1.next()) {
+            var buffer = toEmit_1_1.value;
+            arrRemove_1.arrRemove(buffers, buffer);
+            subscriber.next(buffer);
+          }
+        } catch (e_2_1) {
+          e_2 = {
+            error: e_2_1
+          };
+        } finally {
+          try {
+            if (toEmit_1_1 && !toEmit_1_1.done && (_b = toEmit_1.return)) _b.call(toEmit_1);
+          } finally {
+            if (e_2) throw e_2.error;
+          }
+        }
+      }
+    }, function () {
+      var e_3, _a;
+      try {
+        for (var buffers_2 = __values(buffers), buffers_2_1 = buffers_2.next(); !buffers_2_1.done; buffers_2_1 = buffers_2.next()) {
+          var buffer = buffers_2_1.value;
+          subscriber.next(buffer);
+        }
+      } catch (e_3_1) {
+        e_3 = {
+          error: e_3_1
+        };
+      } finally {
+        try {
+          if (buffers_2_1 && !buffers_2_1.done && (_a = buffers_2.return)) _a.call(buffers_2);
+        } finally {
+          if (e_3) throw e_3.error;
+        }
+      }
+      subscriber.complete();
+    }, undefined, function () {
+      buffers = null;
+    }));
+  });
+}
+exports.bufferCount = bufferCount;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJsaWZ0XzEiLCJyZXF1aXJlIiwiT3BlcmF0b3JTdWJzY3JpYmVyXzEiLCJhcnJSZW1vdmVfMSIsImJ1ZmZlckNvdW50IiwiYnVmZmVyU2l6ZSIsInN0YXJ0QnVmZmVyRXZlcnkiLCJvcGVyYXRlIiwic291cmNlIiwic3Vic2NyaWJlciIsImJ1ZmZlcnMiLCJjb3VudCIsInN1YnNjcmliZSIsImNyZWF0ZU9wZXJhdG9yU3Vic2NyaWJlciIsInZhbHVlIiwidG9FbWl0IiwicHVzaCIsImJ1ZmZlcnNfMSIsIl9fdmFsdWVzIiwiYnVmZmVyc18xXzEiLCJuZXh0IiwiZG9uZSIsImJ1ZmZlciIsImxlbmd0aCIsInRvRW1pdF8xIiwidG9FbWl0XzFfMSIsImFyclJlbW92ZSIsImJ1ZmZlcnNfMiIsImJ1ZmZlcnNfMl8xIiwiY29tcGxldGUiLCJ1bmRlZmluZWQiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9idWZmZXJDb3VudC50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLElBQUFBLE1BQUEsR0FBQUMsT0FBQTtBQUNBLElBQUFDLG9CQUFBLEdBQUFELE9BQUE7QUFDQSxJQUFBRSxXQUFBLEdBQUFGLE9BQUE7QUFxREEsU0FBZ0JHLFdBQVdBLENBQUlDLFVBQWtCLEVBQUVDLGdCQUFzQztFQUF0QyxJQUFBQSxnQkFBQTtJQUFBQSxnQkFBQSxPQUFzQztFQUFBO0VBR3ZGQSxnQkFBZ0IsR0FBR0EsZ0JBQWdCLGFBQWhCQSxnQkFBZ0IsY0FBaEJBLGdCQUFnQixHQUFJRCxVQUFVO0VBRWpELE9BQU9MLE1BQUEsQ0FBQU8sT0FBTyxDQUFDLFVBQUNDLE1BQU0sRUFBRUMsVUFBVTtJQUNoQyxJQUFJQyxPQUFPLEdBQVUsRUFBRTtJQUN2QixJQUFJQyxLQUFLLEdBQUcsQ0FBQztJQUViSCxNQUFNLENBQUNJLFNBQVMsQ0FDZFYsb0JBQUEsQ0FBQVcsd0JBQXdCLENBQ3RCSixVQUFVLEVBQ1YsVUFBQ0ssS0FBSzs7TUFDSixJQUFJQyxNQUFNLEdBQWlCLElBQUk7TUFLL0IsSUFBSUosS0FBSyxFQUFFLEdBQUdMLGdCQUFpQixLQUFLLENBQUMsRUFBRTtRQUNyQ0ksT0FBTyxDQUFDTSxJQUFJLENBQUMsRUFBRSxDQUFDOzs7UUFJbEIsS0FBcUIsSUFBQUMsU0FBQSxHQUFBQyxRQUFBLENBQUFSLE9BQU8sR0FBQVMsV0FBQSxHQUFBRixTQUFBLENBQUFHLElBQUEsS0FBQUQsV0FBQSxDQUFBRSxJQUFBLEVBQUFGLFdBQUEsR0FBQUYsU0FBQSxDQUFBRyxJQUFBLElBQUU7VUFBekIsSUFBTUUsTUFBTSxHQUFBSCxXQUFBLENBQUFMLEtBQUE7VUFDZlEsTUFBTSxDQUFDTixJQUFJLENBQUNGLEtBQUssQ0FBQztVQU1sQixJQUFJVCxVQUFVLElBQUlpQixNQUFNLENBQUNDLE1BQU0sRUFBRTtZQUMvQlIsTUFBTSxHQUFHQSxNQUFNLGFBQU5BLE1BQU0sY0FBTkEsTUFBTSxHQUFJLEVBQUU7WUFDckJBLE1BQU0sQ0FBQ0MsSUFBSSxDQUFDTSxNQUFNLENBQUM7Ozs7Ozs7Ozs7Ozs7O01BSXZCLElBQUlQLE1BQU0sRUFBRTs7VUFJVixLQUFxQixJQUFBUyxRQUFBLEdBQUFOLFFBQUEsQ0FBQUgsTUFBTSxHQUFBVSxVQUFBLEdBQUFELFFBQUEsQ0FBQUosSUFBQSxLQUFBSyxVQUFBLENBQUFKLElBQUEsRUFBQUksVUFBQSxHQUFBRCxRQUFBLENBQUFKLElBQUEsSUFBRTtZQUF4QixJQUFNRSxNQUFNLEdBQUFHLFVBQUEsQ0FBQVgsS0FBQTtZQUNmWCxXQUFBLENBQUF1QixTQUFTLENBQUNoQixPQUFPLEVBQUVZLE1BQU0sQ0FBQztZQUMxQmIsVUFBVSxDQUFDVyxJQUFJLENBQUNFLE1BQU0sQ0FBQzs7Ozs7Ozs7Ozs7Ozs7SUFHN0IsQ0FBQyxFQUNEOzs7UUFHRSxLQUFxQixJQUFBSyxTQUFBLEdBQUFULFFBQUEsQ0FBQVIsT0FBTyxHQUFBa0IsV0FBQSxHQUFBRCxTQUFBLENBQUFQLElBQUEsS0FBQVEsV0FBQSxDQUFBUCxJQUFBLEVBQUFPLFdBQUEsR0FBQUQsU0FBQSxDQUFBUCxJQUFBLElBQUU7VUFBekIsSUFBTUUsTUFBTSxHQUFBTSxXQUFBLENBQUFkLEtBQUE7VUFDZkwsVUFBVSxDQUFDVyxJQUFJLENBQUNFLE1BQU0sQ0FBQzs7Ozs7Ozs7Ozs7OztNQUV6QmIsVUFBVSxDQUFDb0IsUUFBUSxFQUFFO0lBQ3ZCLENBQUMsRUFFREMsU0FBUyxFQUNUO01BRUVwQixPQUFPLEdBQUcsSUFBSztJQUNqQixDQUFDLENBQ0YsQ0FDRjtFQUNILENBQUMsQ0FBQztBQUNKO0FBL0RBcUIsT0FBQSxDQUFBM0IsV0FBQSxHQUFBQSxXQUFBIiwiaWdub3JlTGlzdCI6W119

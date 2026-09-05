@@ -1,0 +1,20 @@
+7b41fd4d1277249fe305f74e04d4d380
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ReplFunction = void 0;
+const cli_colors_util_1 = require("@nestjs/common/utils/cli-colors.util");
+class ReplFunction {
+    constructor(ctx) {
+        this.ctx = ctx;
+        this.logger = ctx.logger;
+    }
+    /**
+     * @returns A message displayed by calling `<fnName>.help`
+     */
+    makeHelpMessage() {
+        const { description, name, signature } = this.fnDefinition;
+        const fnSignatureWithName = `${name}${signature}`;
+        return `${cli_colors_util_1.clc.yellow(description)}\n${cli_colors_util_1.clc.magentaBright('Interface:')} ${cli_colors_util_1.clc.bold(fnSignatureWithName)}\n`;
+    }
+}
+exports.ReplFunction = ReplFunction;

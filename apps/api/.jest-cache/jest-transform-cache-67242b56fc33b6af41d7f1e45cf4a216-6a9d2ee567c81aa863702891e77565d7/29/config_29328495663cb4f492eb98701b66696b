@@ -1,0 +1,15 @@
+250acbc3c84ed0e9bf7f737ee4813086
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.config = void 0;
+exports.config = {
+  onUnhandledError: null,
+  onStoppedNotification: null,
+  Promise: undefined,
+  useDeprecatedSynchronousErrorHandling: false,
+  useDeprecatedNextContext: false
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJleHBvcnRzIiwiY29uZmlnIiwib25VbmhhbmRsZWRFcnJvciIsIm9uU3RvcHBlZE5vdGlmaWNhdGlvbiIsIlByb21pc2UiLCJ1bmRlZmluZWQiLCJ1c2VEZXByZWNhdGVkU3luY2hyb25vdXNFcnJvckhhbmRsaW5nIiwidXNlRGVwcmVjYXRlZE5leHRDb250ZXh0Il0sInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2ludGVybmFsL2NvbmZpZy50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBT2FBLE9BQUEsQ0FBQUMsTUFBTSxHQUFpQjtFQUNsQ0MsZ0JBQWdCLEVBQUUsSUFBSTtFQUN0QkMscUJBQXFCLEVBQUUsSUFBSTtFQUMzQkMsT0FBTyxFQUFFQyxTQUFTO0VBQ2xCQyxxQ0FBcUMsRUFBRSxLQUFLO0VBQzVDQyx3QkFBd0IsRUFBRTtDQUMzQiIsImlnbm9yZUxpc3QiOltdfQ==

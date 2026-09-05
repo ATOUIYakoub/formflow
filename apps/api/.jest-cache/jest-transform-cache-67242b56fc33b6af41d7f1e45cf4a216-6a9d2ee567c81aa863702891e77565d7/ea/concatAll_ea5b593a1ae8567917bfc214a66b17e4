@@ -1,0 +1,13 @@
+5205c2cc6f2f992ce40a7819165851a5
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.concatAll = void 0;
+var mergeAll_1 = require("./mergeAll");
+function concatAll() {
+  return mergeAll_1.mergeAll(1);
+}
+exports.concatAll = concatAll;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJtZXJnZUFsbF8xIiwicmVxdWlyZSIsImNvbmNhdEFsbCIsIm1lcmdlQWxsIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvY29uY2F0QWxsLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxJQUFBQSxVQUFBLEdBQUFDLE9BQUE7QUEyREEsU0FBZ0JDLFNBQVNBLENBQUE7RUFDdkIsT0FBT0YsVUFBQSxDQUFBRyxRQUFRLENBQUMsQ0FBQyxDQUFDO0FBQ3BCO0FBRkFDLE9BQUEsQ0FBQUYsU0FBQSxHQUFBQSxTQUFBIiwiaWdub3JlTGlzdCI6W119

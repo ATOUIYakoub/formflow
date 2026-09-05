@@ -1,0 +1,11 @@
+7651680bc443bfe437b87d2c82f19d65
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isArrayLike = void 0;
+exports.isArrayLike = function (x) {
+  return x && typeof x.length === 'number' && typeof x !== 'function';
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJleHBvcnRzIiwiaXNBcnJheUxpa2UiLCJ4IiwibGVuZ3RoIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL3V0aWwvaXNBcnJheUxpa2UudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFhQSxPQUFBLENBQUFDLFdBQVcsR0FBSSxVQUFJQyxDQUFNO0VBQXdCLE9BQUFBLENBQUMsSUFBSSxPQUFPQSxDQUFDLENBQUNDLE1BQU0sS0FBSyxRQUFRLElBQUksT0FBT0QsQ0FBQyxLQUFLLFVBQVU7QUFBNUQsQ0FBNkQiLCJpZ25vcmVMaXN0IjpbXX0=

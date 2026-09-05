@@ -1,0 +1,45 @@
+2c1b48e13251c2fc6a2c76bb67c77b31
+"use strict";
+
+var __read = void 0 && (void 0).__read || function (o, n) {
+  var m = typeof Symbol === "function" && o[Symbol.iterator];
+  if (!m) return o;
+  var i = m.call(o),
+    r,
+    ar = [],
+    e;
+  try {
+    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+  } catch (error) {
+    e = {
+      error: error
+    };
+  } finally {
+    try {
+      if (r && !r.done && (m = i["return"])) m.call(i);
+    } finally {
+      if (e) throw e.error;
+    }
+  }
+  return ar;
+};
+var __spreadArray = void 0 && (void 0).__spreadArray || function (to, from) {
+  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) to[j] = from[i];
+  return to;
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.mapOneOrManyArgs = void 0;
+var map_1 = require("../operators/map");
+var isArray = Array.isArray;
+function callOrApply(fn, args) {
+  return isArray(args) ? fn.apply(void 0, __spreadArray([], __read(args))) : fn(args);
+}
+function mapOneOrManyArgs(fn) {
+  return map_1.map(function (args) {
+    return callOrApply(fn, args);
+  });
+}
+exports.mapOneOrManyArgs = mapOneOrManyArgs;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJtYXBfMSIsInJlcXVpcmUiLCJpc0FycmF5IiwiQXJyYXkiLCJjYWxsT3JBcHBseSIsImZuIiwiYXJncyIsImFwcGx5IiwiX19zcHJlYWRBcnJheSIsIl9fcmVhZCIsIm1hcE9uZU9yTWFueUFyZ3MiLCJtYXAiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL3V0aWwvbWFwT25lT3JNYW55QXJncy50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxJQUFBQSxLQUFBLEdBQUFDLE9BQUE7QUFFUSxJQUFBQyxPQUFPLEdBQUtDLEtBQUssQ0FBQUQsT0FBVjtBQUVmLFNBQVNFLFdBQVdBLENBQU9DLEVBQTJCLEVBQUVDLElBQVc7RUFDL0QsT0FBT0osT0FBTyxDQUFDSSxJQUFJLENBQUMsR0FBR0QsRUFBRSxDQUFBRSxLQUFBLFNBQUFDLGFBQUEsS0FBQUMsTUFBQSxDQUFJSCxJQUFJLE1BQUlELEVBQUUsQ0FBQ0MsSUFBSSxDQUFDO0FBQ2pEO0FBTUEsU0FBZ0JJLGdCQUFnQkEsQ0FBT0wsRUFBMkI7RUFDOUQsT0FBT0wsS0FBQSxDQUFBVyxHQUFHLENBQUMsVUFBQUwsSUFBSTtJQUFJLE9BQUFGLFdBQVcsQ0FBQ0MsRUFBRSxFQUFFQyxJQUFJLENBQUM7RUFBckIsQ0FBcUIsQ0FBQztBQUM3QztBQUZBTSxPQUFBLENBQUFGLGdCQUFBLEdBQUFBLGdCQUFBIiwiaWdub3JlTGlzdCI6W119

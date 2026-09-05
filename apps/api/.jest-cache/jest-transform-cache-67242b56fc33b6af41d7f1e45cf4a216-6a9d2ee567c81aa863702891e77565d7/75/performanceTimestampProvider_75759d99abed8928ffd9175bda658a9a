@@ -1,0 +1,14 @@
+478f2c8267ced78c486bd1a99f6ebbf5
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.performanceTimestampProvider = void 0;
+exports.performanceTimestampProvider = {
+  now: function () {
+    return (exports.performanceTimestampProvider.delegate || performance).now();
+  },
+  delegate: undefined
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJleHBvcnRzIiwicGVyZm9ybWFuY2VUaW1lc3RhbXBQcm92aWRlciIsIm5vdyIsImRlbGVnYXRlIiwicGVyZm9ybWFuY2UiLCJ1bmRlZmluZWQiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvc2NoZWR1bGVyL3BlcmZvcm1hbmNlVGltZXN0YW1wUHJvdmlkZXIudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQU1hQSxPQUFBLENBQUFDLDRCQUE0QixHQUFpQztFQUN4RUMsR0FBRyxXQUFBQSxDQUFBO0lBR0QsT0FBTyxDQUFDRixPQUFBLENBQUFDLDRCQUE0QixDQUFDRSxRQUFRLElBQUlDLFdBQVcsRUFBRUYsR0FBRyxFQUFFO0VBQ3JFLENBQUM7RUFDREMsUUFBUSxFQUFFRTtDQUNYIiwiaWdub3JlTGlzdCI6W119

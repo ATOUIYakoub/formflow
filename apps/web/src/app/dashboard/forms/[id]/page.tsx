@@ -179,7 +179,7 @@ export default function FormBuilderPage() {
         setForm(data);
         setFields(data.fields || []);
         setRules(data.rules || []);
-      } catch (err: any) {
+      } catch {
         setSyncStatus("Unsaved changes");
       } finally {
         setIsLoading(false);
@@ -215,7 +215,7 @@ export default function FormBuilderPage() {
           body: JSON.stringify({ fields: cleanFields }),
         });
         setSyncStatus("Saved");
-      } catch (err) {
+      } catch {
         setSyncStatus("Unsaved changes");
       }
     }, 1000);
@@ -299,7 +299,7 @@ export default function FormBuilderPage() {
           body: JSON.stringify({ name: form.name, description: form.description || null }),
         });
         setSyncStatus("Saved");
-      } catch (err) {
+      } catch {
         setSyncStatus("Unsaved changes");
       }
     }, 1000);
@@ -332,7 +332,7 @@ export default function FormBuilderPage() {
           }),
         });
         setSyncStatus("Saved");
-      } catch (err) {
+      } catch {
         setSyncStatus("Unsaved changes");
       }
     }, 1000);

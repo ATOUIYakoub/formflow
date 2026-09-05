@@ -1,0 +1,11 @@
+28544686afd3e7abdadadb3229bb690f
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getFlowProducerToken = getFlowProducerToken;
+function getFlowProducerToken(name) {
+  return name ? `BullFlowProducer_${name}` : 'BullFlowProducer_default';
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJnZXRGbG93UHJvZHVjZXJUb2tlbiIsIm5hbWUiXSwic291cmNlcyI6WyJnZXQtZmxvdy1wcm9kdWNlci10b2tlbi51dGlsLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBnZXRGbG93UHJvZHVjZXJUb2tlbihuYW1lKSB7XG4gICAgcmV0dXJuIG5hbWUgPyBgQnVsbEZsb3dQcm9kdWNlcl8ke25hbWV9YCA6ICdCdWxsRmxvd1Byb2R1Y2VyX2RlZmF1bHQnO1xufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBTyxTQUFTQSxvQkFBb0JBLENBQUNDLElBQUksRUFBRTtFQUN2QyxPQUFPQSxJQUFJLEdBQUcsb0JBQW9CQSxJQUFJLEVBQUUsR0FBRywwQkFBMEI7QUFDekUiLCJpZ25vcmVMaXN0IjpbXX0=

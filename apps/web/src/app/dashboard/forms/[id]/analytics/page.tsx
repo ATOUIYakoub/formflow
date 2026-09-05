@@ -79,12 +79,6 @@ export default function AnalyticsPage() {
   const getMaxValue = (points: ChartPoint[]) =>
     points.reduce((max, p) => Math.max(max, p.count), 0);
 
-  const renderBar = (count: number, max: number, color: string) => {
-    if (max === 0) return <div className="h-full bg-zinc-100 rounded-t" />;
-    const height = Math.max(4, (count / max) * 100);
-    return <div className="h-full bg-zinc-100 rounded-t" style={{ height: `${100 - height}%` }} />;
-  };
-
   const renderChart = (title: string, points: ChartPoint[], color: string) => {
     const max = getMaxValue(points);
     return (

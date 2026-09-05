@@ -1,0 +1,47 @@
+9ad9290dad13351bcc31a826d2742ac5
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.windowWhen = void 0;
+var Subject_1 = require("../Subject");
+var lift_1 = require("../util/lift");
+var OperatorSubscriber_1 = require("./OperatorSubscriber");
+var innerFrom_1 = require("../observable/innerFrom");
+function windowWhen(closingSelector) {
+  return lift_1.operate(function (source, subscriber) {
+    var window;
+    var closingSubscriber;
+    var handleError = function (err) {
+      window.error(err);
+      subscriber.error(err);
+    };
+    var openWindow = function () {
+      closingSubscriber === null || closingSubscriber === void 0 ? void 0 : closingSubscriber.unsubscribe();
+      window === null || window === void 0 ? void 0 : window.complete();
+      window = new Subject_1.Subject();
+      subscriber.next(window.asObservable());
+      var closingNotifier;
+      try {
+        closingNotifier = innerFrom_1.innerFrom(closingSelector());
+      } catch (err) {
+        handleError(err);
+        return;
+      }
+      closingNotifier.subscribe(closingSubscriber = OperatorSubscriber_1.createOperatorSubscriber(subscriber, openWindow, openWindow, handleError));
+    };
+    openWindow();
+    source.subscribe(OperatorSubscriber_1.createOperatorSubscriber(subscriber, function (value) {
+      return window.next(value);
+    }, function () {
+      window.complete();
+      subscriber.complete();
+    }, handleError, function () {
+      closingSubscriber === null || closingSubscriber === void 0 ? void 0 : closingSubscriber.unsubscribe();
+      window = null;
+    }));
+  });
+}
+exports.windowWhen = windowWhen;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJTdWJqZWN0XzEiLCJyZXF1aXJlIiwibGlmdF8xIiwiT3BlcmF0b3JTdWJzY3JpYmVyXzEiLCJpbm5lckZyb21fMSIsIndpbmRvd1doZW4iLCJjbG9zaW5nU2VsZWN0b3IiLCJvcGVyYXRlIiwic291cmNlIiwic3Vic2NyaWJlciIsIndpbmRvdyIsImNsb3NpbmdTdWJzY3JpYmVyIiwiaGFuZGxlRXJyb3IiLCJlcnIiLCJlcnJvciIsIm9wZW5XaW5kb3ciLCJ1bnN1YnNjcmliZSIsImNvbXBsZXRlIiwiU3ViamVjdCIsIm5leHQiLCJhc09ic2VydmFibGUiLCJjbG9zaW5nTm90aWZpZXIiLCJpbm5lckZyb20iLCJzdWJzY3JpYmUiLCJjcmVhdGVPcGVyYXRvclN1YnNjcmliZXIiLCJ2YWx1ZSIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvb3BlcmF0b3JzL3dpbmRvd1doZW4udHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUVBLElBQUFBLFNBQUEsR0FBQUMsT0FBQTtBQUVBLElBQUFDLE1BQUEsR0FBQUQsT0FBQTtBQUNBLElBQUFFLG9CQUFBLEdBQUFGLE9BQUE7QUFDQSxJQUFBRyxXQUFBLEdBQUFILE9BQUE7QUErQ0EsU0FBZ0JJLFVBQVVBLENBQUlDLGVBQTJDO0VBQ3ZFLE9BQU9KLE1BQUEsQ0FBQUssT0FBTyxDQUFDLFVBQUNDLE1BQU0sRUFBRUMsVUFBVTtJQUNoQyxJQUFJQyxNQUF5QjtJQUM3QixJQUFJQyxpQkFBOEM7SUFNbEQsSUFBTUMsV0FBVyxHQUFHLFNBQUFBLENBQUNDLEdBQVE7TUFDM0JILE1BQU8sQ0FBQ0ksS0FBSyxDQUFDRCxHQUFHLENBQUM7TUFDbEJKLFVBQVUsQ0FBQ0ssS0FBSyxDQUFDRCxHQUFHLENBQUM7SUFDdkIsQ0FBQztJQVFELElBQU1FLFVBQVUsR0FBRyxTQUFBQSxDQUFBO01BR2pCSixpQkFBaUIsYUFBakJBLGlCQUFpQix1QkFBakJBLGlCQUFpQixDQUFFSyxXQUFXLEVBQUU7TUFHaENOLE1BQU0sYUFBTkEsTUFBTSx1QkFBTkEsTUFBTSxDQUFFTyxRQUFRLEVBQUU7TUFHbEJQLE1BQU0sR0FBRyxJQUFJVixTQUFBLENBQUFrQixPQUFPLEVBQUs7TUFDekJULFVBQVUsQ0FBQ1UsSUFBSSxDQUFDVCxNQUFNLENBQUNVLFlBQVksRUFBRSxDQUFDO01BR3RDLElBQUlDLGVBQWdDO01BQ3BDLElBQUk7UUFDRkEsZUFBZSxHQUFHakIsV0FBQSxDQUFBa0IsU0FBUyxDQUFDaEIsZUFBZSxFQUFFLENBQUM7T0FDL0MsQ0FBQyxPQUFPTyxHQUFHLEVBQUU7UUFDWkQsV0FBVyxDQUFDQyxHQUFHLENBQUM7UUFDaEI7O01BT0ZRLGVBQWUsQ0FBQ0UsU0FBUyxDQUFFWixpQkFBaUIsR0FBR1Isb0JBQUEsQ0FBQXFCLHdCQUF3QixDQUFDZixVQUFVLEVBQUVNLFVBQVUsRUFBRUEsVUFBVSxFQUFFSCxXQUFXLENBQUUsQ0FBQztJQUM1SCxDQUFDO0lBR0RHLFVBQVUsRUFBRTtJQUdaUCxNQUFNLENBQUNlLFNBQVMsQ0FDZHBCLG9CQUFBLENBQUFxQix3QkFBd0IsQ0FDdEJmLFVBQVUsRUFDVixVQUFDZ0IsS0FBSztNQUFLLE9BQUFmLE1BQU8sQ0FBQ1MsSUFBSSxDQUFDTSxLQUFLLENBQUM7SUFBbkIsQ0FBbUIsRUFDOUI7TUFFRWYsTUFBTyxDQUFDTyxRQUFRLEVBQUU7TUFDbEJSLFVBQVUsQ0FBQ1EsUUFBUSxFQUFFO0lBQ3ZCLENBQUMsRUFDREwsV0FBVyxFQUNYO01BR0VELGlCQUFpQixhQUFqQkEsaUJBQWlCLHVCQUFqQkEsaUJBQWlCLENBQUVLLFdBQVcsRUFBRTtNQUNoQ04sTUFBTSxHQUFHLElBQUs7SUFDaEIsQ0FBQyxDQUNGLENBQ0Y7RUFDSCxDQUFDLENBQUM7QUFDSjtBQXZFQWdCLE9BQUEsQ0FBQXJCLFVBQUEsR0FBQUEsVUFBQSIsImlnbm9yZUxpc3QiOltdfQ==

@@ -1,0 +1,11 @@
+47f9bc175e3d9b0842a5929ef2958c3d
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.performanceTimestampProvider = void 0;
+exports.performanceTimestampProvider = {
+    now: function () {
+        return (exports.performanceTimestampProvider.delegate || performance).now();
+    },
+    delegate: undefined,
+};
+//# sourceMappingURL=performanceTimestampProvider.js.map

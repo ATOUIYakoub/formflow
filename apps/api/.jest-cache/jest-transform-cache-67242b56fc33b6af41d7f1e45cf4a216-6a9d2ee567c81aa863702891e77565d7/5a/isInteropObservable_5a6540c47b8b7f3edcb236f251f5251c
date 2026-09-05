@@ -1,0 +1,14 @@
+7cdc0a01ebab23ded2bd9d97ca0033fd
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isInteropObservable = void 0;
+var observable_1 = require("../symbol/observable");
+var isFunction_1 = require("./isFunction");
+function isInteropObservable(input) {
+  return isFunction_1.isFunction(input[observable_1.observable]);
+}
+exports.isInteropObservable = isInteropObservable;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJvYnNlcnZhYmxlXzEiLCJyZXF1aXJlIiwiaXNGdW5jdGlvbl8xIiwiaXNJbnRlcm9wT2JzZXJ2YWJsZSIsImlucHV0IiwiaXNGdW5jdGlvbiIsIm9ic2VydmFibGUiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL3V0aWwvaXNJbnRlcm9wT2JzZXJ2YWJsZS50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0EsSUFBQUEsWUFBQSxHQUFBQyxPQUFBO0FBQ0EsSUFBQUMsWUFBQSxHQUFBRCxPQUFBO0FBR0EsU0FBZ0JFLG1CQUFtQkEsQ0FBQ0MsS0FBVTtFQUM1QyxPQUFPRixZQUFBLENBQUFHLFVBQVUsQ0FBQ0QsS0FBSyxDQUFDSixZQUFBLENBQUFNLFVBQWlCLENBQUMsQ0FBQztBQUM3QztBQUZBQyxPQUFBLENBQUFKLG1CQUFBLEdBQUFBLG1CQUFBIiwiaWdub3JlTGlzdCI6W119

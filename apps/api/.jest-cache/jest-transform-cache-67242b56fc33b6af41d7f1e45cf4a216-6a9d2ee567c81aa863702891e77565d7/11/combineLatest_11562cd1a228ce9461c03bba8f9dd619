@@ -1,0 +1,51 @@
+6a20b094bb35fecf9d251c8a4cb01184
+"use strict";
+
+var __read = void 0 && (void 0).__read || function (o, n) {
+  var m = typeof Symbol === "function" && o[Symbol.iterator];
+  if (!m) return o;
+  var i = m.call(o),
+    r,
+    ar = [],
+    e;
+  try {
+    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+  } catch (error) {
+    e = {
+      error: error
+    };
+  } finally {
+    try {
+      if (r && !r.done && (m = i["return"])) m.call(i);
+    } finally {
+      if (e) throw e.error;
+    }
+  }
+  return ar;
+};
+var __spreadArray = void 0 && (void 0).__spreadArray || function (to, from) {
+  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) to[j] = from[i];
+  return to;
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.combineLatest = void 0;
+var combineLatest_1 = require("../observable/combineLatest");
+var lift_1 = require("../util/lift");
+var argsOrArgArray_1 = require("../util/argsOrArgArray");
+var mapOneOrManyArgs_1 = require("../util/mapOneOrManyArgs");
+var pipe_1 = require("../util/pipe");
+var args_1 = require("../util/args");
+function combineLatest() {
+  var args = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    args[_i] = arguments[_i];
+  }
+  var resultSelector = args_1.popResultSelector(args);
+  return resultSelector ? pipe_1.pipe(combineLatest.apply(void 0, __spreadArray([], __read(args))), mapOneOrManyArgs_1.mapOneOrManyArgs(resultSelector)) : lift_1.operate(function (source, subscriber) {
+    combineLatest_1.combineLatestInit(__spreadArray([source], __read(argsOrArgArray_1.argsOrArgArray(args))))(subscriber);
+  });
+}
+exports.combineLatest = combineLatest;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb21iaW5lTGF0ZXN0XzEiLCJyZXF1aXJlIiwibGlmdF8xIiwiYXJnc09yQXJnQXJyYXlfMSIsIm1hcE9uZU9yTWFueUFyZ3NfMSIsInBpcGVfMSIsImFyZ3NfMSIsImNvbWJpbmVMYXRlc3QiLCJhcmdzIiwiX2kiLCJhcmd1bWVudHMiLCJsZW5ndGgiLCJyZXN1bHRTZWxlY3RvciIsInBvcFJlc3VsdFNlbGVjdG9yIiwicGlwZSIsImFwcGx5IiwiX19zcHJlYWRBcnJheSIsIl9fcmVhZCIsIm1hcE9uZU9yTWFueUFyZ3MiLCJvcGVyYXRlIiwic291cmNlIiwic3Vic2NyaWJlciIsImNvbWJpbmVMYXRlc3RJbml0IiwiYXJnc09yQXJnQXJyYXkiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9jb21iaW5lTGF0ZXN0LnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLElBQUFBLGVBQUEsR0FBQUMsT0FBQTtBQUVBLElBQUFDLE1BQUEsR0FBQUQsT0FBQTtBQUNBLElBQUFFLGdCQUFBLEdBQUFGLE9BQUE7QUFDQSxJQUFBRyxrQkFBQSxHQUFBSCxPQUFBO0FBQ0EsSUFBQUksTUFBQSxHQUFBSixPQUFBO0FBQ0EsSUFBQUssTUFBQSxHQUFBTCxPQUFBO0FBb0JBLFNBQWdCTSxhQUFhQSxDQUFBO0VBQU8sSUFBQUMsSUFBQTtPQUFBLElBQUFDLEVBQUEsSUFBNkQsRUFBN0RBLEVBQUEsR0FBQUMsU0FBQSxDQUFBQyxNQUE2RCxFQUE3REYsRUFBQSxFQUE2RDtJQUE3REQsSUFBQSxDQUFBQyxFQUFBLElBQUFDLFNBQUEsQ0FBQUQsRUFBQTs7RUFDbEMsSUFBTUcsY0FBYyxHQUFHTixNQUFBLENBQUFPLGlCQUFpQixDQUFDTCxJQUFJLENBQUM7RUFDOUMsT0FBT0ksY0FBYyxHQUNqQlAsTUFBQSxDQUFBUyxJQUFJLENBQUNQLGFBQWEsQ0FBQVEsS0FBQSxTQUFBQyxhQUFBLEtBQUFDLE1BQUEsQ0FBS1QsSUFBb0MsS0FBR0osa0JBQUEsQ0FBQWMsZ0JBQWdCLENBQUNOLGNBQWMsQ0FBQyxDQUFDLEdBQy9GVixNQUFBLENBQUFpQixPQUFPLENBQUMsVUFBQ0MsTUFBTSxFQUFFQyxVQUFVO0lBQ3pCckIsZUFBQSxDQUFBc0IsaUJBQWlCLENBQUFOLGFBQUEsRUFBRUksTUFBTSxHQUFBSCxNQUFBLENBQUtkLGdCQUFBLENBQUFvQixjQUFjLENBQUNmLElBQUksQ0FBQyxHQUFFLENBQUNhLFVBQVUsQ0FBQztFQUNsRSxDQUFDLENBQUM7QUFDUjtBQVBBRyxPQUFBLENBQUFqQixhQUFBLEdBQUFBLGFBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

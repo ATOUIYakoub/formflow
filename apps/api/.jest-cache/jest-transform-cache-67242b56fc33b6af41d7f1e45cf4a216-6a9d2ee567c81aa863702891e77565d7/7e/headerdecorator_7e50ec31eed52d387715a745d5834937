@@ -1,0 +1,33 @@
+f0fcfca4a3a25e16724a13e8ffbfbf92
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Header = Header;
+const constants_1 = require("../../constants");
+const extend_metadata_util_1 = require("../../utils/extend-metadata.util");
+/**
+ * Request method Decorator.  Sets a response header.
+ *
+ * For example:
+ * `@Header('Cache-Control', 'none')`
+ * `@Header('Cache-Control', () => 'none')`
+ *
+ * @param name string to be used for header name
+ * @param value string to be used for header value
+ *
+ * @see [Headers](https://docs.nestjs.com/controllers#headers)
+ *
+ * @publicApi
+ */
+function Header(name, value) {
+  return (target, key, descriptor) => {
+    (0, extend_metadata_util_1.extendArrayMetadata)(constants_1.HEADERS_METADATA, [{
+      name,
+      value
+    }], descriptor.value);
+    return descriptor;
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJPYmplY3QiLCJkZWZpbmVQcm9wZXJ0eSIsImV4cG9ydHMiLCJ2YWx1ZSIsIkhlYWRlciIsImNvbnN0YW50c18xIiwicmVxdWlyZSIsImV4dGVuZF9tZXRhZGF0YV91dGlsXzEiLCJuYW1lIiwidGFyZ2V0Iiwia2V5IiwiZGVzY3JpcHRvciIsImV4dGVuZEFycmF5TWV0YWRhdGEiLCJIRUFERVJTX01FVEFEQVRBIl0sInNvdXJjZXMiOlsiaGVhZGVyLmRlY29yYXRvci5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJcInVzZSBzdHJpY3RcIjtcbk9iamVjdC5kZWZpbmVQcm9wZXJ0eShleHBvcnRzLCBcIl9fZXNNb2R1bGVcIiwgeyB2YWx1ZTogdHJ1ZSB9KTtcbmV4cG9ydHMuSGVhZGVyID0gSGVhZGVyO1xuY29uc3QgY29uc3RhbnRzXzEgPSByZXF1aXJlKFwiLi4vLi4vY29uc3RhbnRzXCIpO1xuY29uc3QgZXh0ZW5kX21ldGFkYXRhX3V0aWxfMSA9IHJlcXVpcmUoXCIuLi8uLi91dGlscy9leHRlbmQtbWV0YWRhdGEudXRpbFwiKTtcbi8qKlxuICogUmVxdWVzdCBtZXRob2QgRGVjb3JhdG9yLiAgU2V0cyBhIHJlc3BvbnNlIGhlYWRlci5cbiAqXG4gKiBGb3IgZXhhbXBsZTpcbiAqIGBASGVhZGVyKCdDYWNoZS1Db250cm9sJywgJ25vbmUnKWBcbiAqIGBASGVhZGVyKCdDYWNoZS1Db250cm9sJywgKCkgPT4gJ25vbmUnKWBcbiAqXG4gKiBAcGFyYW0gbmFtZSBzdHJpbmcgdG8gYmUgdXNlZCBmb3IgaGVhZGVyIG5hbWVcbiAqIEBwYXJhbSB2YWx1ZSBzdHJpbmcgdG8gYmUgdXNlZCBmb3IgaGVhZGVyIHZhbHVlXG4gKlxuICogQHNlZSBbSGVhZGVyc10oaHR0cHM6Ly9kb2NzLm5lc3Rqcy5jb20vY29udHJvbGxlcnMjaGVhZGVycylcbiAqXG4gKiBAcHVibGljQXBpXG4gKi9cbmZ1bmN0aW9uIEhlYWRlcihuYW1lLCB2YWx1ZSkge1xuICAgIHJldHVybiAodGFyZ2V0LCBrZXksIGRlc2NyaXB0b3IpID0+IHtcbiAgICAgICAgKDAsIGV4dGVuZF9tZXRhZGF0YV91dGlsXzEuZXh0ZW5kQXJyYXlNZXRhZGF0YSkoY29uc3RhbnRzXzEuSEVBREVSU19NRVRBREFUQSwgW3sgbmFtZSwgdmFsdWUgfV0sIGRlc2NyaXB0b3IudmFsdWUpO1xuICAgICAgICByZXR1cm4gZGVzY3JpcHRvcjtcbiAgICB9O1xufVxuIl0sIm1hcHBpbmdzIjoiQUFBQSxZQUFZOztBQUNaQSxNQUFNLENBQUNDLGNBQWMsQ0FBQ0MsT0FBTyxFQUFFLFlBQVksRUFBRTtFQUFFQyxLQUFLLEVBQUU7QUFBSyxDQUFDLENBQUM7QUFDN0RELE9BQU8sQ0FBQ0UsTUFBTSxHQUFHQSxNQUFNO0FBQ3ZCLE1BQU1DLFdBQVcsR0FBR0MsT0FBTyxDQUFDLGlCQUFpQixDQUFDO0FBQzlDLE1BQU1DLHNCQUFzQixHQUFHRCxPQUFPLENBQUMsa0NBQWtDLENBQUM7QUFDMUU7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLFNBQVNGLE1BQU1BLENBQUNJLElBQUksRUFBRUwsS0FBSyxFQUFFO0VBQ3pCLE9BQU8sQ0FBQ00sTUFBTSxFQUFFQyxHQUFHLEVBQUVDLFVBQVUsS0FBSztJQUNoQyxDQUFDLENBQUMsRUFBRUosc0JBQXNCLENBQUNLLG1CQUFtQixFQUFFUCxXQUFXLENBQUNRLGdCQUFnQixFQUFFLENBQUM7TUFBRUwsSUFBSTtNQUFFTDtJQUFNLENBQUMsQ0FBQyxFQUFFUSxVQUFVLENBQUNSLEtBQUssQ0FBQztJQUNsSCxPQUFPUSxVQUFVO0VBQ3JCLENBQUM7QUFDTCIsImlnbm9yZUxpc3QiOltdfQ==

@@ -1,0 +1,17 @@
+e9309c035e828f18cc87c056bae4d777
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.InvalidProcessorClassError = void 0;
+/**
+ * @publicApi
+ */
+class InvalidProcessorClassError extends Error {
+  constructor(className) {
+    super(`Processor class ("${className}") should inherit from the abstract "WorkerHost" class.`);
+  }
+}
+exports.InvalidProcessorClassError = InvalidProcessorClassError;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJJbnZhbGlkUHJvY2Vzc29yQ2xhc3NFcnJvciIsIkVycm9yIiwiY29uc3RydWN0b3IiLCJjbGFzc05hbWUiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiaW52YWxpZC1wcm9jZXNzb3ItY2xhc3MuZXJyb3IuanMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAcHVibGljQXBpXG4gKi9cbmV4cG9ydCBjbGFzcyBJbnZhbGlkUHJvY2Vzc29yQ2xhc3NFcnJvciBleHRlbmRzIEVycm9yIHtcbiAgICBjb25zdHJ1Y3RvcihjbGFzc05hbWUpIHtcbiAgICAgICAgc3VwZXIoYFByb2Nlc3NvciBjbGFzcyAoXCIke2NsYXNzTmFtZX1cIikgc2hvdWxkIGluaGVyaXQgZnJvbSB0aGUgYWJzdHJhY3QgXCJXb3JrZXJIb3N0XCIgY2xhc3MuYCk7XG4gICAgfVxufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTtBQUNBO0FBQ0E7QUFDTyxNQUFNQSwwQkFBMEIsU0FBU0MsS0FBSyxDQUFDO0VBQ2xEQyxXQUFXQSxDQUFDQyxTQUFTLEVBQUU7SUFDbkIsS0FBSyxDQUFDLHFCQUFxQkEsU0FBUyx5REFBeUQsQ0FBQztFQUNsRztBQUNKO0FBQUNDLE9BQUEsQ0FBQUosMEJBQUEsR0FBQUEsMEJBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

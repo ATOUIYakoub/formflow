@@ -1,0 +1,48 @@
+0ec1d45e557467da6c10f50b5724d67d
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.InjectThrottlerStorage = exports.InjectThrottlerOptions = exports.SkipThrottle = exports.Throttle = void 0;
+const common_1 = require("@nestjs/common");
+const throttler_constants_1 = require("./throttler.constants");
+const throttler_providers_1 = require("./throttler.providers");
+function setThrottlerMetadata(target, options) {
+  for (const name in options) {
+    Reflect.defineMetadata(throttler_constants_1.THROTTLER_TTL + name, options[name].ttl, target);
+    Reflect.defineMetadata(throttler_constants_1.THROTTLER_LIMIT + name, options[name].limit, target);
+    Reflect.defineMetadata(throttler_constants_1.THROTTLER_BLOCK_DURATION + name, options[name].blockDuration, target);
+    Reflect.defineMetadata(throttler_constants_1.THROTTLER_TRACKER + name, options[name].getTracker, target);
+    Reflect.defineMetadata(throttler_constants_1.THROTTLER_KEY_GENERATOR + name, options[name].generateKey, target);
+  }
+}
+const Throttle = options => {
+  return (target, propertyKey, descriptor) => {
+    if (descriptor) {
+      setThrottlerMetadata(descriptor.value, options);
+      return descriptor;
+    }
+    setThrottlerMetadata(target, options);
+    return target;
+  };
+};
+exports.Throttle = Throttle;
+const SkipThrottle = (skip = {
+  default: true
+}) => {
+  return (target, propertyKey, descriptor) => {
+    var _a;
+    const reflectionTarget = (_a = descriptor === null || descriptor === void 0 ? void 0 : descriptor.value) !== null && _a !== void 0 ? _a : target;
+    for (const key in skip) {
+      Reflect.defineMetadata(throttler_constants_1.THROTTLER_SKIP + key, skip[key], reflectionTarget);
+    }
+    return descriptor !== null && descriptor !== void 0 ? descriptor : target;
+  };
+};
+exports.SkipThrottle = SkipThrottle;
+const InjectThrottlerOptions = () => (0, common_1.Inject)((0, throttler_providers_1.getOptionsToken)());
+exports.InjectThrottlerOptions = InjectThrottlerOptions;
+const InjectThrottlerStorage = () => (0, common_1.Inject)((0, throttler_providers_1.getStorageToken)());
+exports.InjectThrottlerStorage = InjectThrottlerStorage;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb21tb25fMSIsInJlcXVpcmUiLCJ0aHJvdHRsZXJfY29uc3RhbnRzXzEiLCJ0aHJvdHRsZXJfcHJvdmlkZXJzXzEiLCJzZXRUaHJvdHRsZXJNZXRhZGF0YSIsInRhcmdldCIsIm9wdGlvbnMiLCJuYW1lIiwiUmVmbGVjdCIsImRlZmluZU1ldGFkYXRhIiwiVEhST1RUTEVSX1RUTCIsInR0bCIsIlRIUk9UVExFUl9MSU1JVCIsImxpbWl0IiwiVEhST1RUTEVSX0JMT0NLX0RVUkFUSU9OIiwiYmxvY2tEdXJhdGlvbiIsIlRIUk9UVExFUl9UUkFDS0VSIiwiZ2V0VHJhY2tlciIsIlRIUk9UVExFUl9LRVlfR0VORVJBVE9SIiwiZ2VuZXJhdGVLZXkiLCJUaHJvdHRsZSIsInByb3BlcnR5S2V5IiwiZGVzY3JpcHRvciIsInZhbHVlIiwiZXhwb3J0cyIsIlNraXBUaHJvdHRsZSIsInNraXAiLCJkZWZhdWx0IiwicmVmbGVjdGlvblRhcmdldCIsIl9hIiwia2V5IiwiVEhST1RUTEVSX1NLSVAiLCJJbmplY3RUaHJvdHRsZXJPcHRpb25zIiwiSW5qZWN0IiwiZ2V0T3B0aW9uc1Rva2VuIiwiSW5qZWN0VGhyb3R0bGVyU3RvcmFnZSIsImdldFN0b3JhZ2VUb2tlbiJdLCJzb3VyY2VzIjpbIi4uL3NyYy90aHJvdHRsZXIuZGVjb3JhdG9yLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxNQUFBQSxRQUFBLEdBQUFDLE9BQUE7QUFNQSxNQUFBQyxxQkFBQSxHQUFBRCxPQUFBO0FBUUEsTUFBQUUscUJBQUEsR0FBQUYsT0FBQTtBQVVBLFNBQVNHLG9CQUFvQkEsQ0FDM0JDLE1BQVcsRUFDWEMsT0FBMkQ7RUFFM0QsS0FBSyxNQUFNQyxJQUFJLElBQUlELE9BQU8sRUFBRTtJQUMxQkUsT0FBTyxDQUFDQyxjQUFjLENBQUNQLHFCQUFBLENBQUFRLGFBQWEsR0FBR0gsSUFBSSxFQUFFRCxPQUFPLENBQUNDLElBQUksQ0FBQyxDQUFD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

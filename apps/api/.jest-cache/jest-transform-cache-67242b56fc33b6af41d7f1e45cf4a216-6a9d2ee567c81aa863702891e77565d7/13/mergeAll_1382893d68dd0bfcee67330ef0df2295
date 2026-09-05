@@ -1,0 +1,17 @@
+6d163b1d0bebef502150586a5fd43135
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.mergeAll = void 0;
+var mergeMap_1 = require("./mergeMap");
+var identity_1 = require("../util/identity");
+function mergeAll(concurrent) {
+  if (concurrent === void 0) {
+    concurrent = Infinity;
+  }
+  return mergeMap_1.mergeMap(identity_1.identity, concurrent);
+}
+exports.mergeAll = mergeAll;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJtZXJnZU1hcF8xIiwicmVxdWlyZSIsImlkZW50aXR5XzEiLCJtZXJnZUFsbCIsImNvbmN1cnJlbnQiLCJJbmZpbml0eSIsIm1lcmdlTWFwIiwiaWRlbnRpdHkiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9tZXJnZUFsbC50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsSUFBQUEsVUFBQSxHQUFBQyxPQUFBO0FBQ0EsSUFBQUMsVUFBQSxHQUFBRCxPQUFBO0FBOERBLFNBQWdCRSxRQUFRQSxDQUFpQ0MsVUFBNkI7RUFBN0IsSUFBQUEsVUFBQTtJQUFBQSxVQUFBLEdBQUFDLFFBQTZCO0VBQUE7RUFDcEYsT0FBT0wsVUFBQSxDQUFBTSxRQUFRLENBQUNKLFVBQUEsQ0FBQUssUUFBUSxFQUFFSCxVQUFVLENBQUM7QUFDdkM7QUFGQUksT0FBQSxDQUFBTCxRQUFBLEdBQUFBLFFBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

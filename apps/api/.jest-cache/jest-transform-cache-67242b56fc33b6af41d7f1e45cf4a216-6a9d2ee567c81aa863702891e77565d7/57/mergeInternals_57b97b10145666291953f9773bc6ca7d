@@ -1,0 +1,70 @@
+49bcecf71af37108cf01ac6ad89936e7
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.mergeInternals = void 0;
+var innerFrom_1 = require("../observable/innerFrom");
+var executeSchedule_1 = require("../util/executeSchedule");
+var OperatorSubscriber_1 = require("./OperatorSubscriber");
+function mergeInternals(source, subscriber, project, concurrent, onBeforeNext, expand, innerSubScheduler, additionalFinalizer) {
+  var buffer = [];
+  var active = 0;
+  var index = 0;
+  var isComplete = false;
+  var checkComplete = function () {
+    if (isComplete && !buffer.length && !active) {
+      subscriber.complete();
+    }
+  };
+  var outerNext = function (value) {
+    return active < concurrent ? doInnerSub(value) : buffer.push(value);
+  };
+  var doInnerSub = function (value) {
+    expand && subscriber.next(value);
+    active++;
+    var innerComplete = false;
+    innerFrom_1.innerFrom(project(value, index++)).subscribe(OperatorSubscriber_1.createOperatorSubscriber(subscriber, function (innerValue) {
+      onBeforeNext === null || onBeforeNext === void 0 ? void 0 : onBeforeNext(innerValue);
+      if (expand) {
+        outerNext(innerValue);
+      } else {
+        subscriber.next(innerValue);
+      }
+    }, function () {
+      innerComplete = true;
+    }, undefined, function () {
+      if (innerComplete) {
+        try {
+          active--;
+          var _loop_1 = function () {
+            var bufferedValue = buffer.shift();
+            if (innerSubScheduler) {
+              executeSchedule_1.executeSchedule(subscriber, innerSubScheduler, function () {
+                return doInnerSub(bufferedValue);
+              });
+            } else {
+              doInnerSub(bufferedValue);
+            }
+          };
+          while (buffer.length && active < concurrent) {
+            _loop_1();
+          }
+          checkComplete();
+        } catch (err) {
+          subscriber.error(err);
+        }
+      }
+    }));
+  };
+  source.subscribe(OperatorSubscriber_1.createOperatorSubscriber(subscriber, outerNext, function () {
+    isComplete = true;
+    checkComplete();
+  }));
+  return function () {
+    additionalFinalizer === null || additionalFinalizer === void 0 ? void 0 : additionalFinalizer();
+  };
+}
+exports.mergeInternals = mergeInternals;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJpbm5lckZyb21fMSIsInJlcXVpcmUiLCJleGVjdXRlU2NoZWR1bGVfMSIsIk9wZXJhdG9yU3Vic2NyaWJlcl8xIiwibWVyZ2VJbnRlcm5hbHMiLCJzb3VyY2UiLCJzdWJzY3JpYmVyIiwicHJvamVjdCIsImNvbmN1cnJlbnQiLCJvbkJlZm9yZU5leHQiLCJleHBhbmQiLCJpbm5lclN1YlNjaGVkdWxlciIsImFkZGl0aW9uYWxGaW5hbGl6ZXIiLCJidWZmZXIiLCJhY3RpdmUiLCJpbmRleCIsImlzQ29tcGxldGUiLCJjaGVja0NvbXBsZXRlIiwibGVuZ3RoIiwiY29tcGxldGUiLCJvdXRlck5leHQiLCJ2YWx1ZSIsImRvSW5uZXJTdWIiLCJwdXNoIiwibmV4dCIsImlubmVyQ29tcGxldGUiLCJpbm5lckZyb20iLCJzdWJzY3JpYmUiLCJjcmVhdGVPcGVyYXRvclN1YnNjcmliZXIiLCJpbm5lclZhbHVlIiwidW5kZWZpbmVkIiwiYnVmZmVyZWRWYWx1ZSIsInNoaWZ0IiwiZXhlY3V0ZVNjaGVkdWxlIiwiZXJyIiwiZXJyb3IiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9tZXJnZUludGVybmFscy50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0EsSUFBQUEsV0FBQSxHQUFBQyxPQUFBO0FBR0EsSUFBQUMsaUJBQUEsR0FBQUQsT0FBQTtBQUNBLElBQUFFLG9CQUFBLEdBQUFGLE9BQUE7QUFlQSxTQUFnQkcsY0FBY0EsQ0FDNUJDLE1BQXFCLEVBQ3JCQyxVQUF5QixFQUN6QkMsT0FBd0QsRUFDeERDLFVBQWtCLEVBQ2xCQyxZQUFzQyxFQUN0Q0MsTUFBZ0IsRUFDaEJDLGlCQUFpQyxFQUNqQ0MsbUJBQWdDO0VBR2hDLElBQU1DLE1BQU0sR0FBUSxFQUFFO0VBRXRCLElBQUlDLE1BQU0sR0FBRyxDQUFDO0VBRWQsSUFBSUMsS0FBSyxHQUFHLENBQUM7RUFFYixJQUFJQyxVQUFVLEdBQUcsS0FBSztFQUt0QixJQUFNQyxhQUFhLEdBQUcsU0FBQUEsQ0FBQTtJQUlwQixJQUFJRCxVQUFVLElBQUksQ0FBQ0gsTUFBTSxDQUFDSyxNQUFNLElBQUksQ0FBQ0osTUFBTSxFQUFFO01BQzNDUixVQUFVLENBQUNhLFFBQVEsRUFBRTs7RUFFekIsQ0FBQztFQUdELElBQU1DLFNBQVMsR0FBRyxTQUFBQSxDQUFDQyxLQUFRO0lBQUssT0FBQ1AsTUFBTSxHQUFHTixVQUFVLEdBQUdjLFVBQVUsQ0FBQ0QsS0FBSyxDQUFDLEdBQUdSLE1BQU0sQ0FBQ1UsSUFBSSxDQUFDRixLQUFLLENBQUM7RUFBN0QsQ0FBOEQ7RUFFOUYsSUFBTUMsVUFBVSxHQUFHLFNBQUFBLENBQUNELEtBQVE7SUFJMUJYLE1BQU0sSUFBSUosVUFBVSxDQUFDa0IsSUFBSSxDQUFDSCxLQUFZLENBQUM7SUFJdkNQLE1BQU0sRUFBRTtJQUtSLElBQUlXLGFBQWEsR0FBRyxLQUFLO0lBR3pCekIsV0FBQSxDQUFBMEIsU0FBUyxDQUFDbkIsT0FBTyxDQUFDYyxLQUFLLEVBQUVOLEtBQUssRUFBRSxDQUFDLENBQUMsQ0FBQ1ksU0FBUyxDQUMxQ3hCLG9CQUFBLENBQUF5Qix3QkFBd0IsQ0FDdEJ0QixVQUFVLEVBQ1YsVUFBQ3VCLFVBQVU7TUFHVHBCLFlBQVksYUFBWkEsWUFBWSx1QkFBWkEsWUFBWSxDQUFHb0IsVUFBVSxDQUFDO01BRTFCLElBQUluQixNQUFNLEVBQUU7UUFHVlUsU0FBUyxDQUFDUyxVQUFpQixDQUFDO09BQzdCLE1BQU07UUFFTHZCLFVBQVUsQ0FBQ2tCLElBQUksQ0FBQ0ssVUFBVSxDQUFDOztJQUUvQixDQUFDLEVBQ0Q7TUFHRUosYUFBYSxHQUFHLElBQUk7SUFDdEIsQ0FBQyxFQUVESyxTQUFTLEVBQ1Q7TUFJRSxJQUFJTCxhQUFhLEVBQUU7UUFLakIsSUFBSTtVQUlGWCxNQUFNLEVBQUU7O1lBTU4sSUFBTWlCLGFBQWEsR0FBR2xCLE1BQU0sQ0FBQ21CLEtBQUssRUFBRztZQUlyQyxJQUFJckIsaUJBQWlCLEVBQUU7Y0FDckJULGlCQUFBLENBQUErQixlQUFlLENBQUMzQixVQUFVLEVBQUVLLGlCQUFpQixFQUFFO2dCQUFNLE9BQUFXLFVBQVUsQ0FBQ1MsYUFBYSxDQUFDO2NBQXpCLENBQXlCLENBQUM7YUFDaEYsTUFBTTtjQUNMVCxVQUFVLENBQUNTLGFBQWEsQ0FBQzs7O1VBUjdCLE9BQU9sQixNQUFNLENBQUNLLE1BQU0sSUFBSUosTUFBTSxHQUFHTixVQUFVOzs7VUFZM0NTLGFBQWEsRUFBRTtTQUNoQixDQUFDLE9BQU9pQixHQUFHLEVBQUU7VUFDWjVCLFVBQVUsQ0FBQzZCLEtBQUssQ0FBQ0QsR0FBRyxDQUFDOzs7SUFHM0IsQ0FBQyxDQUNGLENBQ0Y7RUFDSCxDQUFDO0VBR0Q3QixNQUFNLENBQUNzQixTQUFTLENBQ2R4QixvQkFBQSxDQUFBeUIsd0JBQXdCLENBQUN0QixVQUFVLEVBQUVjLFNBQVMsRUFBRTtJQUU5Q0osVUFBVSxHQUFHLElBQUk7SUFDakJDLGFBQWEsRUFBRTtFQUNqQixDQUFDLENBQUMsQ0FDSDtFQUlELE9BQU87SUFDTEwsbUJBQW1CLGFBQW5CQSxtQkFBbUIsdUJBQW5CQSxtQkFBbUIsRUFBSTtFQUN6QixDQUFDO0FBQ0g7QUFoSUF3QixPQUFBLENBQUFoQyxjQUFBLEdBQUFBLGNBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

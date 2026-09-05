@@ -1,0 +1,12 @@
+1db441004631adfa880d527ee6936816
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.NO_QUEUE_FOUND = exports.NO_FLOW_PRODUCER_FOUND = void 0;
+const NO_QUEUE_FOUND = name => name ? `No Queue was found with the given name (${name}). Check your configuration.` : 'No Queue was found. Check your configuration.';
+exports.NO_QUEUE_FOUND = NO_QUEUE_FOUND;
+const NO_FLOW_PRODUCER_FOUND = name => name ? `No Flow Producer was found with the given name (${name}). Check your configuration.` : 'No Flow Producer was found. Check your configuration.';
+exports.NO_FLOW_PRODUCER_FOUND = NO_FLOW_PRODUCER_FOUND;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJOT19RVUVVRV9GT1VORCIsIm5hbWUiLCJleHBvcnRzIiwiTk9fRkxPV19QUk9EVUNFUl9GT1VORCJdLCJzb3VyY2VzIjpbImJ1bGwubWVzc2FnZXMuanMiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGNvbnN0IE5PX1FVRVVFX0ZPVU5EID0gKG5hbWUpID0+IG5hbWVcbiAgICA/IGBObyBRdWV1ZSB3YXMgZm91bmQgd2l0aCB0aGUgZ2l2ZW4gbmFtZSAoJHtuYW1lfSkuIENoZWNrIHlvdXIgY29uZmlndXJhdGlvbi5gXG4gICAgOiAnTm8gUXVldWUgd2FzIGZvdW5kLiBDaGVjayB5b3VyIGNvbmZpZ3VyYXRpb24uJztcbmV4cG9ydCBjb25zdCBOT19GTE9XX1BST0RVQ0VSX0ZPVU5EID0gKG5hbWUpID0+IG5hbWVcbiAgICA/IGBObyBGbG93IFByb2R1Y2VyIHdhcyBmb3VuZCB3aXRoIHRoZSBnaXZlbiBuYW1lICgke25hbWV9KS4gQ2hlY2sgeW91ciBjb25maWd1cmF0aW9uLmBcbiAgICA6ICdObyBGbG93IFByb2R1Y2VyIHdhcyBmb3VuZC4gQ2hlY2sgeW91ciBjb25maWd1cmF0aW9uLic7XG4iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFPLE1BQU1BLGNBQWMsR0FBSUMsSUFBSSxJQUFLQSxJQUFJLEdBQ3RDLDJDQUEyQ0EsSUFBSSw4QkFBOEIsR0FDN0UsK0NBQStDO0FBQUNDLE9BQUEsQ0FBQUYsY0FBQSxHQUFBQSxjQUFBO0FBQy9DLE1BQU1HLHNCQUFzQixHQUFJRixJQUFJLElBQUtBLElBQUksR0FDOUMsbURBQW1EQSxJQUFJLDhCQUE4QixHQUNyRix1REFBdUQ7QUFBQ0MsT0FBQSxDQUFBQyxzQkFBQSxHQUFBQSxzQkFBQSIsImlnbm9yZUxpc3QiOltdfQ==

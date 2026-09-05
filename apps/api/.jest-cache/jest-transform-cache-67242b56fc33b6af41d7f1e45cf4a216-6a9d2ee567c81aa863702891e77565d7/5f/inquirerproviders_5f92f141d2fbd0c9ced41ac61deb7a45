@@ -1,0 +1,12 @@
+706b4010b1fee224c60519772a4f1b07
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.inquirerProvider = void 0;
+const common_1 = require("@nestjs/common");
+const inquirer_constants_1 = require("./inquirer-constants");
+const noop = () => { };
+exports.inquirerProvider = {
+    provide: inquirer_constants_1.INQUIRER,
+    scope: common_1.Scope.TRANSIENT,
+    useFactory: noop,
+};

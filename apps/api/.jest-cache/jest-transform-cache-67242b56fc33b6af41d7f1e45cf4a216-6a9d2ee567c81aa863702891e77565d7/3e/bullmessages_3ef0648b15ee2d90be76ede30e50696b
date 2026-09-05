@@ -1,0 +1,10 @@
+4a4be16fdadfadec293ff0b313e7fef5
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.NO_QUEUE_FOUND = void 0;
+const NO_QUEUE_FOUND = name => name ? `No Queue was found with the given name (${name}). Check your configuration.` : 'No Queue was found. Check your configuration.';
+exports.NO_QUEUE_FOUND = NO_QUEUE_FOUND;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJOT19RVUVVRV9GT1VORCIsIm5hbWUiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiYnVsbC5tZXNzYWdlcy5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgY29uc3QgTk9fUVVFVUVfRk9VTkQgPSAobmFtZSkgPT4gbmFtZVxuICAgID8gYE5vIFF1ZXVlIHdhcyBmb3VuZCB3aXRoIHRoZSBnaXZlbiBuYW1lICgke25hbWV9KS4gQ2hlY2sgeW91ciBjb25maWd1cmF0aW9uLmBcbiAgICA6ICdObyBRdWV1ZSB3YXMgZm91bmQuIENoZWNrIHlvdXIgY29uZmlndXJhdGlvbi4nO1xuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBTyxNQUFNQSxjQUFjLEdBQUlDLElBQUksSUFBS0EsSUFBSSxHQUN0QywyQ0FBMkNBLElBQUksOEJBQThCLEdBQzdFLCtDQUErQztBQUFDQyxPQUFBLENBQUFGLGNBQUEsR0FBQUEsY0FBQSIsImlnbm9yZUxpc3QiOltdfQ==

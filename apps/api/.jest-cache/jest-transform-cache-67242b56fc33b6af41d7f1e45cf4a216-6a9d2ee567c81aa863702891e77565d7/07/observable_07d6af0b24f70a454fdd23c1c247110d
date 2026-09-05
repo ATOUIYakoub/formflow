@@ -1,0 +1,11 @@
+dbac14f658b8e47c27fab8829d6fdcfc
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.observable = void 0;
+exports.observable = function () {
+  return typeof Symbol === 'function' && Symbol.observable || '@@observable';
+}();
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJleHBvcnRzIiwib2JzZXJ2YWJsZSIsIlN5bWJvbCJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9zeW1ib2wvb2JzZXJ2YWJsZS50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBTWFBLE9BQUEsQ0FBQUMsVUFBVSxHQUFxQjtFQUFNLE9BQUMsT0FBT0MsTUFBTSxLQUFLLFVBQVUsSUFBSUEsTUFBTSxDQUFDRCxVQUFVLElBQUssY0FBYztBQUFyRSxDQUFxRSxDQUFDLENBQUUiLCJpZ25vcmVMaXN0IjpbXX0=

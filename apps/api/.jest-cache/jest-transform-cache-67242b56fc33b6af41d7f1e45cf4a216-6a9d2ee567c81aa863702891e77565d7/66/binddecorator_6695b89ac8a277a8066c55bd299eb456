@@ -1,0 +1,24 @@
+3475727f88b7892dcf903ba0a20010b8
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Bind = Bind;
+/**
+ * Decorator that binds *parameter decorators* to the method that follows.
+ *
+ * Useful when the language doesn't provide a 'Parameter Decorator' feature
+ * (i.e., vanilla JavaScript).
+ *
+ * @param decorators one or more parameter decorators (e.g., `Req()`)
+ *
+ * @publicApi
+ */
+function Bind(...decorators) {
+  return (target, key, descriptor) => {
+    decorators.forEach((fn, index) => fn(target, key, index));
+    return descriptor;
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJPYmplY3QiLCJkZWZpbmVQcm9wZXJ0eSIsImV4cG9ydHMiLCJ2YWx1ZSIsIkJpbmQiLCJkZWNvcmF0b3JzIiwidGFyZ2V0Iiwia2V5IiwiZGVzY3JpcHRvciIsImZvckVhY2giLCJmbiIsImluZGV4Il0sInNvdXJjZXMiOlsiYmluZC5kZWNvcmF0b3IuanMiXSwic291cmNlc0NvbnRlbnQiOlsiXCJ1c2Ugc3RyaWN0XCI7XG5PYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgXCJfX2VzTW9kdWxlXCIsIHsgdmFsdWU6IHRydWUgfSk7XG5leHBvcnRzLkJpbmQgPSBCaW5kO1xuLyoqXG4gKiBEZWNvcmF0b3IgdGhhdCBiaW5kcyAqcGFyYW1ldGVyIGRlY29yYXRvcnMqIHRvIHRoZSBtZXRob2QgdGhhdCBmb2xsb3dzLlxuICpcbiAqIFVzZWZ1bCB3aGVuIHRoZSBsYW5ndWFnZSBkb2Vzbid0IHByb3ZpZGUgYSAnUGFyYW1ldGVyIERlY29yYXRvcicgZmVhdHVyZVxuICogKGkuZS4sIHZhbmlsbGEgSmF2YVNjcmlwdCkuXG4gKlxuICogQHBhcmFtIGRlY29yYXRvcnMgb25lIG9yIG1vcmUgcGFyYW1ldGVyIGRlY29yYXRvcnMgKGUuZy4sIGBSZXEoKWApXG4gKlxuICogQHB1YmxpY0FwaVxuICovXG5mdW5jdGlvbiBCaW5kKC4uLmRlY29yYXRvcnMpIHtcbiAgICByZXR1cm4gKHRhcmdldCwga2V5LCBkZXNjcmlwdG9yKSA9PiB7XG4gICAgICAgIGRlY29yYXRvcnMuZm9yRWFjaCgoZm4sIGluZGV4KSA9PiBmbih0YXJnZXQsIGtleSwgaW5kZXgpKTtcbiAgICAgICAgcmV0dXJuIGRlc2NyaXB0b3I7XG4gICAgfTtcbn1cbiJdLCJtYXBwaW5ncyI6IkFBQUEsWUFBWTs7QUFDWkEsTUFBTSxDQUFDQyxjQUFjLENBQUNDLE9BQU8sRUFBRSxZQUFZLEVBQUU7RUFBRUMsS0FBSyxFQUFFO0FBQUssQ0FBQyxDQUFDO0FBQzdERCxPQUFPLENBQUNFLElBQUksR0FBR0EsSUFBSTtBQUNuQjtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLFNBQVNBLElBQUlBLENBQUMsR0FBR0MsVUFBVSxFQUFFO0VBQ3pCLE9BQU8sQ0FBQ0MsTUFBTSxFQUFFQyxHQUFHLEVBQUVDLFVBQVUsS0FBSztJQUNoQ0gsVUFBVSxDQUFDSSxPQUFPLENBQUMsQ0FBQ0MsRUFBRSxFQUFFQyxLQUFLLEtBQUtELEVBQUUsQ0FBQ0osTUFBTSxFQUFFQyxHQUFHLEVBQUVJLEtBQUssQ0FBQyxDQUFDO0lBQ3pELE9BQU9ILFVBQVU7RUFDckIsQ0FBQztBQUNMIiwiaWdub3JlTGlzdCI6W119

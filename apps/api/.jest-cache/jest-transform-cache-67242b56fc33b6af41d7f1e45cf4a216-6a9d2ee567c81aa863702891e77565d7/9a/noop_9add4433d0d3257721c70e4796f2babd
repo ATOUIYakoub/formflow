@@ -1,0 +1,10 @@
+2fdf85fbc4d5865596edc96d52d90282
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.noop = void 0;
+function noop() {}
+exports.noop = noop;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJub29wIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL25vb3AudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBLFNBQWdCQSxJQUFJQSxDQUFBLEdBQUs7QUFBekJDLE9BQUEsQ0FBQUQsSUFBQSxHQUFBQSxJQUFBIiwiaWdub3JlTGlzdCI6W119

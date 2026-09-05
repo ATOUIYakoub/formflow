@@ -1,0 +1,14 @@
+5b944ff3296ebe805bbd895ca96a9986
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.combineLatestAll = void 0;
+var combineLatest_1 = require("../observable/combineLatest");
+var joinAllInternals_1 = require("./joinAllInternals");
+function combineLatestAll(project) {
+  return joinAllInternals_1.joinAllInternals(combineLatest_1.combineLatest, project);
+}
+exports.combineLatestAll = combineLatestAll;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb21iaW5lTGF0ZXN0XzEiLCJyZXF1aXJlIiwiam9pbkFsbEludGVybmFsc18xIiwiY29tYmluZUxhdGVzdEFsbCIsInByb2plY3QiLCJqb2luQWxsSW50ZXJuYWxzIiwiY29tYmluZUxhdGVzdCIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvb3BlcmF0b3JzL2NvbWJpbmVMYXRlc3RBbGwudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUFBLGVBQUEsR0FBQUMsT0FBQTtBQUVBLElBQUFDLGtCQUFBLEdBQUFELE9BQUE7QUE2Q0EsU0FBZ0JFLGdCQUFnQkEsQ0FBSUMsT0FBc0M7RUFDeEUsT0FBT0Ysa0JBQUEsQ0FBQUcsZ0JBQWdCLENBQUNMLGVBQUEsQ0FBQU0sYUFBYSxFQUFFRixPQUFPLENBQUM7QUFDakQ7QUFGQUcsT0FBQSxDQUFBSixnQkFBQSxHQUFBQSxnQkFBQSIsImlnbm9yZUxpc3QiOltdfQ==

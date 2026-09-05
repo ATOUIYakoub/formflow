@@ -1,0 +1,11 @@
+07ac098e9496416fbfc90ee24a1811cb
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getQueueOptionsToken = getQueueOptionsToken;
+function getQueueOptionsToken(name) {
+  return name ? `BullMQQueueOptions_${name}` : 'BullMQQueueOptions_default';
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJnZXRRdWV1ZU9wdGlvbnNUb2tlbiIsIm5hbWUiXSwic291cmNlcyI6WyJnZXQtcXVldWUtb3B0aW9ucy10b2tlbi51dGlsLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBnZXRRdWV1ZU9wdGlvbnNUb2tlbihuYW1lKSB7XG4gICAgcmV0dXJuIG5hbWUgPyBgQnVsbE1RUXVldWVPcHRpb25zXyR7bmFtZX1gIDogJ0J1bGxNUVF1ZXVlT3B0aW9uc19kZWZhdWx0Jztcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQU8sU0FBU0Esb0JBQW9CQSxDQUFDQyxJQUFJLEVBQUU7RUFDdkMsT0FBT0EsSUFBSSxHQUFHLHNCQUFzQkEsSUFBSSxFQUFFLEdBQUcsNEJBQTRCO0FBQzdFIiwiaWdub3JlTGlzdCI6W119

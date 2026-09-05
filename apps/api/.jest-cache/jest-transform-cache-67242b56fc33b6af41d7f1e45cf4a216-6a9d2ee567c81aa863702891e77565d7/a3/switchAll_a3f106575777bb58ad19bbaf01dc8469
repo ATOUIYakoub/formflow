@@ -1,0 +1,14 @@
+5613cdae04597ee8f5b58aa079b06ba8
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.switchAll = void 0;
+var switchMap_1 = require("./switchMap");
+var identity_1 = require("../util/identity");
+function switchAll() {
+  return switchMap_1.switchMap(identity_1.identity);
+}
+exports.switchAll = switchAll;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJzd2l0Y2hNYXBfMSIsInJlcXVpcmUiLCJpZGVudGl0eV8xIiwic3dpdGNoQWxsIiwic3dpdGNoTWFwIiwiaWRlbnRpdHkiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9zd2l0Y2hBbGwudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBLElBQUFBLFdBQUEsR0FBQUMsT0FBQTtBQUNBLElBQUFDLFVBQUEsR0FBQUQsT0FBQTtBQTREQSxTQUFnQkUsU0FBU0EsQ0FBQTtFQUN2QixPQUFPSCxXQUFBLENBQUFJLFNBQVMsQ0FBQ0YsVUFBQSxDQUFBRyxRQUFRLENBQUM7QUFDNUI7QUFGQUMsT0FBQSxDQUFBSCxTQUFBLEdBQUFBLFNBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

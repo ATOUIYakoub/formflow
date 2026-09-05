@@ -1,0 +1,14 @@
+4b8001a5ee105c6da6dda1a336a9d750
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.dateTimestampProvider = void 0;
+exports.dateTimestampProvider = {
+  now: function () {
+    return (exports.dateTimestampProvider.delegate || Date).now();
+  },
+  delegate: undefined
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJleHBvcnRzIiwiZGF0ZVRpbWVzdGFtcFByb3ZpZGVyIiwibm93IiwiZGVsZWdhdGUiLCJEYXRlIiwidW5kZWZpbmVkIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL3NjaGVkdWxlci9kYXRlVGltZXN0YW1wUHJvdmlkZXIudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQU1hQSxPQUFBLENBQUFDLHFCQUFxQixHQUEwQjtFQUMxREMsR0FBRyxXQUFBQSxDQUFBO0lBR0QsT0FBTyxDQUFDRixPQUFBLENBQUFDLHFCQUFxQixDQUFDRSxRQUFRLElBQUlDLElBQUksRUFBRUYsR0FBRyxFQUFFO0VBQ3ZELENBQUM7RUFDREMsUUFBUSxFQUFFRTtDQUNYIiwiaWdub3JlTGlzdCI6W119

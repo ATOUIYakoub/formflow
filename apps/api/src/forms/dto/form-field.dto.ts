@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsBoolean, IsNumber, IsEnum, IsArray, ValidateNested, MaxLength, Min, Max } from 'class-validator';
+import { IsString, IsOptional, IsBoolean, IsNumber, IsEnum, IsArray, ValidateNested, MaxLength, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { FieldType } from '@prisma/client';

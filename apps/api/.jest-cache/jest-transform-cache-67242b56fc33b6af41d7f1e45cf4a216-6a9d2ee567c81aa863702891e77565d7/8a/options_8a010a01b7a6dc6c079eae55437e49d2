@@ -1,0 +1,12 @@
+b1a11012b60c037ada888748d4dab6dc
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.defaultOptions = void 0;
+const defaultOptions = exports.defaultOptions = {
+  session: false,
+  property: 'user'
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJkZWZhdWx0T3B0aW9ucyIsImV4cG9ydHMiLCJzZXNzaW9uIiwicHJvcGVydHkiXSwic291cmNlcyI6WyJvcHRpb25zLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBkZWZhdWx0T3B0aW9ucyA9IHtcbiAgICBzZXNzaW9uOiBmYWxzZSxcbiAgICBwcm9wZXJ0eTogJ3VzZXInXG59O1xuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBTyxNQUFNQSxjQUFjLEdBQUFDLE9BQUEsQ0FBQUQsY0FBQSxHQUFHO0VBQzFCRSxPQUFPLEVBQUUsS0FBSztFQUNkQyxRQUFRLEVBQUU7QUFDZCxDQUFDIiwiaWdub3JlTGlzdCI6W119

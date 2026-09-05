@@ -1,0 +1,12 @@
+84bb7054b3626400b7a608d2079f961c
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.async = exports.asyncScheduler = void 0;
+var AsyncAction_1 = require("./AsyncAction");
+var AsyncScheduler_1 = require("./AsyncScheduler");
+exports.asyncScheduler = new AsyncScheduler_1.AsyncScheduler(AsyncAction_1.AsyncAction);
+exports.async = exports.asyncScheduler;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJBc3luY0FjdGlvbl8xIiwicmVxdWlyZSIsIkFzeW5jU2NoZWR1bGVyXzEiLCJleHBvcnRzIiwiYXN5bmNTY2hlZHVsZXIiLCJBc3luY1NjaGVkdWxlciIsIkFzeW5jQWN0aW9uIiwiYXN5bmMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvc2NoZWR1bGVyL2FzeW5jLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxJQUFBQSxhQUFBLEdBQUFDLE9BQUE7QUFDQSxJQUFBQyxnQkFBQSxHQUFBRCxPQUFBO0FBaURhRSxPQUFBLENBQUFDLGNBQWMsR0FBRyxJQUFJRixnQkFBQSxDQUFBRyxjQUFjLENBQUNMLGFBQUEsQ0FBQU0sV0FBVyxDQUFDO0FBS2hESCxPQUFBLENBQUFJLEtBQUssR0FBR0osT0FBQSxDQUFBQyxjQUFjIiwiaWdub3JlTGlzdCI6W119

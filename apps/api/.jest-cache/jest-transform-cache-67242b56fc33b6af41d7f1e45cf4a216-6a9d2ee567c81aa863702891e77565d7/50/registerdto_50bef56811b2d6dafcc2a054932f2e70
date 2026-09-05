@@ -1,0 +1,42 @@
+995b7071e2d6328a9a61f5d1c74b7427
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RegisterDto = void 0;
+const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
+class RegisterDto {
+}
+exports.RegisterDto = RegisterDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'user@example.com' }),
+    (0, class_validator_1.IsEmail)({}, { message: 'Invalid email format' }),
+    __metadata("design:type", String)
+], RegisterDto.prototype, "email", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'SecurePass123', minLength: 8 }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(8, { message: 'Password must be at least 8 characters' }),
+    (0, class_validator_1.MaxLength)(128, { message: 'Password too long' }),
+    (0, class_validator_1.Matches)(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
+        message: 'Password must contain uppercase, lowercase, and number',
+    }),
+    __metadata("design:type", String)
+], RegisterDto.prototype, "password", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: 'John Doe' }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(100, { message: 'Name too long' }),
+    (0, class_validator_1.Matches)(/^[\p{L}\s'-]+$/u, { message: 'Name contains invalid characters' }),
+    __metadata("design:type", String)
+], RegisterDto.prototype, "name", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcYXV0aFxcZHRvXFxyZWdpc3Rlci5kdG8udHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBQUEscURBQStGO0FBQy9GLDZDQUFtRTtBQUVuRSxNQUFhLFdBQVc7Q0FvQnZCO0FBcEJELGtDQW9CQztBQWpCQztJQUZDLElBQUEscUJBQVcsRUFBQyxFQUFFLE9BQU8sRUFBRSxrQkFBa0IsRUFBRSxDQUFDO0lBQzVDLElBQUEseUJBQU8sRUFBQyxFQUFFLEVBQUUsRUFBRSxPQUFPLEVBQUUsc0JBQXNCLEVBQUUsQ0FBQzs7MENBQ25DO0FBU2Q7SUFQQyxJQUFBLHFCQUFXLEVBQUMsRUFBRSxPQUFPLEVBQUUsZUFBZSxFQUFFLFNBQVMsRUFBRSxDQUFDLEVBQUUsQ0FBQztJQUN2RCxJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDJCQUFTLEVBQUMsQ0FBQyxFQUFFLEVBQUUsT0FBTyxFQUFFLHdDQUF3QyxFQUFFLENBQUM7SUFDbkUsSUFBQSwyQkFBUyxFQUFDLEdBQUcsRUFBRSxFQUFFLE9BQU8sRUFBRSxtQkFBbUIsRUFBRSxDQUFDO0lBQ2hELElBQUEseUJBQU8sRUFBQyxpQ0FBaUMsRUFBRTtRQUMxQyxPQUFPLEVBQUUsd0RBQXdEO0tBQ2xFLENBQUM7OzZDQUNlO0FBT2pCO0lBTEMsSUFBQSw2QkFBbUIsRUFBQyxFQUFFLE9BQU8sRUFBRSxVQUFVLEVBQUUsQ0FBQztJQUM1QyxJQUFBLDRCQUFVLEdBQUU7SUFDWixJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDJCQUFTLEVBQUMsR0FBRyxFQUFFLEVBQUUsT0FBTyxFQUFFLGVBQWUsRUFBRSxDQUFDO0lBQzVDLElBQUEseUJBQU8sRUFBQyxpQkFBaUIsRUFBRSxFQUFFLE9BQU8sRUFBRSxrQ0FBa0MsRUFBRSxDQUFDOzt5Q0FDOUQiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcYXV0aFxcZHRvXFxyZWdpc3Rlci5kdG8udHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgSXNFbWFpbCwgSXNTdHJpbmcsIE1pbkxlbmd0aCwgTWF4TGVuZ3RoLCBNYXRjaGVzLCBJc09wdGlvbmFsIH0gZnJvbSAnY2xhc3MtdmFsaWRhdG9yJztcbmltcG9ydCB7IEFwaVByb3BlcnR5LCBBcGlQcm9wZXJ0eU9wdGlvbmFsIH0gZnJvbSAnQG5lc3Rqcy9zd2FnZ2VyJztcblxuZXhwb3J0IGNsYXNzIFJlZ2lzdGVyRHRvIHtcbiAgQEFwaVByb3BlcnR5KHsgZXhhbXBsZTogJ3VzZXJAZXhhbXBsZS5jb20nIH0pXG4gIEBJc0VtYWlsKHt9LCB7IG1lc3NhZ2U6ICdJbnZhbGlkIGVtYWlsIGZvcm1hdCcgfSlcbiAgZW1haWw6IHN0cmluZztcblxuICBAQXBpUHJvcGVydHkoeyBleGFtcGxlOiAnU2VjdXJlUGFzczEyMycsIG1pbkxlbmd0aDogOCB9KVxuICBASXNTdHJpbmcoKVxuICBATWluTGVuZ3RoKDgsIHsgbWVzc2FnZTogJ1Bhc3N3b3JkIG11c3QgYmUgYXQgbGVhc3QgOCBjaGFyYWN0ZXJzJyB9KVxuICBATWF4TGVuZ3RoKDEyOCwgeyBtZXNzYWdlOiAnUGFzc3dvcmQgdG9vIGxvbmcnIH0pXG4gIEBNYXRjaGVzKC9eKD89LipbYS16XSkoPz0uKltBLVpdKSg/PS4qXFxkKS8sIHtcbiAgICBtZXNzYWdlOiAnUGFzc3dvcmQgbXVzdCBjb250YWluIHVwcGVyY2FzZSwgbG93ZXJjYXNlLCBhbmQgbnVtYmVyJyxcbiAgfSlcbiAgcGFzc3dvcmQ6IHN0cmluZztcblxuICBAQXBpUHJvcGVydHlPcHRpb25hbCh7IGV4YW1wbGU6ICdKb2huIERvZScgfSlcbiAgQElzT3B0aW9uYWwoKVxuICBASXNTdHJpbmcoKVxuICBATWF4TGVuZ3RoKDEwMCwgeyBtZXNzYWdlOiAnTmFtZSB0b28gbG9uZycgfSlcbiAgQE1hdGNoZXMoL15bXFxwe0x9XFxzJy1dKyQvdSwgeyBtZXNzYWdlOiAnTmFtZSBjb250YWlucyBpbnZhbGlkIGNoYXJhY3RlcnMnIH0pXG4gIG5hbWU/OiBzdHJpbmc7XG59Il0sInZlcnNpb24iOjN9

@@ -1,0 +1,16 @@
+59f43124a5830d4398d8154585b9b832
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ThrottlerException = exports.throttlerMessage = void 0;
+const common_1 = require("@nestjs/common");
+exports.throttlerMessage = 'ThrottlerException: Too Many Requests';
+class ThrottlerException extends common_1.HttpException {
+  constructor(message) {
+    super(`${message || exports.throttlerMessage}`, common_1.HttpStatus.TOO_MANY_REQUESTS);
+  }
+}
+exports.ThrottlerException = ThrottlerException;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb21tb25fMSIsInJlcXVpcmUiLCJleHBvcnRzIiwidGhyb3R0bGVyTWVzc2FnZSIsIlRocm90dGxlckV4Y2VwdGlvbiIsIkh0dHBFeGNlcHRpb24iLCJjb25zdHJ1Y3RvciIsIm1lc3NhZ2UiLCJIdHRwU3RhdHVzIiwiVE9PX01BTllfUkVRVUVTVFMiXSwic291cmNlcyI6WyIuLi9zcmMvdGhyb3R0bGVyLmV4Y2VwdGlvbi50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsTUFBQUEsUUFBQSxHQUFBQyxPQUFBO0FBRWFDLE9BQUEsQ0FBQUMsZ0JBQWdCLEdBQUcsdUNBQXVDO0FBT3ZFLE1BQWFDLGtCQUFtQixTQUFRSixRQUFBLENBQUFLLGFBQWE7RUFDbkRDLFlBQVlDLE9BQWdCO0lBQzFCLEtBQUssQ0FBQyxHQUFHQSxPQUFPLElBQUlMLE9BQUEsQ0FBQUMsZ0JBQWdCLEVBQUUsRUFBRUgsUUFBQSxDQUFBUSxVQUFVLENBQUNDLGlCQUFpQixDQUFDO0VBQ3ZFOztBQUhGUCxPQUFBLENBQUFFLGtCQUFBLEdBQUFBLGtCQUFBIiwiaWdub3JlTGlzdCI6W119

@@ -1,0 +1,12 @@
+9b561da02c6a21bbf3b8029915589412
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createInvalidObservableTypeError = void 0;
+function createInvalidObservableTypeError(input) {
+  return new TypeError("You provided " + (input !== null && typeof input === 'object' ? 'an invalid object' : "'" + input + "'") + " where a stream was expected. You can provide an Observable, Promise, ReadableStream, Array, AsyncIterable, or Iterable.");
+}
+exports.createInvalidObservableTypeError = createInvalidObservableTypeError;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjcmVhdGVJbnZhbGlkT2JzZXJ2YWJsZVR5cGVFcnJvciIsImlucHV0IiwiVHlwZUVycm9yIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL3Rocm93VW5vYnNlcnZhYmxlRXJyb3IudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUlBLFNBQWdCQSxnQ0FBZ0NBLENBQUNDLEtBQVU7RUFFekQsT0FBTyxJQUFJQyxTQUFTLENBQ2xCLG1CQUNFRCxLQUFLLEtBQUssSUFBSSxJQUFJLE9BQU9BLEtBQUssS0FBSyxRQUFRLEdBQUcsbUJBQW1CLEdBQUcsTUFBSUEsS0FBSyxNQUFHLDhIQUN3QyxDQUMzSDtBQUNIO0FBUEFFLE9BQUEsQ0FBQUgsZ0NBQUEsR0FBQUEsZ0NBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

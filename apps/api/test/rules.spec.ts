@@ -1,6 +1,13 @@
 import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { createTestApp, registerAndLogin, createForm, saveFields, saveRules, cleanupTestData } from './utils';
+import * as request from 'supertest';
+import {
+  createTestApp,
+  registerAndLogin,
+  createForm,
+  saveFields,
+  saveRules,
+  cleanupTestData,
+} from './utils';
 
 describe('Conditional Logic (Rules)', () => {
   let app: INestApplication;

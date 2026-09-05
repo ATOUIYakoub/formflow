@@ -10,7 +10,7 @@ export default function AnalyticsSection() {
               ANALYTICS
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-zinc-900 mt-6">
-              Know what's working
+              Know what&apos;s working
             </h2>
             <p className="text-lg text-zinc-500 mt-4">
               Track views, starts, completions, and drop-offs. Understand your forms with real-time analytics built right in.

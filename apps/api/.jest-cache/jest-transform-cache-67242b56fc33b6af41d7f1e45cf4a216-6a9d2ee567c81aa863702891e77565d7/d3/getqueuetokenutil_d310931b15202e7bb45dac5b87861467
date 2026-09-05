@@ -1,0 +1,11 @@
+d11d0e482d1c71519ed501156648ce1d
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getQueueToken = getQueueToken;
+function getQueueToken(name) {
+  return name ? `BullQueue_${name}` : 'BullQueue_default';
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJnZXRRdWV1ZVRva2VuIiwibmFtZSJdLCJzb3VyY2VzIjpbImdldC1xdWV1ZS10b2tlbi51dGlsLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBnZXRRdWV1ZVRva2VuKG5hbWUpIHtcbiAgICByZXR1cm4gbmFtZSA/IGBCdWxsUXVldWVfJHtuYW1lfWAgOiAnQnVsbFF1ZXVlX2RlZmF1bHQnO1xufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBTyxTQUFTQSxhQUFhQSxDQUFDQyxJQUFJLEVBQUU7RUFDaEMsT0FBT0EsSUFBSSxHQUFHLGFBQWFBLElBQUksRUFBRSxHQUFHLG1CQUFtQjtBQUMzRCIsImlnbm9yZUxpc3QiOltdfQ==

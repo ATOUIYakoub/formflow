@@ -1,0 +1,65 @@
+1bd71bbd23ec75dbc8e7ee5fc683fc62
+"use strict";
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.QueueAction = void 0;
+var AsyncAction_1 = require("./AsyncAction");
+var QueueAction = function (_super) {
+  __extends(QueueAction, _super);
+  function QueueAction(scheduler, work) {
+    var _this = _super.call(this, scheduler, work) || this;
+    _this.scheduler = scheduler;
+    _this.work = work;
+    return _this;
+  }
+  QueueAction.prototype.schedule = function (state, delay) {
+    if (delay === void 0) {
+      delay = 0;
+    }
+    if (delay > 0) {
+      return _super.prototype.schedule.call(this, state, delay);
+    }
+    this.delay = delay;
+    this.state = state;
+    this.scheduler.flush(this);
+    return this;
+  };
+  QueueAction.prototype.execute = function (state, delay) {
+    return delay > 0 || this.closed ? _super.prototype.execute.call(this, state, delay) : this._execute(state, delay);
+  };
+  QueueAction.prototype.requestAsyncId = function (scheduler, id, delay) {
+    if (delay === void 0) {
+      delay = 0;
+    }
+    if (delay != null && delay > 0 || delay == null && this.delay > 0) {
+      return _super.prototype.requestAsyncId.call(this, scheduler, id, delay);
+    }
+    scheduler.flush(this);
+    return 0;
+  };
+  return QueueAction;
+}(AsyncAction_1.AsyncAction);
+exports.QueueAction = QueueAction;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJBc3luY0FjdGlvbl8xIiwicmVxdWlyZSIsIlF1ZXVlQWN0aW9uIiwiX3N1cGVyIiwiX19leHRlbmRzIiwic2NoZWR1bGVyIiwid29yayIsIl90aGlzIiwiY2FsbCIsInByb3RvdHlwZSIsInNjaGVkdWxlIiwic3RhdGUiLCJkZWxheSIsImZsdXNoIiwiZXhlY3V0ZSIsImNsb3NlZCIsIl9leGVjdXRlIiwicmVxdWVzdEFzeW5jSWQiLCJpZCIsIkFzeW5jQWN0aW9uIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9zY2hlZHVsZXIvUXVldWVBY3Rpb24udHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsSUFBQUEsYUFBQSxHQUFBQyxPQUFBO0FBTUEsSUFBQUMsV0FBQSxhQUFBQyxNQUFBO0VBQW9DQyxTQUFBLENBQUFGLFdBQUEsRUFBQUMsTUFBQTtFQUNsQyxTQUFBRCxZQUFzQkcsU0FBeUIsRUFBWUMsSUFBbUQ7SUFBOUcsSUFBQUMsS0FBQSxHQUNFSixNQUFBLENBQUFLLElBQUEsT0FBTUgsU0FBUyxFQUFFQyxJQUFJLENBQUM7SUFERkMsS0FBQSxDQUFBRixTQUFTLEdBQVRBLFNBQVM7SUFBNEJFLEtBQUEsQ0FBQUQsSUFBSSxHQUFKQSxJQUFJOztFQUUvRDtFQUVPSixXQUFBLENBQUFPLFNBQUEsQ0FBQUMsUUFBUSxHQUFmLFVBQWdCQyxLQUFTLEVBQUVDLEtBQWlCO0lBQWpCLElBQUFBLEtBQUE7TUFBQUEsS0FBQSxJQUFpQjtJQUFBO0lBQzFDLElBQUlBLEtBQUssR0FBRyxDQUFDLEVBQUU7TUFDYixPQUFPVCxNQUFBLENBQUFNLFNBQUEsQ0FBTUMsUUFBUSxDQUFBRixJQUFBLE9BQUNHLEtBQUssRUFBRUMsS0FBSyxDQUFDOztJQUVyQyxJQUFJLENBQUNBLEtBQUssR0FBR0EsS0FBSztJQUNsQixJQUFJLENBQUNELEtBQUssR0FBR0EsS0FBSztJQUNsQixJQUFJLENBQUNOLFNBQVMsQ0FBQ1EsS0FBSyxDQUFDLElBQUksQ0FBQztJQUMxQixPQUFPLElBQUk7RUFDYixDQUFDO0VBRU1YLFdBQUEsQ0FBQU8sU0FBQSxDQUFBSyxPQUFPLEdBQWQsVUFBZUgsS0FBUSxFQUFFQyxLQUFhO0lBQ3BDLE9BQU9BLEtBQUssR0FBRyxDQUFDLElBQUksSUFBSSxDQUFDRyxNQUFNLEdBQUdaLE1BQUEsQ0FBQU0sU0FBQSxDQUFNSyxPQUFPLENBQUFOLElBQUEsT0FBQ0csS0FBSyxFQUFFQyxLQUFLLENBQUMsR0FBRyxJQUFJLENBQUNJLFFBQVEsQ0FBQ0wsS0FBSyxFQUFFQyxLQUFLLENBQUM7RUFDN0YsQ0FBQztFQUVTVixXQUFBLENBQUFPLFNBQUEsQ0FBQVEsY0FBYyxHQUF4QixVQUF5QlosU0FBeUIsRUFBRWEsRUFBZ0IsRUFBRU4sS0FBaUI7SUFBakIsSUFBQUEsS0FBQTtNQUFBQSxLQUFBLElBQWlCO0lBQUE7SUFLckYsSUFBS0EsS0FBSyxJQUFJLElBQUksSUFBSUEsS0FBSyxHQUFHLENBQUMsSUFBTUEsS0FBSyxJQUFJLElBQUksSUFBSSxJQUFJLENBQUNBLEtBQUssR0FBRyxDQUFFLEVBQUU7TUFDckUsT0FBT1QsTUFBQSxDQUFBTSxTQUFBLENBQU1RLGNBQWMsQ0FBQVQsSUFBQSxPQUFDSCxTQUFTLEVBQUVhLEVBQUUsRUFBRU4sS0FBSyxDQUFDOztJQUluRFAsU0FBUyxDQUFDUSxLQUFLLENBQUMsSUFBSSxDQUFDO0lBTXJCLE9BQU8sQ0FBQztFQUNWLENBQUM7RUFDSCxPQUFBWCxXQUFDO0FBQUQsQ0FBQyxDQXJDbUNGLGFBQUEsQ0FBQW1CLFdBQVc7QUFBbENDLE9BQUEsQ0FBQWxCLFdBQUEsR0FBQUEsV0FBQSIsImlnbm9yZUxpc3QiOltdfQ==

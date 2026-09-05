@@ -1,0 +1,43 @@
+67bb58bbca0b806bce5820d491791545
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ValidationPipe = void 0;
+const common_1 = require("@nestjs/common");
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
+let ValidationPipe = class ValidationPipe {
+    async transform(value, { metatype }) {
+        if (!metatype || !this.toValidate(metatype)) {
+            return value;
+        }
+        const object = (0, class_transformer_1.plainToInstance)(metatype, value);
+        const errors = await (0, class_validator_1.validate)(object, {
+            whitelist: true,
+            forbidNonWhitelisted: true,
+            transform: true,
+        });
+        if (errors.length > 0) {
+            const messages = errors.flatMap((e) => Object.values(e.constraints || {}));
+            throw new common_1.BadRequestException({
+                message: 'Validation failed',
+                errors: messages,
+            });
+        }
+        return object;
+    }
+    toValidate(metatype) {
+        const types = [String, Boolean, Number, Array, Object];
+        return !types.includes(metatype);
+    }
+};
+exports.ValidationPipe = ValidationPipe;
+exports.ValidationPipe = ValidationPipe = __decorate([
+    (0, common_1.Injectable)()
+], ValidationPipe);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcY29tbW9uXFxwaXBlc1xcdmFsaWRhdGlvbi5waXBlLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7OztBQUFBLDJDQU13QjtBQUN4QixxREFBMkM7QUFDM0MseURBQW9EO0FBRzdDLElBQU0sY0FBYyxHQUFwQixNQUFNLGNBQWM7SUFDekIsS0FBSyxDQUFDLFNBQVMsQ0FBQyxLQUFVLEVBQUUsRUFBRSxRQUFRLEVBQW9CO1FBQ3hELElBQUksQ0FBQyxRQUFRLElBQUksQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQyxFQUFFLENBQUM7WUFDNUMsT0FBTyxLQUFLLENBQUM7UUFDZixDQUFDO1FBRUQsTUFBTSxNQUFNLEdBQUcsSUFBQSxtQ0FBZSxFQUFDLFFBQVEsRUFBRSxLQUFLLENBQUMsQ0FBQztRQUNoRCxNQUFNLE1BQU0sR0FBRyxNQUFNLElBQUEsMEJBQVEsRUFBQyxNQUFNLEVBQUU7WUFDcEMsU0FBUyxFQUFFLElBQUk7WUFDZixvQkFBb0IsRUFBRSxJQUFJO1lBQzFCLFNBQVMsRUFBRSxJQUFJO1NBQ2hCLENBQUMsQ0FBQztRQUVILElBQUksTUFBTSxDQUFDLE1BQU0sR0FBRyxDQUFDLEVBQUUsQ0FBQztZQUN0QixNQUFNLFFBQVEsR0FBRyxNQUFNLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxFQUFFLEVBQUUsQ0FDcEMsTUFBTSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsV0FBVyxJQUFJLEVBQUUsQ0FBQyxDQUNuQyxDQUFDO1lBQ0YsTUFBTSxJQUFJLDRCQUFtQixDQUFDO2dCQUM1QixPQUFPLEVBQUUsbUJBQW1CO2dCQUM1QixNQUFNLEVBQUUsUUFBUTthQUNqQixDQUFDLENBQUM7UUFDTCxDQUFDO1FBRUQsT0FBTyxNQUFNLENBQUM7SUFDaEIsQ0FBQztJQUVPLFVBQVUsQ0FBQyxRQUFtQjtRQUNwQyxNQUFNLEtBQUssR0FBZ0IsQ0FBQyxNQUFNLEVBQUUsT0FBTyxFQUFFLE1BQU0sRUFBRSxLQUFLLEVBQUUsTUFBTSxDQUFDLENBQUM7UUFDcEUsT0FBTyxDQUFDLEtBQUssQ0FBQyxRQUFRLENBQUMsUUFBUSxDQUFDLENBQUM7SUFDbkMsQ0FBQztDQUNGLENBQUE7QUE5Qlksd0NBQWM7eUJBQWQsY0FBYztJQUQxQixJQUFBLG1CQUFVLEdBQUU7R0FDQSxjQUFjLENBOEIxQiIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXFlha291YlxcRG9jdW1lbnRzXFxQcm9qZWN0c1xcZm9ybWZsb3dcXGFwcHNcXGFwaVxcc3JjXFxjb21tb25cXHBpcGVzXFx2YWxpZGF0aW9uLnBpcGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtcbiAgUGlwZVRyYW5zZm9ybSxcbiAgSW5qZWN0YWJsZSxcbiAgQXJndW1lbnRNZXRhZGF0YSxcbiAgQmFkUmVxdWVzdEV4Y2VwdGlvbixcbiAgVHlwZSxcbn0gZnJvbSAnQG5lc3Rqcy9jb21tb24nO1xuaW1wb3J0IHsgdmFsaWRhdGUgfSBmcm9tICdjbGFzcy12YWxpZGF0b3InO1xuaW1wb3J0IHsgcGxhaW5Ub0luc3RhbmNlIH0gZnJvbSAnY2xhc3MtdHJhbnNmb3JtZXInO1xuXG5ASW5qZWN0YWJsZSgpXG5leHBvcnQgY2xhc3MgVmFsaWRhdGlvblBpcGUgaW1wbGVtZW50cyBQaXBlVHJhbnNmb3JtPGFueT4ge1xuICBhc3luYyB0cmFuc2Zvcm0odmFsdWU6IGFueSwgeyBtZXRhdHlwZSB9OiBBcmd1bWVudE1ldGFkYXRhKSB7XG4gICAgaWYgKCFtZXRhdHlwZSB8fCAhdGhpcy50b1ZhbGlkYXRlKG1ldGF0eXBlKSkge1xuICAgICAgcmV0dXJuIHZhbHVlO1xuICAgIH1cblxuICAgIGNvbnN0IG9iamVjdCA9IHBsYWluVG9JbnN0YW5jZShtZXRhdHlwZSwgdmFsdWUpO1xuICAgIGNvbnN0IGVycm9ycyA9IGF3YWl0IHZhbGlkYXRlKG9iamVjdCwge1xuICAgICAgd2hpdGVsaXN0OiB0cnVlLFxuICAgICAgZm9yYmlkTm9uV2hpdGVsaXN0ZWQ6IHRydWUsXG4gICAgICB0cmFuc2Zvcm06IHRydWUsXG4gICAgfSk7XG5cbiAgICBpZiAoZXJyb3JzLmxlbmd0aCA+IDApIHtcbiAgICAgIGNvbnN0IG1lc3NhZ2VzID0gZXJyb3JzLmZsYXRNYXAoKGUpID0+XG4gICAgICAgIE9iamVjdC52YWx1ZXMoZS5jb25zdHJhaW50cyB8fCB7fSksXG4gICAgICApO1xuICAgICAgdGhyb3cgbmV3IEJhZFJlcXVlc3RFeGNlcHRpb24oe1xuICAgICAgICBtZXNzYWdlOiAnVmFsaWRhdGlvbiBmYWlsZWQnLFxuICAgICAgICBlcnJvcnM6IG1lc3NhZ2VzLFxuICAgICAgfSk7XG4gICAgfVxuXG4gICAgcmV0dXJuIG9iamVjdDtcbiAgfVxuXG4gIHByaXZhdGUgdG9WYWxpZGF0ZShtZXRhdHlwZTogVHlwZTxhbnk+KTogYm9vbGVhbiB7XG4gICAgY29uc3QgdHlwZXM6IFR5cGU8YW55PltdID0gW1N0cmluZywgQm9vbGVhbiwgTnVtYmVyLCBBcnJheSwgT2JqZWN0XTtcbiAgICByZXR1cm4gIXR5cGVzLmluY2x1ZGVzKG1ldGF0eXBlKTtcbiAgfVxufSJdLCJ2ZXJzaW9uIjozfQ==

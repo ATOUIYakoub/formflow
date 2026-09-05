@@ -1,0 +1,14 @@
+427c753d80ba94e7f02d0bda0ff6af7c
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.reduce = void 0;
+var scanInternals_1 = require("./scanInternals");
+var lift_1 = require("../util/lift");
+function reduce(accumulator, seed) {
+  return lift_1.operate(scanInternals_1.scanInternals(accumulator, seed, arguments.length >= 2, false, true));
+}
+exports.reduce = reduce;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJzY2FuSW50ZXJuYWxzXzEiLCJyZXF1aXJlIiwibGlmdF8xIiwicmVkdWNlIiwiYWNjdW11bGF0b3IiLCJzZWVkIiwib3BlcmF0ZSIsInNjYW5JbnRlcm5hbHMiLCJhcmd1bWVudHMiLCJsZW5ndGgiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9yZWR1Y2UudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUFBLGVBQUEsR0FBQUMsT0FBQTtBQUVBLElBQUFDLE1BQUEsR0FBQUQsT0FBQTtBQXdEQSxTQUFnQkUsTUFBTUEsQ0FBT0MsV0FBdUQsRUFBRUMsSUFBVTtFQUM5RixPQUFPSCxNQUFBLENBQUFJLE9BQU8sQ0FBQ04sZUFBQSxDQUFBTyxhQUFhLENBQUNILFdBQVcsRUFBRUMsSUFBSSxFQUFFRyxTQUFTLENBQUNDLE1BQU0sSUFBSSxDQUFDLEVBQUUsS0FBSyxFQUFFLElBQUksQ0FBQyxDQUFDO0FBQ3RGO0FBRkFDLE9BQUEsQ0FBQVAsTUFBQSxHQUFBQSxNQUFBIiwiaWdub3JlTGlzdCI6W119

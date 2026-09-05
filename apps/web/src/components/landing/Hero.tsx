@@ -21,7 +21,7 @@ export function Hero() {
               href="/register" 
               className="w-full sm:w-auto bg-zinc-900 text-white rounded-full px-8 py-3.5 text-[15px] font-semibold hover:bg-zinc-800 transition-all shadow-lg shadow-zinc-900/10"
             >
-              Start building — it's free
+              Start building — it&apos;s free
             </Link>
             <Link 
               href="#features" 

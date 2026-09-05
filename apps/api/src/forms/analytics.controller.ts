@@ -1,5 +1,5 @@
 import { Controller, Get, Query, Param, UseGuards, Req } from '@nestjs/common';
-import { AnalyticsService, AnalyticsFilters } from './analytics.service';
+import { AnalyticsService } from './analytics.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Request } from 'express';
 import { ValidationPipe } from '../common/pipes/validation.pipe';

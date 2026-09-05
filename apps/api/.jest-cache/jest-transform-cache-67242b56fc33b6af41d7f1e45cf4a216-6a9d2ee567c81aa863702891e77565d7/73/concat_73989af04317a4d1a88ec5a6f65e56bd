@@ -1,0 +1,19 @@
+d19a1c8f2e65c3d59f936fe138a3b0b1
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.concat = void 0;
+var concatAll_1 = require("../operators/concatAll");
+var args_1 = require("../util/args");
+var from_1 = require("./from");
+function concat() {
+  var args = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    args[_i] = arguments[_i];
+  }
+  return concatAll_1.concatAll()(from_1.from(args, args_1.popScheduler(args)));
+}
+exports.concat = concat;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb25jYXRBbGxfMSIsInJlcXVpcmUiLCJhcmdzXzEiLCJmcm9tXzEiLCJjb25jYXQiLCJhcmdzIiwiX2kiLCJhcmd1bWVudHMiLCJsZW5ndGgiLCJjb25jYXRBbGwiLCJmcm9tIiwicG9wU2NoZWR1bGVyIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9vYnNlcnZhYmxlL2NvbmNhdC50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBRUEsSUFBQUEsV0FBQSxHQUFBQyxPQUFBO0FBQ0EsSUFBQUMsTUFBQSxHQUFBRCxPQUFBO0FBQ0EsSUFBQUUsTUFBQSxHQUFBRixPQUFBO0FBNEdBLFNBQWdCRyxNQUFNQSxDQUFBO0VBQUMsSUFBQUMsSUFBQTtPQUFBLElBQUFDLEVBQUEsSUFBYyxFQUFkQSxFQUFBLEdBQUFDLFNBQUEsQ0FBQUMsTUFBYyxFQUFkRixFQUFBLEVBQWM7SUFBZEQsSUFBQSxDQUFBQyxFQUFBLElBQUFDLFNBQUEsQ0FBQUQsRUFBQTs7RUFDckIsT0FBT04sV0FBQSxDQUFBUyxTQUFTLEVBQUUsQ0FBQ04sTUFBQSxDQUFBTyxJQUFJLENBQUNMLElBQUksRUFBRUgsTUFBQSxDQUFBUyxZQUFZLENBQUNOLElBQUksQ0FBQyxDQUFDLENBQUM7QUFDcEQ7QUFGQU8sT0FBQSxDQUFBUixNQUFBLEdBQUFBLE1BQUEiLCJpZ25vcmVMaXN0IjpbXX0=

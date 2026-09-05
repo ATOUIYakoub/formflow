@@ -1,0 +1,1 @@
+{"version":3,"names":["getQueueToken","name"],"sources":["get-queue-token.util.js"],"sourcesContent":["export function getQueueToken(name) {\n    return name ? `BullQueue_${name}` : 'BullQueue_default';\n}\n"],"mappings":";;;;;;AAAO,SAASA,aAAaA,CAACC,IAAI,EAAE;EAChC,OAAOA,IAAI,GAAG,aAAaA,IAAI,EAAE,GAAG,mBAAmB;AAC3D","ignoreList":[]}

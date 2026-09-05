@@ -1,0 +1,12 @@
+9611d3d5818748322255cc4707a3adb0
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isFunction = void 0;
+function isFunction(value) {
+  return typeof value === 'function';
+}
+exports.isFunction = isFunction;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJpc0Z1bmN0aW9uIiwidmFsdWUiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL3V0aWwvaXNGdW5jdGlvbi50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBSUEsU0FBZ0JBLFVBQVVBLENBQUNDLEtBQVU7RUFDbkMsT0FBTyxPQUFPQSxLQUFLLEtBQUssVUFBVTtBQUNwQztBQUZBQyxPQUFBLENBQUFGLFVBQUEsR0FBQUEsVUFBQSIsImlnbm9yZUxpc3QiOltdfQ==

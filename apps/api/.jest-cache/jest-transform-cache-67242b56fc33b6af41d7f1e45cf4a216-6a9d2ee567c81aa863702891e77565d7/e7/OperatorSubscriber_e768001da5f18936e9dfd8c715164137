@@ -1,0 +1,77 @@
+98ff333784b9303a349ce77863786168
+"use strict";
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.OperatorSubscriber = exports.createOperatorSubscriber = void 0;
+var Subscriber_1 = require("../Subscriber");
+function createOperatorSubscriber(destination, onNext, onComplete, onError, onFinalize) {
+  return new OperatorSubscriber(destination, onNext, onComplete, onError, onFinalize);
+}
+exports.createOperatorSubscriber = createOperatorSubscriber;
+var OperatorSubscriber = function (_super) {
+  __extends(OperatorSubscriber, _super);
+  function OperatorSubscriber(destination, onNext, onComplete, onError, onFinalize, shouldUnsubscribe) {
+    var _this = _super.call(this, destination) || this;
+    _this.onFinalize = onFinalize;
+    _this.shouldUnsubscribe = shouldUnsubscribe;
+    _this._next = onNext ? function (value) {
+      try {
+        onNext(value);
+      } catch (err) {
+        destination.error(err);
+      }
+    } : _super.prototype._next;
+    _this._error = onError ? function (err) {
+      try {
+        onError(err);
+      } catch (err) {
+        destination.error(err);
+      } finally {
+        this.unsubscribe();
+      }
+    } : _super.prototype._error;
+    _this._complete = onComplete ? function () {
+      try {
+        onComplete();
+      } catch (err) {
+        destination.error(err);
+      } finally {
+        this.unsubscribe();
+      }
+    } : _super.prototype._complete;
+    return _this;
+  }
+  OperatorSubscriber.prototype.unsubscribe = function () {
+    var _a;
+    if (!this.shouldUnsubscribe || this.shouldUnsubscribe()) {
+      var closed_1 = this.closed;
+      _super.prototype.unsubscribe.call(this);
+      !closed_1 && ((_a = this.onFinalize) === null || _a === void 0 ? void 0 : _a.call(this));
+    }
+  };
+  return OperatorSubscriber;
+}(Subscriber_1.Subscriber);
+exports.OperatorSubscriber = OperatorSubscriber;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJTdWJzY3JpYmVyXzEiLCJyZXF1aXJlIiwiY3JlYXRlT3BlcmF0b3JTdWJzY3JpYmVyIiwiZGVzdGluYXRpb24iLCJvbk5leHQiLCJvbkNvbXBsZXRlIiwib25FcnJvciIsIm9uRmluYWxpemUiLCJPcGVyYXRvclN1YnNjcmliZXIiLCJleHBvcnRzIiwiX3N1cGVyIiwiX19leHRlbmRzIiwic2hvdWxkVW5zdWJzY3JpYmUiLCJfdGhpcyIsImNhbGwiLCJfbmV4dCIsInZhbHVlIiwiZXJyIiwiZXJyb3IiLCJwcm90b3R5cGUiLCJfZXJyb3IiLCJ1bnN1YnNjcmliZSIsIl9jb21wbGV0ZSIsImNsb3NlZF8xIiwiY2xvc2VkIiwiX2EiLCJTdWJzY3JpYmVyIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9PcGVyYXRvclN1YnNjcmliZXIudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsSUFBQUEsWUFBQSxHQUFBQyxPQUFBO0FBY0EsU0FBZ0JDLHdCQUF3QkEsQ0FDdENDLFdBQTRCLEVBQzVCQyxNQUEyQixFQUMzQkMsVUFBdUIsRUFDdkJDLE9BQTRCLEVBQzVCQyxVQUF1QjtFQUV2QixPQUFPLElBQUlDLGtCQUFrQixDQUFDTCxXQUFXLEVBQUVDLE1BQU0sRUFBRUMsVUFBVSxFQUFFQyxPQUFPLEVBQUVDLFVBQVUsQ0FBQztBQUNyRjtBQVJBRSxPQUFBLENBQUFQLHdCQUFBLEdBQUFBLHdCQUFBO0FBY0EsSUFBQU0sa0JBQUEsYUFBQUUsTUFBQTtFQUEyQ0MsU0FBQSxDQUFBSCxrQkFBQSxFQUFBRSxNQUFBO0VBaUJ6QyxTQUFBRixtQkFDRUwsV0FBNEIsRUFDNUJDLE1BQTJCLEVBQzNCQyxVQUF1QixFQUN2QkMsT0FBNEIsRUFDcEJDLFVBQXVCLEVBQ3ZCSyxpQkFBaUM7SUFOM0MsSUFBQUMsS0FBQSxHQW9CRUgsTUFBQSxDQUFBSSxJQUFBLE9BQU1YLFdBQVcsQ0FBQztJQWZWVSxLQUFBLENBQUFOLFVBQVUsR0FBVkEsVUFBVTtJQUNWTSxLQUFBLENBQUFELGlCQUFpQixHQUFqQkEsaUJBQWlCO0lBZXpCQyxLQUFJLENBQUNFLEtBQUssR0FBR1gsTUFBTSxHQUNmLFVBQXVDWSxLQUFRO01BQzdDLElBQUk7UUFDRlosTUFBTSxDQUFDWSxLQUFLLENBQUM7T0FDZCxDQUFDLE9BQU9DLEdBQUcsRUFBRTtRQUNaZCxXQUFXLENBQUNlLEtBQUssQ0FBQ0QsR0FBRyxDQUFDOztJQUUxQixDQUFDLEdBQ0RQLE1BQUEsQ0FBQVMsU0FBQSxDQUFNSixLQUFLO0lBQ2ZGLEtBQUksQ0FBQ08sTUFBTSxHQUFHZCxPQUFPLEdBQ2pCLFVBQXVDVyxHQUFRO01BQzdDLElBQUk7UUFDRlgsT0FBTyxDQUFDVyxHQUFHLENBQUM7T0FDYixDQUFDLE9BQU9BLEdBQUcsRUFBRTtRQUVaZCxXQUFXLENBQUNlLEtBQUssQ0FBQ0QsR0FBRyxDQUFDO09BQ3ZCLFNBQVM7UUFFUixJQUFJLENBQUNJLFdBQVcsRUFBRTs7SUFFdEIsQ0FBQyxHQUNEWCxNQUFBLENBQUFTLFNBQUEsQ0FBTUMsTUFBTTtJQUNoQlAsS0FBSSxDQUFDUyxTQUFTLEdBQUdqQixVQUFVLEdBQ3ZCO01BQ0UsSUFBSTtRQUNGQSxVQUFVLEVBQUU7T0FDYixDQUFDLE9BQU9ZLEdBQUcsRUFBRTtRQUVaZCxXQUFXLENBQUNlLEtBQUssQ0FBQ0QsR0FBRyxDQUFDO09BQ3ZCLFNBQVM7UUFFUixJQUFJLENBQUNJLFdBQVcsRUFBRTs7SUFFdEIsQ0FBQyxHQUNEWCxNQUFBLENBQUFTLFNBQUEsQ0FBTUcsU0FBUzs7RUFDckI7RUFFQWQsa0JBQUEsQ0FBQVcsU0FBQSxDQUFBRSxXQUFXLEdBQVg7O0lBQ0UsSUFBSSxDQUFDLElBQUksQ0FBQ1QsaUJBQWlCLElBQUksSUFBSSxDQUFDQSxpQkFBaUIsRUFBRSxFQUFFO01BQy9DLElBQUFXLFFBQU0sR0FBSyxJQUFJLENBQUFDLE1BQVQ7TUFDZGQsTUFBQSxDQUFBUyxTQUFBLENBQU1FLFdBQVcsQ0FBQVAsSUFBQSxNQUFFO01BRW5CLENBQUNTLFFBQU0sS0FBSSxDQUFBRSxFQUFBLE9BQUksQ0FBQ2xCLFVBQVUsY0FBQWtCLEVBQUEsdUJBQUFBLEVBQUEsQ0FBQVgsSUFBQSxDQUFmLElBQUksQ0FBZTs7RUFFbEMsQ0FBQztFQUNILE9BQUFOLGtCQUFDO0FBQUQsQ0FBQyxDQW5GMENSLFlBQUEsQ0FBQTBCLFVBQVU7QUFBeENqQixPQUFBLENBQUFELGtCQUFBLEdBQUFBLGtCQUFBIiwiaWdub3JlTGlzdCI6W119

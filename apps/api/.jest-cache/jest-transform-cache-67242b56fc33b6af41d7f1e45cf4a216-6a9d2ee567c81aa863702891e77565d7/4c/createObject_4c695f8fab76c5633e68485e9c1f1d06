@@ -1,0 +1,14 @@
+27971d88ec06072095b5c2cd9b617fb7
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createObject = void 0;
+function createObject(keys, values) {
+  return keys.reduce(function (result, key, i) {
+    return result[key] = values[i], result;
+  }, {});
+}
+exports.createObject = createObject;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjcmVhdGVPYmplY3QiLCJrZXlzIiwidmFsdWVzIiwicmVkdWNlIiwicmVzdWx0Iiwia2V5IiwiaSIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvdXRpbC9jcmVhdGVPYmplY3QudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLFNBQWdCQSxZQUFZQSxDQUFDQyxJQUFjLEVBQUVDLE1BQWE7RUFDeEQsT0FBT0QsSUFBSSxDQUFDRSxNQUFNLENBQUMsVUFBQ0MsTUFBTSxFQUFFQyxHQUFHLEVBQUVDLENBQUM7SUFBSyxPQUFFRixNQUFNLENBQUNDLEdBQUcsQ0FBQyxHQUFHSCxNQUFNLENBQUNJLENBQUMsQ0FBQyxFQUFHRixNQUFNO0VBQWxDLENBQW1DLEVBQUUsRUFBUyxDQUFDO0FBQ3hGO0FBRkFHLE9BQUEsQ0FBQVAsWUFBQSxHQUFBQSxZQUFBIiwiaWdub3JlTGlzdCI6W119

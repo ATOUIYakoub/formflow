@@ -1,0 +1,1 @@
+{"version":3,"names":["getFlowProducerToken","name"],"sources":["get-flow-producer-token.util.js"],"sourcesContent":["export function getFlowProducerToken(name) {\n    return name ? `BullFlowProducer_${name}` : 'BullFlowProducer_default';\n}\n"],"mappings":";;;;;;AAAO,SAASA,oBAAoBA,CAACC,IAAI,EAAE;EACvC,OAAOA,IAAI,GAAG,oBAAoBA,IAAI,EAAE,GAAG,0BAA0B;AACzE","ignoreList":[]}

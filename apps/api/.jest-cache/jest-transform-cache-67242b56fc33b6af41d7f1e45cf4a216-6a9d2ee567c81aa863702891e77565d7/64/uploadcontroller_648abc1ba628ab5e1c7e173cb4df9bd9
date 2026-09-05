@@ -1,0 +1,46 @@
+f04a962437aa75e618a6b6cb3c5ca020
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UploadController = void 0;
+const common_1 = require("@nestjs/common");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_config_1 = require("./multer.config");
+const storage_module_1 = require("./storage.module");
+let UploadController = class UploadController {
+    constructor(storage) {
+        this.storage = storage;
+    }
+    async upload(file) {
+        if (!file) {
+            throw new common_1.BadRequestException('No file uploaded');
+        }
+        return this.storage.upload(file);
+    }
+};
+exports.UploadController = UploadController;
+__decorate([
+    (0, common_1.Post)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', multer_config_1.multerConfig)),
+    __param(0, (0, common_1.UploadedFile)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UploadController.prototype, "upload", null);
+exports.UploadController = UploadController = __decorate([
+    (0, common_1.Controller)('upload'),
+    __param(0, (0, common_1.Inject)(storage_module_1.STORAGE_PROVIDER)),
+    __metadata("design:paramtypes", [Object])
+], UploadController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcc3RvcmFnZVxcdXBsb2FkLmNvbnRyb2xsZXIudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsMkNBT3dCO0FBQ3hCLCtEQUEyRDtBQUUzRCxtREFBK0M7QUFDL0MscURBQW9EO0FBRzdDLElBQU0sZ0JBQWdCLEdBQXRCLE1BQU0sZ0JBQWdCO0lBQzNCLFlBQXVELE9BQXdCO1FBQXhCLFlBQU8sR0FBUCxPQUFPLENBQWlCO0lBQUcsQ0FBQztJQUk3RSxBQUFOLEtBQUssQ0FBQyxNQUFNLENBQWlCLElBQXlCO1FBQ3BELElBQUksQ0FBQyxJQUFJLEVBQUUsQ0FBQztZQUNWLE1BQU0sSUFBSSw0QkFBbUIsQ0FBQyxrQkFBa0IsQ0FBQyxDQUFDO1FBQ3BELENBQUM7UUFDRCxPQUFPLElBQUksQ0FBQyxPQUFPLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyxDQUFDO0lBQ25DLENBQUM7Q0FDRixDQUFBO0FBWFksNENBQWdCO0FBS3JCO0lBRkwsSUFBQSxhQUFJLEdBQUU7SUFDTixJQUFBLHdCQUFlLEVBQUMsSUFBQSxrQ0FBZSxFQUFDLE1BQU0sRUFBRSw0QkFBWSxDQUFDLENBQUM7SUFDekMsV0FBQSxJQUFBLHFCQUFZLEdBQUUsQ0FBQTs7Ozs4Q0FLM0I7MkJBVlUsZ0JBQWdCO0lBRDVCLElBQUEsbUJBQVUsRUFBQyxRQUFRLENBQUM7SUFFTixXQUFBLElBQUEsZUFBTSxFQUFDLGlDQUFnQixDQUFDLENBQUE7O0dBRDFCLGdCQUFnQixDQVc1QiIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXFlha291YlxcRG9jdW1lbnRzXFxQcm9qZWN0c1xcZm9ybWZsb3dcXGFwcHNcXGFwaVxcc3JjXFxzdG9yYWdlXFx1cGxvYWQuY29udHJvbGxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xuICBDb250cm9sbGVyLFxuICBQb3N0LFxuICBVc2VJbnRlcmNlcHRvcnMsXG4gIFVwbG9hZGVkRmlsZSxcbiAgQmFkUmVxdWVzdEV4Y2VwdGlvbixcbiAgSW5qZWN0LFxufSBmcm9tICdAbmVzdGpzL2NvbW1vbic7XG5pbXBvcnQgeyBGaWxlSW50ZXJjZXB0b3IgfSBmcm9tICdAbmVzdGpzL3BsYXRmb3JtLWV4cHJlc3MnO1xuaW1wb3J0IHsgU3RvcmFnZVByb3ZpZGVyLCBTdG9yZWRGaWxlIH0gZnJvbSAnLi9zdG9yYWdlLmludGVyZmFjZSc7XG5pbXBvcnQgeyBtdWx0ZXJDb25maWcgfSBmcm9tICcuL211bHRlci5jb25maWcnO1xuaW1wb3J0IHsgU1RPUkFHRV9QUk9WSURFUiB9IGZyb20gJy4vc3RvcmFnZS5tb2R1bGUnO1xuXG5AQ29udHJvbGxlcigndXBsb2FkJylcbmV4cG9ydCBjbGFzcyBVcGxvYWRDb250cm9sbGVyIHtcbiAgY29uc3RydWN0b3IoQEluamVjdChTVE9SQUdFX1BST1ZJREVSKSBwcml2YXRlIHJlYWRvbmx5IHN0b3JhZ2U6IFN0b3JhZ2VQcm92aWRlcikge31cblxuICBAUG9zdCgpXG4gIEBVc2VJbnRlcmNlcHRvcnMoRmlsZUludGVyY2VwdG9yKCdmaWxlJywgbXVsdGVyQ29uZmlnKSlcbiAgYXN5bmMgdXBsb2FkKEBVcGxvYWRlZEZpbGUoKSBmaWxlOiBFeHByZXNzLk11bHRlci5GaWxlKTogUHJvbWlzZTxTdG9yZWRGaWxlPiB7XG4gICAgaWYgKCFmaWxlKSB7XG4gICAgICB0aHJvdyBuZXcgQmFkUmVxdWVzdEV4Y2VwdGlvbignTm8gZmlsZSB1cGxvYWRlZCcpO1xuICAgIH1cbiAgICByZXR1cm4gdGhpcy5zdG9yYWdlLnVwbG9hZChmaWxlKTtcbiAgfVxufSJdLCJ2ZXJzaW9uIjozfQ==

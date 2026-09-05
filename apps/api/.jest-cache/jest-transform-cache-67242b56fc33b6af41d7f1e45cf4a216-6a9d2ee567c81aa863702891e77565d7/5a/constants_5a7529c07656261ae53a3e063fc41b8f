@@ -1,0 +1,5 @@
+dbe488d3d42ab5f1c135d51349be2b86
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FORBIDDEN_MESSAGE = void 0;
+exports.FORBIDDEN_MESSAGE = 'Forbidden resource';

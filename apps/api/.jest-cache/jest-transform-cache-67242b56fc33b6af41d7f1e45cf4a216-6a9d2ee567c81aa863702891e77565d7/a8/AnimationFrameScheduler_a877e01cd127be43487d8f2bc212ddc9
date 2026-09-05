@@ -1,0 +1,62 @@
+dd377e68cf067bae4639b536fb1e4368
+"use strict";
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AnimationFrameScheduler = void 0;
+var AsyncScheduler_1 = require("./AsyncScheduler");
+var AnimationFrameScheduler = function (_super) {
+  __extends(AnimationFrameScheduler, _super);
+  function AnimationFrameScheduler() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+  AnimationFrameScheduler.prototype.flush = function (action) {
+    this._active = true;
+    var flushId;
+    if (action) {
+      flushId = action.id;
+    } else {
+      flushId = this._scheduled;
+      this._scheduled = undefined;
+    }
+    var actions = this.actions;
+    var error;
+    action = action || actions.shift();
+    do {
+      if (error = action.execute(action.state, action.delay)) {
+        break;
+      }
+    } while ((action = actions[0]) && action.id === flushId && actions.shift());
+    this._active = false;
+    if (error) {
+      while ((action = actions[0]) && action.id === flushId && actions.shift()) {
+        action.unsubscribe();
+      }
+      throw error;
+    }
+  };
+  return AnimationFrameScheduler;
+}(AsyncScheduler_1.AsyncScheduler);
+exports.AnimationFrameScheduler = AnimationFrameScheduler;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJBc3luY1NjaGVkdWxlcl8xIiwicmVxdWlyZSIsIkFuaW1hdGlvbkZyYW1lU2NoZWR1bGVyIiwiX3N1cGVyIiwiX19leHRlbmRzIiwicHJvdG90eXBlIiwiZmx1c2giLCJhY3Rpb24iLCJfYWN0aXZlIiwiZmx1c2hJZCIsImlkIiwiX3NjaGVkdWxlZCIsInVuZGVmaW5lZCIsImFjdGlvbnMiLCJlcnJvciIsInNoaWZ0IiwiZXhlY3V0ZSIsInN0YXRlIiwiZGVsYXkiLCJ1bnN1YnNjcmliZSIsIkFzeW5jU2NoZWR1bGVyIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9zY2hlZHVsZXIvQW5pbWF0aW9uRnJhbWVTY2hlZHVsZXIudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQ0EsSUFBQUEsZ0JBQUEsR0FBQUMsT0FBQTtBQUVBLElBQUFDLHVCQUFBLGFBQUFDLE1BQUE7RUFBNkNDLFNBQUEsQ0FBQUYsdUJBQUEsRUFBQUMsTUFBQTtFQUE3QyxTQUFBRCx3QkFBQTs7RUF1Q0E7RUF0Q1NBLHVCQUFBLENBQUFHLFNBQUEsQ0FBQUMsS0FBSyxHQUFaLFVBQWFDLE1BQXlCO0lBQ3BDLElBQUksQ0FBQ0MsT0FBTyxHQUFHLElBQUk7SUFVbkIsSUFBSUMsT0FBTztJQUNYLElBQUlGLE1BQU0sRUFBRTtNQUNWRSxPQUFPLEdBQUdGLE1BQU0sQ0FBQ0csRUFBRTtLQUNwQixNQUFNO01BQ0xELE9BQU8sR0FBRyxJQUFJLENBQUNFLFVBQVU7TUFDekIsSUFBSSxDQUFDQSxVQUFVLEdBQUdDLFNBQVM7O0lBR3JCLElBQUFDLE9BQU8sR0FBSyxJQUFJLENBQUFBLE9BQVQ7SUFDZixJQUFJQyxLQUFVO0lBQ2RQLE1BQU0sR0FBR0EsTUFBTSxJQUFJTSxPQUFPLENBQUNFLEtBQUssRUFBRztJQUVuQyxHQUFHO01BQ0QsSUFBS0QsS0FBSyxHQUFHUCxNQUFNLENBQUNTLE9BQU8sQ0FBQ1QsTUFBTSxDQUFDVSxLQUFLLEVBQUVWLE1BQU0sQ0FBQ1csS0FBSyxDQUFDLEVBQUc7UUFDeEQ7O0tBRUgsUUFBUSxDQUFDWCxNQUFNLEdBQUdNLE9BQU8sQ0FBQyxDQUFDLENBQUMsS0FBS04sTUFBTSxDQUFDRyxFQUFFLEtBQUtELE9BQU8sSUFBSUksT0FBTyxDQUFDRSxLQUFLLEVBQUU7SUFFMUUsSUFBSSxDQUFDUCxPQUFPLEdBQUcsS0FBSztJQUVwQixJQUFJTSxLQUFLLEVBQUU7TUFDVCxPQUFPLENBQUNQLE1BQU0sR0FBR00sT0FBTyxDQUFDLENBQUMsQ0FBQyxLQUFLTixNQUFNLENBQUNHLEVBQUUsS0FBS0QsT0FBTyxJQUFJSSxPQUFPLENBQUNFLEtBQUssRUFBRSxFQUFFO1FBQ3hFUixNQUFNLENBQUNZLFdBQVcsRUFBRTs7TUFFdEIsTUFBTUwsS0FBSzs7RUFFZixDQUFDO0VBQ0gsT0FBQVosdUJBQUM7QUFBRCxDQUFDLENBdkM0Q0YsZ0JBQUEsQ0FBQW9CLGNBQWM7QUFBOUNDLE9BQUEsQ0FBQW5CLHVCQUFBLEdBQUFBLHVCQUFBIiwiaWdub3JlTGlzdCI6W119

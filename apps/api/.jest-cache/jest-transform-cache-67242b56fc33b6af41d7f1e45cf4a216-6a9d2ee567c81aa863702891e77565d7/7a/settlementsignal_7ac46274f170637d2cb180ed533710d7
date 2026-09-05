@@ -1,0 +1,60 @@
+e4aff7042241fe826b417df061ad4f47
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SettlementSignal = void 0;
+/**
+ * SettlementSignal is used to signal the resolution of a provider/instance.
+ * Calling `complete` or `error` will resolve the promise returned by `asPromise`.
+ * Can be used to detect circular dependencies.
+ */
+class SettlementSignal {
+  constructor() {
+    this._refs = new Set();
+    this.completed = false;
+    this.settledPromise = new Promise(resolve => {
+      this.settleFn = resolve;
+    });
+  }
+  /**
+   * Resolves the promise returned by `asPromise`.
+   */
+  complete() {
+    this.completed = true;
+    this.settleFn();
+  }
+  /**
+   * Rejects the promise returned by `asPromise` with the given error.
+   * @param err Error to reject the promise returned by `asPromise` with.
+   */
+  error(err) {
+    this.completed = true;
+    this.settleFn(err);
+  }
+  /**
+   * Returns a promise that will be resolved when `complete` or `error` is called.
+   * @returns Promise that will be resolved when `complete` or `error` is called.
+   */
+  asPromise() {
+    return this.settledPromise;
+  }
+  /**
+   * Inserts a wrapper id that the host of this signal depends on.
+   * @param wrapperId Wrapper id to insert.
+   */
+  insertRef(wrapperId) {
+    this._refs.add(wrapperId);
+  }
+  /**
+   * Check if relationship is circular.
+   * @param wrapperId Wrapper id to check.
+   * @returns True if relationship is circular, false otherwise.
+   */
+  isCycle(wrapperId) {
+    return !this.completed && this._refs.has(wrapperId);
+  }
+}
+exports.SettlementSignal = SettlementSignal;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJPYmplY3QiLCJkZWZpbmVQcm9wZXJ0eSIsImV4cG9ydHMiLCJ2YWx1ZSIsIlNldHRsZW1lbnRTaWduYWwiLCJjb25zdHJ1Y3RvciIsIl9yZWZzIiwiU2V0IiwiY29tcGxldGVkIiwic2V0dGxlZFByb21pc2UiLCJQcm9taXNlIiwicmVzb2x2ZSIsInNldHRsZUZuIiwiY29tcGxldGUiLCJlcnJvciIsImVyciIsImFzUHJvbWlzZSIsImluc2VydFJlZiIsIndyYXBwZXJJZCIsImFkZCIsImlzQ3ljbGUiLCJoYXMiXSwic291cmNlcyI6WyJzZXR0bGVtZW50LXNpZ25hbC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJcInVzZSBzdHJpY3RcIjtcbk9iamVjdC5kZWZpbmVQcm9wZXJ0eShleHBvcnRzLCBcIl9fZXNNb2R1bGVcIiwgeyB2YWx1ZTogdHJ1ZSB9KTtcbmV4cG9ydHMuU2V0dGxlbWVudFNpZ25hbCA9IHZvaWQgMDtcbi8qKlxuICogU2V0dGxlbWVudFNpZ25hbCBpcyB1c2VkIHRvIHNpZ25hbCB0aGUgcmVzb2x1dGlvbiBvZiBhIHByb3ZpZGVyL2luc3RhbmNlLlxuICogQ2FsbGluZyBgY29tcGxldGVgIG9yIGBlcnJvcmAgd2lsbCByZXNvbHZlIHRoZSBwcm9taXNlIHJldHVybmVkIGJ5IGBhc1Byb21pc2VgLlxuICogQ2FuIGJlIHVzZWQgdG8gZGV0ZWN0IGNpcmN1bGFyIGRlcGVuZGVuY2llcy5cbiAqL1xuY2xhc3MgU2V0dGxlbWVudFNpZ25hbCB7XG4gICAgY29uc3RydWN0b3IoKSB7XG4gICAgICAgIHRoaXMuX3JlZnMgPSBuZXcgU2V0KCk7XG4gICAgICAgIHRoaXMuY29tcGxldGVkID0gZmFsc2U7XG4gICAgICAgIHRoaXMuc2V0dGxlZFByb21pc2UgPSBuZXcgUHJvbWlzZShyZXNvbHZlID0+IHtcbiAgICAgICAgICAgIHRoaXMuc2V0dGxlRm4gPSByZXNvbHZlO1xuICAgICAgICB9KTtcbiAgICB9XG4gICAgLyoqXG4gICAgICogUmVzb2x2ZXMgdGhlIHByb21pc2UgcmV0dXJuZWQgYnkgYGFzUHJvbWlzZWAuXG4gICAgICovXG4gICAgY29tcGxldGUoKSB7XG4gICAgICAgIHRoaXMuY29tcGxldGVkID0gdHJ1ZTtcbiAgICAgICAgdGhpcy5zZXR0bGVGbigpO1xuICAgIH1cbiAgICAvKipcbiAgICAgKiBSZWplY3RzIHRoZSBwcm9taXNlIHJldHVybmVkIGJ5IGBhc1Byb21pc2VgIHdpdGggdGhlIGdpdmVuIGVycm9yLlxuICAgICAqIEBwYXJhbSBlcnIgRXJyb3IgdG8gcmVqZWN0IHRoZSBwcm9taXNlIHJldHVybmVkIGJ5IGBhc1Byb21pc2VgIHdpdGguXG4gICAgICovXG4gICAgZXJyb3IoZXJyKSB7XG4gICAgICAgIHRoaXMuY29tcGxldGVkID0gdHJ1ZTtcbiAgICAgICAgdGhpcy5zZXR0bGVGbihlcnIpO1xuICAgIH1cbiAgICAvKipcbiAgICAgKiBSZXR1cm5zIGEgcHJvbWlzZSB0aGF0IHdpbGwgYmUgcmVzb2x2ZWQgd2hlbiBgY29tcGxldGVgIG9yIGBlcnJvcmAgaXMgY2FsbGVkLlxuICAgICAqIEByZXR1cm5zIFByb21pc2UgdGhhdCB3aWxsIGJlIHJlc29sdmVkIHdoZW4gYGNvbXBsZXRlYCBvciBgZXJyb3JgIGlzIGNhbGxlZC5cbiAgICAgKi9cbiAgICBhc1Byb21pc2UoKSB7XG4gICAgICAgIHJldHVybiB0aGlzLnNldHRsZWRQcm9taXNlO1xuICAgIH1cbiAgICAvKipcbiAgICAgKiBJbnNlcnRzIGEgd3JhcHBlciBpZCB0aGF0IHRoZSBob3N0IG9mIHRoaXMgc2lnbmFsIGRlcGVuZHMgb24uXG4gICAgICogQHBhcmFtIHdyYXBwZXJJZCBXcmFwcGVyIGlkIHRvIGluc2VydC5cbiAgICAgKi9cbiAgICBpbnNlcnRSZWYod3JhcHBlcklkKSB7XG4gICAgICAgIHRoaXMuX3JlZnMuYWRkKHdyYXBwZXJJZCk7XG4gICAgfVxuICAgIC8qKlxuICAgICAqIENoZWNrIGlmIHJlbGF0aW9uc2hpcCBpcyBjaXJjdWxhci5cbiAgICAgKiBAcGFyYW0gd3JhcHBlcklkIFdyYXBwZXIgaWQgdG8gY2hlY2suXG4gICAgICogQHJldHVybnMgVHJ1ZSBpZiByZWxhdGlvbnNoaXAgaXMgY2lyY3VsYXIsIGZhbHNlIG90aGVyd2lzZS5cbiAgICAgKi9cbiAgICBpc0N5Y2xlKHdyYXBwZXJJZCkge1xuICAgICAgICByZXR1cm4gIXRoaXMuY29tcGxldGVkICYmIHRoaXMuX3JlZnMuaGFzKHdyYXBwZXJJZCk7XG4gICAgfVxufVxuZXhwb3J0cy5TZXR0bGVtZW50U2lnbmFsID0gU2V0dGxlbWVudFNpZ25hbDtcbiJdLCJtYXBwaW5ncyI6IkFBQUEsWUFBWTs7QUFDWkEsTUFBTSxDQUFDQyxjQUFjLENBQUNDLE9BQU8sRUFBRSxZQUFZLEVBQUU7RUFBRUMsS0FBSyxFQUFFO0FBQUssQ0FBQyxDQUFDO0FBQzdERCxPQUFPLENBQUNFLGdCQUFnQixHQUFHLEtBQUssQ0FBQztBQUNqQztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsTUFBTUEsZ0JBQWdCLENBQUM7RUFDbkJDLFdBQVdBLENBQUEsRUFBRztJQUNWLElBQUksQ0FBQ0MsS0FBSyxHQUFHLElBQUlDLEdBQUcsQ0FBQyxDQUFDO0lBQ3RCLElBQUksQ0FBQ0MsU0FBUyxHQUFHLEtBQUs7SUFDdEIsSUFBSSxDQUFDQyxjQUFjLEdBQUcsSUFBSUMsT0FBTyxDQUFDQyxPQUFPLElBQUk7TUFDekMsSUFBSSxDQUFDQyxRQUFRLEdBQUdELE9BQU87SUFDM0IsQ0FBQyxDQUFDO0VBQ047RUFDQTtBQUNKO0FBQ0E7RUFDSUUsUUFBUUEsQ0FBQSxFQUFHO0lBQ1AsSUFBSSxDQUFDTCxTQUFTLEdBQUcsSUFBSTtJQUNyQixJQUFJLENBQUNJLFFBQVEsQ0FBQyxDQUFDO0VBQ25CO0VBQ0E7QUFDSjtBQUNBO0FBQ0E7RUFDSUUsS0FBS0EsQ0FBQ0MsR0FBRyxFQUFFO0lBQ1AsSUFBSSxDQUFDUCxTQUFTLEdBQUcsSUFBSTtJQUNyQixJQUFJLENBQUNJLFFBQVEsQ0FBQ0csR0FBRyxDQUFDO0VBQ3RCO0VBQ0E7QUFDSjtBQUNBO0FBQ0E7RUFDSUMsU0FBU0EsQ0FBQSxFQUFHO0lBQ1IsT0FBTyxJQUFJLENBQUNQLGNBQWM7RUFDOUI7RUFDQTtBQUNKO0FBQ0E7QUFDQTtFQUNJUSxTQUFTQSxDQUFDQyxTQUFTLEVBQUU7SUFDakIsSUFBSSxDQUFDWixLQUFLLENBQUNhLEdBQUcsQ0FBQ0QsU0FBUyxDQUFDO0VBQzdCO0VBQ0E7QUFDSjtBQUNBO0FBQ0E7QUFDQTtFQUNJRSxPQUFPQSxDQUFDRixTQUFTLEVBQUU7SUFDZixPQUFPLENBQUMsSUFBSSxDQUFDVixTQUFTLElBQUksSUFBSSxDQUFDRixLQUFLLENBQUNlLEdBQUcsQ0FBQ0gsU0FBUyxDQUFDO0VBQ3ZEO0FBQ0o7QUFDQWhCLE9BQU8sQ0FBQ0UsZ0JBQWdCLEdBQUdBLGdCQUFnQiIsImlnbm9yZUxpc3QiOltdfQ==

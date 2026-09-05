@@ -1,6 +1,14 @@
 import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { createTestApp, registerAndLogin, createForm, publishForm, saveFields, submitPublicForm, cleanupTestData } from './utils';
+import * as request from 'supertest';
+import {
+  createTestApp,
+  registerAndLogin,
+  createForm,
+  publishForm,
+  saveFields,
+  submitPublicForm,
+  cleanupTestData,
+} from './utils';
 
 describe('Analytics', () => {
   let app: INestApplication;
@@ -8,7 +16,10 @@ describe('Analytics', () => {
 
   beforeAll(async () => {
     app = await createTestApp();
-    const auth = await registerAndLogin(app, `analytics-${Date.now()}@example.com`);
+    const auth = await registerAndLogin(
+      app,
+      `analytics-${Date.now()}@example.com`,
+    );
     userToken = auth.accessToken;
   });
 
@@ -35,14 +46,14 @@ describe('Analytics', () => {
 
     it('should track views and starts', async () => {
       const form = await createForm(app, userToken, { name: 'Track Form' });
-      await publishForm(app, userToken, form.id);
+      const published = await publishForm(app, userToken, form.id);
 
       await request(app.getHttpServer())
-        .get(`/api/public/forms/${form.slug}`)
+        .get(`/api/public/forms/${published.slug}`)
         .expect(200);
 
       await request(app.getHttpServer())
-        .post(`/api/public/forms/${form.slug}/start`)
+        .post(`/api/public/forms/${published.slug}/start`)
         .expect(200);
 
       const res = await request(app.getHttpServer())
@@ -70,8 +81,13 @@ describe('Analytics', () => {
     });
 
     it('should 403 for other user form', async () => {
-      const otherAuth = await registerAndLogin(app, `other-${Date.now()}@example.com`);
-      const otherForm = await createForm(app, otherAuth.accessToken, { name: 'Other' });
+      const otherAuth = await registerAndLogin(
+        app,
+        `other-${Date.now()}@example.com`,
+      );
+      const otherForm = await createForm(app, otherAuth.accessToken, {
+        name: 'Other',
+      });
 
       await request(app.getHttpServer())
         .get(`/api/forms/${otherForm.id}/analytics/overview`)
@@ -83,13 +99,15 @@ describe('Analytics', () => {
   describe('GET /api/forms/:id/analytics/submissions-per-day', () => {
     it('should return submissions per day', async () => {
       const form = await createForm(app, userToken, { name: 'Subs Per Day' });
-      await publishForm(app, userToken, form.id);
 
       await saveFields(app, userToken, form.id, [
         { id: 'f1', type: 'TEXT', label: 'Field', required: true, position: 0 },
       ]);
 
-      await submitPublicForm(app, form.slug!, [{ fieldId: 'f1', value: 'test' }]);
+      const published = await publishForm(app, userToken, form.id);
+      await submitPublicForm(app, published.slug!, [
+        { fieldId: 'f1', value: 'test' },
+      ]);
 
       const res = await request(app.getHttpServer())
         .get(`/api/forms/${form.id}/analytics/submissions-per-day`)
@@ -97,20 +115,19 @@ describe('Analytics', () => {
         .expect(200);
 
       expect(Array.isArray(res.body)).toBe(true);
-      if (res.body.length > 0) {
-        expect(res.body[0]).toHaveProperty('date');
-        expect(res.body[0]).toHaveProperty('count');
-      }
+      expect(res.body).toHaveLength(1);
+      expect(res.body[0]).toHaveProperty('date');
+      expect(res.body[0].count).toBe(1);
     });
   });
 
   describe('GET /api/forms/:id/analytics/views-per-day', () => {
     it('should return views per day', async () => {
       const form = await createForm(app, userToken, { name: 'Views Per Day' });
-      await publishForm(app, userToken, form.id);
+      const published = await publishForm(app, userToken, form.id);
 
       await request(app.getHttpServer())
-        .get(`/api/public/forms/${form.slug}`)
+        .get(`/api/public/forms/${published.slug}`)
         .expect(200);
 
       const res = await request(app.getHttpServer())
@@ -119,16 +136,18 @@ describe('Analytics', () => {
         .expect(200);
 
       expect(Array.isArray(res.body)).toBe(true);
+      expect(res.body).toHaveLength(1);
+      expect(res.body[0].count).toBeGreaterThanOrEqual(1);
     });
   });
 
   describe('GET /api/forms/:id/analytics/starts-per-day', () => {
     it('should return starts per day', async () => {
       const form = await createForm(app, userToken, { name: 'Starts Per Day' });
-      await publishForm(app, userToken, form.id);
+      const published = await publishForm(app, userToken, form.id);
 
       await request(app.getHttpServer())
-        .post(`/api/public/forms/${form.slug}/start`)
+        .post(`/api/public/forms/${published.slug}/start`)
         .expect(200);
 
       const res = await request(app.getHttpServer())
@@ -137,6 +156,8 @@ describe('Analytics', () => {
         .expect(200);
 
       expect(Array.isArray(res.body)).toBe(true);
+      expect(res.body).toHaveLength(1);
+      expect(res.body[0].count).toBeGreaterThanOrEqual(1);
     });
   });
 });

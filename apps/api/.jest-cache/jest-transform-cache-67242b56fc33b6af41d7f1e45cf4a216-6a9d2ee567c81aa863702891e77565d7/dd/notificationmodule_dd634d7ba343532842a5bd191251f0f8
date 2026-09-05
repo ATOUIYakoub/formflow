@@ -1,0 +1,40 @@
+ad3645c3ec791be9954d9daa79639430
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NotificationModule = void 0;
+const common_1 = require("@nestjs/common");
+const bullmq_1 = require("@nestjs/bullmq");
+const config_1 = require("@nestjs/config");
+const notification_processor_1 = require("./notification.processor");
+const notification_service_1 = require("./notification.service");
+const email_service_1 = require("./email.service");
+let NotificationModule = class NotificationModule {
+};
+exports.NotificationModule = NotificationModule;
+exports.NotificationModule = NotificationModule = __decorate([
+    (0, common_1.Global)(),
+    (0, common_1.Module)({
+        imports: [
+            bullmq_1.BullModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                inject: [config_1.ConfigService],
+                useFactory: (config) => ({
+                    connection: {
+                        host: config.get('REDIS_HOST') || 'localhost',
+                        port: config.get('REDIS_PORT') || 6379,
+                    },
+                }),
+            }),
+            bullmq_1.BullModule.registerQueue({ name: 'notifications' }),
+        ],
+        providers: [notification_processor_1.NotificationProcessor, notification_service_1.NotificationService, email_service_1.EmailService],
+        exports: [notification_service_1.NotificationService, email_service_1.EmailService],
+    })
+], NotificationModule);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcbm90aWZpY2F0aW9uXFxub3RpZmljYXRpb24ubW9kdWxlLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7OztBQUFBLDJDQUFnRDtBQUNoRCwyQ0FBNEM7QUFDNUMsMkNBQTZEO0FBQzdELHFFQUFpRTtBQUNqRSxpRUFBNkQ7QUFDN0QsbURBQStDO0FBb0J4QyxJQUFNLGtCQUFrQixHQUF4QixNQUFNLGtCQUFrQjtDQUFHLENBQUE7QUFBckIsZ0RBQWtCOzZCQUFsQixrQkFBa0I7SUFsQjlCLElBQUEsZUFBTSxHQUFFO0lBQ1IsSUFBQSxlQUFNLEVBQUM7UUFDTixPQUFPLEVBQUU7WUFDUCxtQkFBVSxDQUFDLFlBQVksQ0FBQztnQkFDdEIsT0FBTyxFQUFFLENBQUMscUJBQVksQ0FBQztnQkFDdkIsTUFBTSxFQUFFLENBQUMsc0JBQWEsQ0FBQztnQkFDdkIsVUFBVSxFQUFFLENBQUMsTUFBcUIsRUFBRSxFQUFFLENBQUMsQ0FBQztvQkFDdEMsVUFBVSxFQUFFO3dCQUNWLElBQUksRUFBRSxNQUFNLENBQUMsR0FBRyxDQUFDLFlBQVksQ0FBQyxJQUFJLFdBQVc7d0JBQzdDLElBQUksRUFBRSxNQUFNLENBQUMsR0FBRyxDQUFDLFlBQVksQ0FBQyxJQUFJLElBQUk7cUJBQ3ZDO2lCQUNGLENBQUM7YUFDSCxDQUFDO1lBQ0YsbUJBQVUsQ0FBQyxhQUFhLENBQUMsRUFBRSxJQUFJLEVBQUUsZUFBZSxFQUFFLENBQUM7U0FDcEQ7UUFDRCxTQUFTLEVBQUUsQ0FBQyw4Q0FBcUIsRUFBRSwwQ0FBbUIsRUFBRSw0QkFBWSxDQUFDO1FBQ3JFLE9BQU8sRUFBRSxDQUFDLDBDQUFtQixFQUFFLDRCQUFZLENBQUM7S0FDN0MsQ0FBQztHQUNXLGtCQUFrQixDQUFHIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcWWFrb3ViXFxEb2N1bWVudHNcXFByb2plY3RzXFxmb3JtZmxvd1xcYXBwc1xcYXBpXFxzcmNcXG5vdGlmaWNhdGlvblxcbm90aWZpY2F0aW9uLm1vZHVsZS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBNb2R1bGUsIEdsb2JhbCB9IGZyb20gJ0BuZXN0anMvY29tbW9uJztcbmltcG9ydCB7IEJ1bGxNb2R1bGUgfSBmcm9tICdAbmVzdGpzL2J1bGxtcSc7XG5pbXBvcnQgeyBDb25maWdNb2R1bGUsIENvbmZpZ1NlcnZpY2UgfSBmcm9tICdAbmVzdGpzL2NvbmZpZyc7XG5pbXBvcnQgeyBOb3RpZmljYXRpb25Qcm9jZXNzb3IgfSBmcm9tICcuL25vdGlmaWNhdGlvbi5wcm9jZXNzb3InO1xuaW1wb3J0IHsgTm90aWZpY2F0aW9uU2VydmljZSB9IGZyb20gJy4vbm90aWZpY2F0aW9uLnNlcnZpY2UnO1xuaW1wb3J0IHsgRW1haWxTZXJ2aWNlIH0gZnJvbSAnLi9lbWFpbC5zZXJ2aWNlJztcblxuQEdsb2JhbCgpXG5ATW9kdWxlKHtcbiAgaW1wb3J0czogW1xuICAgIEJ1bGxNb2R1bGUuZm9yUm9vdEFzeW5jKHtcbiAgICAgIGltcG9ydHM6IFtDb25maWdNb2R1bGVdLFxuICAgICAgaW5qZWN0OiBbQ29uZmlnU2VydmljZV0sXG4gICAgICB1c2VGYWN0b3J5OiAoY29uZmlnOiBDb25maWdTZXJ2aWNlKSA9PiAoe1xuICAgICAgICBjb25uZWN0aW9uOiB7XG4gICAgICAgICAgaG9zdDogY29uZmlnLmdldCgnUkVESVNfSE9TVCcpIHx8ICdsb2NhbGhvc3QnLFxuICAgICAgICAgIHBvcnQ6IGNvbmZpZy5nZXQoJ1JFRElTX1BPUlQnKSB8fCA2Mzc5LFxuICAgICAgICB9LFxuICAgICAgfSksXG4gICAgfSksXG4gICAgQnVsbE1vZHVsZS5yZWdpc3RlclF1ZXVlKHsgbmFtZTogJ25vdGlmaWNhdGlvbnMnIH0pLFxuICBdLFxuICBwcm92aWRlcnM6IFtOb3RpZmljYXRpb25Qcm9jZXNzb3IsIE5vdGlmaWNhdGlvblNlcnZpY2UsIEVtYWlsU2VydmljZV0sXG4gIGV4cG9ydHM6IFtOb3RpZmljYXRpb25TZXJ2aWNlLCBFbWFpbFNlcnZpY2VdLFxufSlcbmV4cG9ydCBjbGFzcyBOb3RpZmljYXRpb25Nb2R1bGUge30iXSwidmVyc2lvbiI6M30=

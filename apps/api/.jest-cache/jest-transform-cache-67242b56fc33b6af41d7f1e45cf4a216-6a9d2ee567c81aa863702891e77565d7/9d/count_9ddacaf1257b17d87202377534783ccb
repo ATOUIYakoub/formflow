@@ -1,0 +1,15 @@
+a21fdd76a668ec71db722426fd016e75
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.count = void 0;
+var reduce_1 = require("./reduce");
+function count(predicate) {
+  return reduce_1.reduce(function (total, value, i) {
+    return !predicate || predicate(value, i) ? total + 1 : total;
+  }, 0);
+}
+exports.count = count;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJyZWR1Y2VfMSIsInJlcXVpcmUiLCJjb3VudCIsInByZWRpY2F0ZSIsInJlZHVjZSIsInRvdGFsIiwidmFsdWUiLCJpIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvY291bnQudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBLElBQUFBLFFBQUEsR0FBQUMsT0FBQTtBQXlEQSxTQUFnQkMsS0FBS0EsQ0FBSUMsU0FBZ0Q7RUFDdkUsT0FBT0gsUUFBQSxDQUFBSSxNQUFNLENBQUMsVUFBQ0MsS0FBSyxFQUFFQyxLQUFLLEVBQUVDLENBQUM7SUFBSyxPQUFDLENBQUNKLFNBQVMsSUFBSUEsU0FBUyxDQUFDRyxLQUFLLEVBQUVDLENBQUMsQ0FBQyxHQUFHRixLQUFLLEdBQUcsQ0FBQyxHQUFHQSxLQUFLO0VBQXRELENBQXVELEVBQUUsQ0FBQyxDQUFDO0FBQ2hHO0FBRkFHLE9BQUEsQ0FBQU4sS0FBQSxHQUFBQSxLQUFBIiwiaWdub3JlTGlzdCI6W119

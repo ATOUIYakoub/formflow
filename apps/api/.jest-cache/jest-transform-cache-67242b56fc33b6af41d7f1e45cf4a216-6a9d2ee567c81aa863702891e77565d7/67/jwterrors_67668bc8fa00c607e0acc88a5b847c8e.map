@@ -1,0 +1,1 @@
+{"version":3,"names":["WrongSecretProviderError","Error","exports"],"sources":["jwt.errors.js"],"sourcesContent":["export class WrongSecretProviderError extends Error {\n}\n"],"mappings":";;;;;;AAAO,MAAMA,wBAAwB,SAASC,KAAK,CAAC;AACnDC,OAAA,CAAAF,wBAAA,GAAAA,wBAAA","ignoreList":[]}

@@ -1,0 +1,58 @@
+a03c007d959e277875030cc159ba3cd9
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SaveRulesDto = exports.FormRuleDto = void 0;
+const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
+const class_transformer_1 = require("class-transformer");
+const client_1 = require("@prisma/client");
+class FormRuleDto {
+}
+exports.FormRuleDto = FormRuleDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'source-field-uuid' }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], FormRuleDto.prototype, "sourceFieldId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.RuleOperator, example: client_1.RuleOperator.EQUALS }),
+    (0, class_validator_1.IsEnum)(client_1.RuleOperator),
+    __metadata("design:type", String)
+], FormRuleDto.prototype, "operator", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: 'yes' }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(200),
+    __metadata("design:type", String)
+], FormRuleDto.prototype, "value", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.RuleAction, example: client_1.RuleAction.SHOW }),
+    (0, class_validator_1.IsEnum)(client_1.RuleAction),
+    __metadata("design:type", String)
+], FormRuleDto.prototype, "action", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'target-field-uuid' }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], FormRuleDto.prototype, "targetFieldId", void 0);
+class SaveRulesDto {
+}
+exports.SaveRulesDto = SaveRulesDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [FormRuleDto] }),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => FormRuleDto),
+    __metadata("design:type", Array)
+], SaveRulesDto.prototype, "rules", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcZm9ybXNcXGR0b1xcZm9ybS1ydWxlLmR0by50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFBQSxxREFBbUc7QUFDbkcsNkNBQW1FO0FBQ25FLHlEQUF5QztBQUN6QywyQ0FBMEQ7QUFFMUQsTUFBYSxXQUFXO0NBc0J2QjtBQXRCRCxrQ0FzQkM7QUFuQkM7SUFGQyxJQUFBLHFCQUFXLEVBQUMsRUFBRSxPQUFPLEVBQUUsbUJBQW1CLEVBQUUsQ0FBQztJQUM3QyxJQUFBLDBCQUFRLEdBQUU7O2tEQUNXO0FBSXRCO0lBRkMsSUFBQSxxQkFBVyxFQUFDLEVBQUUsSUFBSSxFQUFFLHFCQUFZLEVBQUUsT0FBTyxFQUFFLHFCQUFZLENBQUMsTUFBTSxFQUFFLENBQUM7SUFDakUsSUFBQSx3QkFBTSxFQUFDLHFCQUFZLENBQUM7OzZDQUNFO0FBTXZCO0lBSkMsSUFBQSw2QkFBbUIsRUFBQyxFQUFFLE9BQU8sRUFBRSxLQUFLLEVBQUUsQ0FBQztJQUN2QyxJQUFBLDRCQUFVLEdBQUU7SUFDWixJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDJCQUFTLEVBQUMsR0FBRyxDQUFDOzswQ0FDQTtBQUlmO0lBRkMsSUFBQSxxQkFBVyxFQUFDLEVBQUUsSUFBSSxFQUFFLG1CQUFVLEVBQUUsT0FBTyxFQUFFLG1CQUFVLENBQUMsSUFBSSxFQUFFLENBQUM7SUFDM0QsSUFBQSx3QkFBTSxFQUFDLG1CQUFVLENBQUM7OzJDQUNBO0FBSW5CO0lBRkMsSUFBQSxxQkFBVyxFQUFDLEVBQUUsT0FBTyxFQUFFLG1CQUFtQixFQUFFLENBQUM7SUFDN0MsSUFBQSwwQkFBUSxHQUFFOztrREFDVztBQUd4QixNQUFhLFlBQVk7Q0FNeEI7QUFORCxvQ0FNQztBQURDO0lBSkMsSUFBQSxxQkFBVyxFQUFDLEVBQUUsSUFBSSxFQUFFLENBQUMsV0FBVyxDQUFDLEVBQUUsQ0FBQztJQUNwQyxJQUFBLHlCQUFPLEdBQUU7SUFDVCxJQUFBLGdDQUFjLEVBQUMsRUFBRSxJQUFJLEVBQUUsSUFBSSxFQUFFLENBQUM7SUFDOUIsSUFBQSx3QkFBSSxFQUFDLEdBQUcsRUFBRSxDQUFDLFdBQVcsQ0FBQzs7MkNBQ0giLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcZm9ybXNcXGR0b1xcZm9ybS1ydWxlLmR0by50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBJc1N0cmluZywgSXNFbnVtLCBJc09wdGlvbmFsLCBNYXhMZW5ndGgsIElzQXJyYXksIFZhbGlkYXRlTmVzdGVkIH0gZnJvbSAnY2xhc3MtdmFsaWRhdG9yJztcbmltcG9ydCB7IEFwaVByb3BlcnR5LCBBcGlQcm9wZXJ0eU9wdGlvbmFsIH0gZnJvbSAnQG5lc3Rqcy9zd2FnZ2VyJztcbmltcG9ydCB7IFR5cGUgfSBmcm9tICdjbGFzcy10cmFuc2Zvcm1lcic7XG5pbXBvcnQgeyBSdWxlT3BlcmF0b3IsIFJ1bGVBY3Rpb24gfSBmcm9tICdAcHJpc21hL2NsaWVudCc7XG5cbmV4cG9ydCBjbGFzcyBGb3JtUnVsZUR0byB7XG4gIEBBcGlQcm9wZXJ0eSh7IGV4YW1wbGU6ICdzb3VyY2UtZmllbGQtdXVpZCcgfSlcbiAgQElzU3RyaW5nKClcbiAgc291cmNlRmllbGRJZDogc3RyaW5nO1xuXG4gIEBBcGlQcm9wZXJ0eSh7IGVudW06IFJ1bGVPcGVyYXRvciwgZXhhbXBsZTogUnVsZU9wZXJhdG9yLkVRVUFMUyB9KVxuICBASXNFbnVtKFJ1bGVPcGVyYXRvcilcbiAgb3BlcmF0b3I6IFJ1bGVPcGVyYXRvcjtcblxuICBAQXBpUHJvcGVydHlPcHRpb25hbCh7IGV4YW1wbGU6ICd5ZXMnIH0pXG4gIEBJc09wdGlvbmFsKClcbiAgQElzU3RyaW5nKClcbiAgQE1heExlbmd0aCgyMDApXG4gIHZhbHVlPzogc3RyaW5nO1xuXG4gIEBBcGlQcm9wZXJ0eSh7IGVudW06IFJ1bGVBY3Rpb24sIGV4YW1wbGU6IFJ1bGVBY3Rpb24uU0hPVyB9KVxuICBASXNFbnVtKFJ1bGVBY3Rpb24pXG4gIGFjdGlvbjogUnVsZUFjdGlvbjtcblxuICBAQXBpUHJvcGVydHkoeyBleGFtcGxlOiAndGFyZ2V0LWZpZWxkLXV1aWQnIH0pXG4gIEBJc1N0cmluZygpXG4gIHRhcmdldEZpZWxkSWQ6IHN0cmluZztcbn1cblxuZXhwb3J0IGNsYXNzIFNhdmVSdWxlc0R0byB7XG4gIEBBcGlQcm9wZXJ0eSh7IHR5cGU6IFtGb3JtUnVsZUR0b10gfSlcbiAgQElzQXJyYXkoKVxuICBAVmFsaWRhdGVOZXN0ZWQoeyBlYWNoOiB0cnVlIH0pXG4gIEBUeXBlKCgpID0+IEZvcm1SdWxlRHRvKVxuICBydWxlczogRm9ybVJ1bGVEdG9bXTtcbn0iXSwidmVyc2lvbiI6M30=

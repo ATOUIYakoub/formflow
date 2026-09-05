@@ -1,0 +1,10 @@
+486b99714e9185e2806951c7f9791bbb
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.WrongSecretProviderError = void 0;
+class WrongSecretProviderError extends Error {}
+exports.WrongSecretProviderError = WrongSecretProviderError;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJXcm9uZ1NlY3JldFByb3ZpZGVyRXJyb3IiLCJFcnJvciIsImV4cG9ydHMiXSwic291cmNlcyI6WyJqd3QuZXJyb3JzLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjbGFzcyBXcm9uZ1NlY3JldFByb3ZpZGVyRXJyb3IgZXh0ZW5kcyBFcnJvciB7XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFPLE1BQU1BLHdCQUF3QixTQUFTQyxLQUFLLENBQUM7QUFDbkRDLE9BQUEsQ0FBQUYsd0JBQUEsR0FBQUEsd0JBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

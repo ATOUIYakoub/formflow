@@ -1,0 +1,21 @@
+0758b4a192d3c2c55eb822d8ca1ac5fd
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.OnWorkerEvent = void 0;
+var _common = require("@nestjs/common");
+var _bullConstants = require("../bull.constants.js");
+/**
+ * Registers a worker event listener.
+ * Class that contains worker event listeners must be annotated
+ * with the "Processor" decorator.
+ *
+ * @publicApi
+ */
+const OnWorkerEvent = eventName => (0, _common.SetMetadata)(_bullConstants.ON_WORKER_EVENT_METADATA, {
+  eventName: eventName
+});
+exports.OnWorkerEvent = OnWorkerEvent;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfY29tbW9uIiwicmVxdWlyZSIsIl9idWxsQ29uc3RhbnRzIiwiT25Xb3JrZXJFdmVudCIsImV2ZW50TmFtZSIsIlNldE1ldGFkYXRhIiwiT05fV09SS0VSX0VWRU5UX01FVEFEQVRBIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIm9uLXdvcmtlci1ldmVudC5kZWNvcmF0b3IuanMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgU2V0TWV0YWRhdGEgfSBmcm9tICdAbmVzdGpzL2NvbW1vbic7XG5pbXBvcnQgeyBPTl9XT1JLRVJfRVZFTlRfTUVUQURBVEEgfSBmcm9tICcuLi9idWxsLmNvbnN0YW50cy5qcyc7XG4vKipcbiAqIFJlZ2lzdGVycyBhIHdvcmtlciBldmVudCBsaXN0ZW5lci5cbiAqIENsYXNzIHRoYXQgY29udGFpbnMgd29ya2VyIGV2ZW50IGxpc3RlbmVycyBtdXN0IGJlIGFubm90YXRlZFxuICogd2l0aCB0aGUgXCJQcm9jZXNzb3JcIiBkZWNvcmF0b3IuXG4gKlxuICogQHB1YmxpY0FwaVxuICovXG5leHBvcnQgY29uc3QgT25Xb3JrZXJFdmVudCA9IChldmVudE5hbWUpID0+IFNldE1ldGFkYXRhKE9OX1dPUktFUl9FVkVOVF9NRVRBREFUQSwge1xuICAgIGV2ZW50TmFtZTogZXZlbnROYW1lLFxufSk7XG4iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUFBLE9BQUEsR0FBQUMsT0FBQTtBQUNBLElBQUFDLGNBQUEsR0FBQUQsT0FBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ08sTUFBTUUsYUFBYSxHQUFJQyxTQUFTLElBQUssSUFBQUMsbUJBQVcsRUFBQ0MsdUNBQXdCLEVBQUU7RUFDOUVGLFNBQVMsRUFBRUE7QUFDZixDQUFDLENBQUM7QUFBQ0csT0FBQSxDQUFBSixhQUFBLEdBQUFBLGFBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

@@ -1,0 +1,14 @@
+8f96002317f116e5ece9cdeb119a14c4
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isIterable = void 0;
+var iterator_1 = require("../symbol/iterator");
+var isFunction_1 = require("./isFunction");
+function isIterable(input) {
+  return isFunction_1.isFunction(input === null || input === void 0 ? void 0 : input[iterator_1.iterator]);
+}
+exports.isIterable = isIterable;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJpdGVyYXRvcl8xIiwicmVxdWlyZSIsImlzRnVuY3Rpb25fMSIsImlzSXRlcmFibGUiLCJpbnB1dCIsImlzRnVuY3Rpb24iLCJpdGVyYXRvciIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvdXRpbC9pc0l0ZXJhYmxlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxJQUFBQSxVQUFBLEdBQUFDLE9BQUE7QUFDQSxJQUFBQyxZQUFBLEdBQUFELE9BQUE7QUFHQSxTQUFnQkUsVUFBVUEsQ0FBQ0MsS0FBVTtFQUNuQyxPQUFPRixZQUFBLENBQUFHLFVBQVUsQ0FBQ0QsS0FBSyxhQUFMQSxLQUFLLHVCQUFMQSxLQUFLLENBQUdKLFVBQUEsQ0FBQU0sUUFBZSxDQUFDLENBQUM7QUFDN0M7QUFGQUMsT0FBQSxDQUFBSixVQUFBLEdBQUFBLFVBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

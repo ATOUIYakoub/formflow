@@ -1,0 +1,43 @@
+4595588049ace850199444302d5e0af1
+"use strict";
+
+var __read = void 0 && (void 0).__read || function (o, n) {
+  var m = typeof Symbol === "function" && o[Symbol.iterator];
+  if (!m) return o;
+  var i = m.call(o),
+    r,
+    ar = [],
+    e;
+  try {
+    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+  } catch (error) {
+    e = {
+      error: error
+    };
+  } finally {
+    try {
+      if (r && !r.done && (m = i["return"])) m.call(i);
+    } finally {
+      if (e) throw e.error;
+    }
+  }
+  return ar;
+};
+var __spreadArray = void 0 && (void 0).__spreadArray || function (to, from) {
+  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) to[j] = from[i];
+  return to;
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.combineLatestWith = void 0;
+var combineLatest_1 = require("./combineLatest");
+function combineLatestWith() {
+  var otherSources = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    otherSources[_i] = arguments[_i];
+  }
+  return combineLatest_1.combineLatest.apply(void 0, __spreadArray([], __read(otherSources)));
+}
+exports.combineLatestWith = combineLatestWith;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb21iaW5lTGF0ZXN0XzEiLCJyZXF1aXJlIiwiY29tYmluZUxhdGVzdFdpdGgiLCJvdGhlclNvdXJjZXMiLCJfaSIsImFyZ3VtZW50cyIsImxlbmd0aCIsImNvbWJpbmVMYXRlc3QiLCJhcHBseSIsIl9fc3ByZWFkQXJyYXkiLCJfX3JlYWQiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9jb21iaW5lTGF0ZXN0V2l0aC50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxJQUFBQSxlQUFBLEdBQUFDLE9BQUE7QUEwQ0EsU0FBZ0JDLGlCQUFpQkEsQ0FBQTtFQUMvQixJQUFBQyxZQUFBO09BQUEsSUFBQUMsRUFBQSxJQUE2QyxFQUE3Q0EsRUFBQSxHQUFBQyxTQUFBLENBQUFDLE1BQTZDLEVBQTdDRixFQUFBLEVBQTZDO0lBQTdDRCxZQUFBLENBQUFDLEVBQUEsSUFBQUMsU0FBQSxDQUFBRCxFQUFBOztFQUVBLE9BQU9KLGVBQUEsQ0FBQU8sYUFBYSxDQUFBQyxLQUFBLFNBQUFDLGFBQUEsS0FBQUMsTUFBQSxDQUFJUCxZQUFZO0FBQ3RDO0FBSkFRLE9BQUEsQ0FBQVQsaUJBQUEsR0FBQUEsaUJBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

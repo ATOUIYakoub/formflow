@@ -1,0 +1,12 @@
+daf0deba2a2a6005e8b79cb190ae15ea
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.queue = exports.queueScheduler = void 0;
+var QueueAction_1 = require("./QueueAction");
+var QueueScheduler_1 = require("./QueueScheduler");
+exports.queueScheduler = new QueueScheduler_1.QueueScheduler(QueueAction_1.QueueAction);
+exports.queue = exports.queueScheduler;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJRdWV1ZUFjdGlvbl8xIiwicmVxdWlyZSIsIlF1ZXVlU2NoZWR1bGVyXzEiLCJleHBvcnRzIiwicXVldWVTY2hlZHVsZXIiLCJRdWV1ZVNjaGVkdWxlciIsIlF1ZXVlQWN0aW9uIiwicXVldWUiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvc2NoZWR1bGVyL3F1ZXVlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxJQUFBQSxhQUFBLEdBQUFDLE9BQUE7QUFDQSxJQUFBQyxnQkFBQSxHQUFBRCxPQUFBO0FBaUVhRSxPQUFBLENBQUFDLGNBQWMsR0FBRyxJQUFJRixnQkFBQSxDQUFBRyxjQUFjLENBQUNMLGFBQUEsQ0FBQU0sV0FBVyxDQUFDO0FBS2hESCxPQUFBLENBQUFJLEtBQUssR0FBR0osT0FBQSxDQUFBQyxjQUFjIiwiaWdub3JlTGlzdCI6W119

@@ -1,0 +1,13 @@
+9544720cd3fd07f8ca85e1cafa76fbf1
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isScheduler = void 0;
+var isFunction_1 = require("./isFunction");
+function isScheduler(value) {
+  return value && isFunction_1.isFunction(value.schedule);
+}
+exports.isScheduler = isScheduler;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJpc0Z1bmN0aW9uXzEiLCJyZXF1aXJlIiwiaXNTY2hlZHVsZXIiLCJ2YWx1ZSIsImlzRnVuY3Rpb24iLCJzY2hlZHVsZSIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvdXRpbC9pc1NjaGVkdWxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0EsSUFBQUEsWUFBQSxHQUFBQyxPQUFBO0FBRUEsU0FBZ0JDLFdBQVdBLENBQUNDLEtBQVU7RUFDcEMsT0FBT0EsS0FBSyxJQUFJSCxZQUFBLENBQUFJLFVBQVUsQ0FBQ0QsS0FBSyxDQUFDRSxRQUFRLENBQUM7QUFDNUM7QUFGQUMsT0FBQSxDQUFBSixXQUFBLEdBQUFBLFdBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

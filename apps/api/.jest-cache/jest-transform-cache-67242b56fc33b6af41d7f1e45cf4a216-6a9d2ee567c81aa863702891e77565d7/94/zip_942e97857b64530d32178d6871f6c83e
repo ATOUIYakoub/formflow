@@ -1,0 +1,46 @@
+a1538cef9340b622e9b12f62ca87704e
+"use strict";
+
+var __read = void 0 && (void 0).__read || function (o, n) {
+  var m = typeof Symbol === "function" && o[Symbol.iterator];
+  if (!m) return o;
+  var i = m.call(o),
+    r,
+    ar = [],
+    e;
+  try {
+    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+  } catch (error) {
+    e = {
+      error: error
+    };
+  } finally {
+    try {
+      if (r && !r.done && (m = i["return"])) m.call(i);
+    } finally {
+      if (e) throw e.error;
+    }
+  }
+  return ar;
+};
+var __spreadArray = void 0 && (void 0).__spreadArray || function (to, from) {
+  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) to[j] = from[i];
+  return to;
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.zip = void 0;
+var zip_1 = require("../observable/zip");
+var lift_1 = require("../util/lift");
+function zip() {
+  var sources = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    sources[_i] = arguments[_i];
+  }
+  return lift_1.operate(function (source, subscriber) {
+    zip_1.zip.apply(void 0, __spreadArray([source], __read(sources))).subscribe(subscriber);
+  });
+}
+exports.zip = zip;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ6aXBfMSIsInJlcXVpcmUiLCJsaWZ0XzEiLCJ6aXAiLCJzb3VyY2VzIiwiX2kiLCJhcmd1bWVudHMiLCJsZW5ndGgiLCJvcGVyYXRlIiwic291cmNlIiwic3Vic2NyaWJlciIsImFwcGx5IiwiX19zcHJlYWRBcnJheSIsIl9fcmVhZCIsInN1YnNjcmliZSIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvb3BlcmF0b3JzL3ppcC50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxJQUFBQSxLQUFBLEdBQUFDLE9BQUE7QUFFQSxJQUFBQyxNQUFBLEdBQUFELE9BQUE7QUFtQkEsU0FBZ0JFLEdBQUdBLENBQUE7RUFBTyxJQUFBQyxPQUFBO09BQUEsSUFBQUMsRUFBQSxJQUF3RSxFQUF4RUEsRUFBQSxHQUFBQyxTQUFBLENBQUFDLE1BQXdFLEVBQXhFRixFQUFBLEVBQXdFO0lBQXhFRCxPQUFBLENBQUFDLEVBQUEsSUFBQUMsU0FBQSxDQUFBRCxFQUFBOztFQUN4QixPQUFPSCxNQUFBLENBQUFNLE9BQU8sQ0FBQyxVQUFDQyxNQUFNLEVBQUVDLFVBQVU7SUFDaENWLEtBQUEsQ0FBQUcsR0FBUyxDQUFBUSxLQUFBLFNBQUFDLGFBQUEsRUFBQ0gsTUFBOEIsR0FBQUksTUFBQSxDQUFNVCxPQUF1QyxJQUFFVSxTQUFTLENBQUNKLFVBQVUsQ0FBQztFQUM5RyxDQUFDLENBQUM7QUFDSjtBQUpBSyxPQUFBLENBQUFaLEdBQUEsR0FBQUEsR0FBQSIsImlnbm9yZUxpc3QiOltdfQ==

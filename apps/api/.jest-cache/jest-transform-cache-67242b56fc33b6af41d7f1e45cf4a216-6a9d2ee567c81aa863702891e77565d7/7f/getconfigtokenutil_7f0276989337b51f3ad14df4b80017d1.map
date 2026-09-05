@@ -1,0 +1,1 @@
+{"version":3,"names":["getConfigToken","token","toString"],"sources":["get-config-token.util.js"],"sourcesContent":["/**\n * @publicApi\n */\nexport function getConfigToken(token) {\n    return `CONFIGURATION(${token.toString()})`;\n}\n"],"mappings":";;;;;;AAAA;AACA;AACA;AACO,SAASA,cAAcA,CAACC,KAAK,EAAE;EAClC,OAAO,iBAAiBA,KAAK,CAACC,QAAQ,CAAC,CAAC,GAAG;AAC/C","ignoreList":[]}

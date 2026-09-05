@@ -1,6 +1,14 @@
 import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { createTestApp, registerAndLogin, createForm, saveFields, saveRules, publishForm, submitPublicForm, cleanupTestData } from './utils';
+import * as request from 'supertest';
+import {
+  createTestApp,
+  registerAndLogin,
+  createForm,
+  saveFields,
+  publishForm,
+  submitPublicForm,
+  cleanupTestData,
+} from './utils';
 
 describe('Permissions / Workspace Isolation', () => {
   let app: INestApplication;
@@ -65,7 +73,9 @@ describe('Permissions / Workspace Isolation', () => {
     await request(app.getHttpServer())
       .post(`/api/forms/${formB.id}/fields`)
       .set('Cookie', `jwt=${userAToken}`)
-      .send({ fields: [{ id: 'f1', type: 'TEXT', label: 'Hack', position: 0 }] })
+      .send({
+        fields: [{ id: 'f1', type: 'TEXT', label: 'Hack', position: 0 }],
+      })
       .expect(403);
   });
 
@@ -100,13 +110,15 @@ describe('Permissions / Workspace Isolation', () => {
 
   it('User A cannot list User B submissions', async () => {
     const formB = await createForm(app, userBToken, { name: 'Sub Form' });
-    await publishForm(app, userBToken, formB.id);
 
     await saveFields(app, userBToken, formB.id, [
       { id: 'f1', type: 'TEXT', label: 'Field', required: true, position: 0 },
     ]);
 
-    await submitPublicForm(app, formB.slug!, [{ fieldId: 'f1', value: 'data' }]);
+    const published = await publishForm(app, userBToken, formB.id);
+    await submitPublicForm(app, published.slug!, [
+      { fieldId: 'f1', value: 'data' },
+    ]);
 
     await request(app.getHttpServer())
       .get(`/api/forms/${formB.id}/submissions`)
@@ -116,13 +128,15 @@ describe('Permissions / Workspace Isolation', () => {
 
   it('User A cannot get User B single submission', async () => {
     const formB = await createForm(app, userBToken, { name: 'Sub Form 2' });
-    await publishForm(app, userBToken, formB.id);
 
     await saveFields(app, userBToken, formB.id, [
       { id: 'f1', type: 'TEXT', label: 'Field', required: true, position: 0 },
     ]);
 
-    const sub = await submitPublicForm(app, formB.slug!, [{ fieldId: 'f1', value: 'data' }]);
+    const published = await publishForm(app, userBToken, formB.id);
+    const sub = await submitPublicForm(app, published.slug!, [
+      { fieldId: 'f1', value: 'data' },
+    ]);
 
     await request(app.getHttpServer())
       .get(`/api/forms/${formB.id}/submissions/${sub.body.id}`)
@@ -132,13 +146,15 @@ describe('Permissions / Workspace Isolation', () => {
 
   it('User A cannot delete User B submission', async () => {
     const formB = await createForm(app, userBToken, { name: 'Sub Form 3' });
-    await publishForm(app, userBToken, formB.id);
 
     await saveFields(app, userBToken, formB.id, [
       { id: 'f1', type: 'TEXT', label: 'Field', required: true, position: 0 },
     ]);
 
-    const sub = await submitPublicForm(app, formB.slug!, [{ fieldId: 'f1', value: 'data' }]);
+    const published = await publishForm(app, userBToken, formB.id);
+    const sub = await submitPublicForm(app, published.slug!, [
+      { fieldId: 'f1', value: 'data' },
+    ]);
 
     await request(app.getHttpServer())
       .delete(`/api/forms/${formB.id}/submissions/${sub.body.id}`)

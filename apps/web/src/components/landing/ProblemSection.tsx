@@ -27,7 +27,7 @@ export default function ProblemSection() {
             THE PROBLEM
           </span>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 mt-6">
-            Forms shouldn't feel like an engineering project.
+            Forms shouldn&apos;t feel like an engineering project.
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-10 max-w-2xl mx-auto">
             {painPoints.map((point) => (
@@ -44,7 +44,7 @@ export default function ProblemSection() {
         {/* Part 2 - The Solution */}
         <div className="mt-20">
           <h3 className="text-center text-2xl font-semibold text-zinc-900">
-            With FormFlow, it's four simple steps.
+            With FormFlow, it&apos;s four simple steps.
           </h3>
           
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 mt-12">

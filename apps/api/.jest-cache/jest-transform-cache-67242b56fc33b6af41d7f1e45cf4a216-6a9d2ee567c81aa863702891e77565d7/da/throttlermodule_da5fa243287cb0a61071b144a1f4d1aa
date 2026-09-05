@@ -1,0 +1,63 @@
+550eaf0f3b6968cc9a44704f9d095378
+"use strict";
+
+var __decorate = void 0 && (void 0).__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+    r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+    d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var ThrottlerModule_1;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ThrottlerModule = void 0;
+const common_1 = require("@nestjs/common");
+const throttler_constants_1 = require("./throttler.constants");
+const throttler_providers_1 = require("./throttler.providers");
+let ThrottlerModule = ThrottlerModule_1 = class ThrottlerModule {
+  static forRoot(options = []) {
+    const providers = [...(0, throttler_providers_1.createThrottlerProviders)(options), throttler_providers_1.ThrottlerStorageProvider];
+    return {
+      module: ThrottlerModule_1,
+      providers,
+      exports: providers
+    };
+  }
+  static forRootAsync(options) {
+    const providers = [...this.createAsyncProviders(options), throttler_providers_1.ThrottlerStorageProvider];
+    return {
+      module: ThrottlerModule_1,
+      imports: options.imports || [],
+      providers,
+      exports: providers
+    };
+  }
+  static createAsyncProviders(options) {
+    if (options.useExisting || options.useFactory) {
+      return [this.createAsyncOptionsProvider(options)];
+    }
+    return [this.createAsyncOptionsProvider(options), {
+      provide: options.useClass,
+      useClass: options.useClass
+    }];
+  }
+  static createAsyncOptionsProvider(options) {
+    if (options.useFactory) {
+      return {
+        provide: throttler_constants_1.THROTTLER_OPTIONS,
+        useFactory: options.useFactory,
+        inject: options.inject || []
+      };
+    }
+    return {
+      provide: throttler_constants_1.THROTTLER_OPTIONS,
+      useFactory: async optionsFactory => await optionsFactory.createThrottlerOptions(),
+      inject: [options.useExisting || options.useClass]
+    };
+  }
+};
+exports.ThrottlerModule = ThrottlerModule;
+exports.ThrottlerModule = ThrottlerModule = ThrottlerModule_1 = __decorate([(0, common_1.Global)(), (0, common_1.Module)({})], ThrottlerModule);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb21tb25fMSIsInJlcXVpcmUiLCJ0aHJvdHRsZXJfY29uc3RhbnRzXzEiLCJ0aHJvdHRsZXJfcHJvdmlkZXJzXzEiLCJUaHJvdHRsZXJNb2R1bGUiLCJUaHJvdHRsZXJNb2R1bGVfMSIsImZvclJvb3QiLCJvcHRpb25zIiwicHJvdmlkZXJzIiwiY3JlYXRlVGhyb3R0bGVyUHJvdmlkZXJzIiwiVGhyb3R0bGVyU3RvcmFnZVByb3ZpZGVyIiwibW9kdWxlIiwiZXhwb3J0cyIsImZvclJvb3RBc3luYyIsImNyZWF0ZUFzeW5jUHJvdmlkZXJzIiwiaW1wb3J0cyIsInVzZUV4aXN0aW5nIiwidXNlRmFjdG9yeSIsImNyZWF0ZUFzeW5jT3B0aW9uc1Byb3ZpZGVyIiwicHJvdmlkZSIsInVzZUNsYXNzIiwiVEhST1RUTEVSX09QVElPTlMiLCJpbmplY3QiLCJvcHRpb25zRmFjdG9yeSIsImNyZWF0ZVRocm90dGxlck9wdGlvbnMiLCJfX2RlY29yYXRlIiwiR2xvYmFsIiwiTW9kdWxlIl0sInNvdXJjZXMiOlsiLi4vc3JjL3Rocm90dGxlci5tb2R1bGUudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7O0FBQUEsTUFBQUEsUUFBQSxHQUFBQyxPQUFBO0FBTUEsTUFBQUMscUJBQUEsR0FBQUQsT0FBQTtBQUNBLE1BQUFFLHFCQUFBLEdBQUFGLE9BQUE7QUFPTyxJQUFNRyxlQUFlLEdBQUFDLGlCQUFBLEdBQXJCLE1BQU1ELGVBQWU7RUFJMUIsT0FBT0UsT0FBT0EsQ0FBQ0MsT0FBQSxHQUFrQyxFQUFFO0lBQ2pELE1BQU1DLFNBQVMsR0FBRyxDQUFDLEdBQUcsSUFBQUwscUJBQUEsQ0FBQU0sd0JBQXdCLEVBQUNGLE9BQU8sQ0FBQyxFQUFFSixxQkFBQSxDQUFBTyx3QkFBd0IsQ0FBQztJQUNsRixPQUFPO01BQ0xDLE1BQU0sRUFBRU4saUJBQWU7TUFDdkJHLFNBQVM7TUFDVEksT0FBTyxFQUFFSjtLQUNWO0VBQ0g7RUFLQSxPQUFPSyxZQUFZQSxDQUFDTixPQUE4QjtJQUNoRCxNQUFNQyxTQUFTLEdBQUcsQ0FBQyxHQUFHLElBQUksQ0FBQ00sb0JBQW9CLENBQUNQLE9BQU8sQ0FBQyxFQUFFSixxQkFBQSxDQUFBTyx3QkFBd0IsQ0FBQztJQUNuRixPQUFPO01BQ0xDLE1BQU0sRUFBRU4saUJBQWU7TUFDdkJVLE9BQU8sRUFBRVIsT0FBTyxDQUFDUSxPQUFPLElBQUksRUFBRTtNQUM5QlAsU0FBUztNQUNUSSxPQUFPLEVBQUVKO0tBQ1Y7RUFDSDtFQUVRLE9BQU9NLG9CQUFvQkEsQ0FBQ1AsT0FBOEI7SUFDaEUsSUFBSUEsT0FBTyxDQUFDUyxXQUFXLElBQUlULE9BQU8sQ0FBQ1UsVUFBVSxFQUFFO01BQzdDLE9BQU8sQ0FBQyxJQUFJLENBQUNDLDBCQUEwQixDQUFDWCxPQUFPLENBQUMsQ0FBQztJQUNuRDtJQUNBLE9BQU8sQ0FDTCxJQUFJLENBQUNXLDBCQUEwQixDQUFDWCxPQUFPLENBQUMsRUFDeEM7TUFDRVksT0FBTyxFQUFFWixPQUFPLENBQUNhLFFBQVE7TUFDekJBLFFBQVEsRUFBRWIsT0FBTyxDQUFDYTtLQUNuQixDQUNGO0VBQ0g7RUFFUSxPQUFPRiwwQkFBMEJBLENBQUNYLE9BQThCO0lBQ3RFLElBQUlBLE9BQU8sQ0FBQ1UsVUFBVSxFQUFFO01BQ3RCLE9BQU87UUFDTEUsT0FBTyxFQUFFakIscUJBQUEsQ0FBQW1CLGlCQUFpQjtRQUMxQkosVUFBVSxFQUFFVixPQUFPLENBQUNVLFVBQVU7UUFDOUJLLE1BQU0sRUFBRWYsT0FBTyxDQUFDZSxNQUFNLElBQUk7T0FDM0I7SUFDSDtJQUNBLE9BQU87TUFDTEgsT0FBTyxFQUFFakIscUJBQUEsQ0FBQW1CLGlCQUFpQjtNQUMxQkosVUFBVSxFQUFFLE1BQU9NLGNBQXVDLElBQ3hELE1BQU1BLGNBQWMsQ0FBQ0Msc0JBQXNCLEVBQUU7TUFDL0NGLE1BQU0sRUFBRSxDQUFDZixPQUFPLENBQUNTLFdBQVcsSUFBSVQsT0FBTyxDQUFDYSxRQUFRO0tBQ2pEO0VBQ0g7Q0FDRDtBQXREWVIsT0FBQSxDQUFBUixlQUFBLEdBQUFBLGVBQUE7MEJBQUFBLGVBQWUsR0FBQUMsaUJBQUEsR0FBQW9CLFVBQUEsRUFGM0IsSUFBQXpCLFFBQUEsQ0FBQTBCLE1BQU0sR0FBRSxFQUNSLElBQUExQixRQUFBLENBQUEyQixNQUFNLEVBQUMsRUFBRSxDQUFDLEMsRUFDRXZCLGVBQWUsQ0FzRDNCIiwiaWdub3JlTGlzdCI6W119

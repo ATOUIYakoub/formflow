@@ -1,0 +1,6 @@
+ccde0bb181f2aa12e77341aa122e767a
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ThrottlerStorage = void 0;
+exports.ThrottlerStorage = Symbol('ThrottlerStorage');
+//# sourceMappingURL=throttler-storage.interface.js.map

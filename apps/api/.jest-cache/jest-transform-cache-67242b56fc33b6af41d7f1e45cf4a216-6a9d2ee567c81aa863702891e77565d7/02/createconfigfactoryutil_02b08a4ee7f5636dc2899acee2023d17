@@ -1,0 +1,20 @@
+ec8c2b50b766468dd7809aa997af788a
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createConfigProvider = createConfigProvider;
+var _crypto = require("crypto");
+var _getConfigTokenUtil = require("./get-config-token.util.js");
+/**
+ * @publicApi
+ */
+function createConfigProvider(factory) {
+  return {
+    provide: factory.KEY || (0, _getConfigTokenUtil.getConfigToken)((0, _crypto.randomUUID)()),
+    useFactory: factory,
+    inject: []
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfY3J5cHRvIiwicmVxdWlyZSIsIl9nZXRDb25maWdUb2tlblV0aWwiLCJjcmVhdGVDb25maWdQcm92aWRlciIsImZhY3RvcnkiLCJwcm92aWRlIiwiS0VZIiwiZ2V0Q29uZmlnVG9rZW4iLCJyYW5kb21VVUlEIiwidXNlRmFjdG9yeSIsImluamVjdCJdLCJzb3VyY2VzIjpbImNyZWF0ZS1jb25maWctZmFjdG9yeS51dGlsLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHJhbmRvbVVVSUQgfSBmcm9tICdjcnlwdG8nO1xuaW1wb3J0IHsgZ2V0Q29uZmlnVG9rZW4gfSBmcm9tICcuL2dldC1jb25maWctdG9rZW4udXRpbC5qcyc7XG4vKipcbiAqIEBwdWJsaWNBcGlcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIGNyZWF0ZUNvbmZpZ1Byb3ZpZGVyKGZhY3RvcnkpIHtcbiAgICByZXR1cm4ge1xuICAgICAgICBwcm92aWRlOiBmYWN0b3J5LktFWSB8fCBnZXRDb25maWdUb2tlbihyYW5kb21VVUlEKCkpLFxuICAgICAgICB1c2VGYWN0b3J5OiBmYWN0b3J5LFxuICAgICAgICBpbmplY3Q6IFtdLFxuICAgIH07XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUFBLE9BQUEsR0FBQUMsT0FBQTtBQUNBLElBQUFDLG1CQUFBLEdBQUFELE9BQUE7QUFDQTtBQUNBO0FBQ0E7QUFDTyxTQUFTRSxvQkFBb0JBLENBQUNDLE9BQU8sRUFBRTtFQUMxQyxPQUFPO0lBQ0hDLE9BQU8sRUFBRUQsT0FBTyxDQUFDRSxHQUFHLElBQUksSUFBQUMsa0NBQWMsRUFBQyxJQUFBQyxrQkFBVSxFQUFDLENBQUMsQ0FBQztJQUNwREMsVUFBVSxFQUFFTCxPQUFPO0lBQ25CTSxNQUFNLEVBQUU7RUFDWixDQUFDO0FBQ0wiLCJpZ25vcmVMaXN0IjpbXX0=

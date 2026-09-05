@@ -1,0 +1,9 @@
+926759e6446663f1c6eed5ad0eb31df7
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isDurable = isDurable;
+const constants_1 = require("@nestjs/common/constants");
+function isDurable(provider) {
+    const metadata = Reflect.getMetadata(constants_1.SCOPE_OPTIONS_METADATA, provider);
+    return metadata && metadata.durable;
+}

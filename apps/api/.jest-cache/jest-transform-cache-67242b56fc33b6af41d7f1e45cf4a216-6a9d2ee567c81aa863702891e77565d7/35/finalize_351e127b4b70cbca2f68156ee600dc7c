@@ -1,0 +1,19 @@
+31a4c52150ac82a44fb42cb82013eb71
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.finalize = void 0;
+var lift_1 = require("../util/lift");
+function finalize(callback) {
+  return lift_1.operate(function (source, subscriber) {
+    try {
+      source.subscribe(subscriber);
+    } finally {
+      subscriber.add(callback);
+    }
+  });
+}
+exports.finalize = finalize;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJsaWZ0XzEiLCJyZXF1aXJlIiwiZmluYWxpemUiLCJjYWxsYmFjayIsIm9wZXJhdGUiLCJzb3VyY2UiLCJzdWJzY3JpYmVyIiwic3Vic2NyaWJlIiwiYWRkIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvZmluYWxpemUudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBLElBQUFBLE1BQUEsR0FBQUMsT0FBQTtBQStEQSxTQUFnQkMsUUFBUUEsQ0FBSUMsUUFBb0I7RUFDOUMsT0FBT0gsTUFBQSxDQUFBSSxPQUFPLENBQUMsVUFBQ0MsTUFBTSxFQUFFQyxVQUFVO0lBR2hDLElBQUk7TUFDRkQsTUFBTSxDQUFDRSxTQUFTLENBQUNELFVBQVUsQ0FBQztLQUM3QixTQUFTO01BQ1JBLFVBQVUsQ0FBQ0UsR0FBRyxDQUFDTCxRQUFRLENBQUM7O0VBRTVCLENBQUMsQ0FBQztBQUNKO0FBVkFNLE9BQUEsQ0FBQVAsUUFBQSxHQUFBQSxRQUFBIiwiaWdub3JlTGlzdCI6W119

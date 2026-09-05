@@ -1,0 +1,14 @@
+55050115008885e385568129e85f60ce
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.scan = void 0;
+var lift_1 = require("../util/lift");
+var scanInternals_1 = require("./scanInternals");
+function scan(accumulator, seed) {
+  return lift_1.operate(scanInternals_1.scanInternals(accumulator, seed, arguments.length >= 2, true));
+}
+exports.scan = scan;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJsaWZ0XzEiLCJyZXF1aXJlIiwic2NhbkludGVybmFsc18xIiwic2NhbiIsImFjY3VtdWxhdG9yIiwic2VlZCIsIm9wZXJhdGUiLCJzY2FuSW50ZXJuYWxzIiwiYXJndW1lbnRzIiwibGVuZ3RoIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvc2Nhbi50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0EsSUFBQUEsTUFBQSxHQUFBQyxPQUFBO0FBQ0EsSUFBQUMsZUFBQSxHQUFBRCxPQUFBO0FBcUZBLFNBQWdCRSxJQUFJQSxDQUFVQyxXQUEyRCxFQUFFQyxJQUFRO0VBTWpHLE9BQU9MLE1BQUEsQ0FBQU0sT0FBTyxDQUFDSixlQUFBLENBQUFLLGFBQWEsQ0FBQ0gsV0FBVyxFQUFFQyxJQUFTLEVBQUVHLFNBQVMsQ0FBQ0MsTUFBTSxJQUFJLENBQUMsRUFBRSxJQUFJLENBQUMsQ0FBQztBQUNwRjtBQVBBQyxPQUFBLENBQUFQLElBQUEsR0FBQUEsSUFBQSIsImlnbm9yZUxpc3QiOltdfQ==

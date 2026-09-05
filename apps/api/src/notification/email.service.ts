@@ -31,7 +31,10 @@ export class EmailService {
       },
     });
 
-    const templatePath = join(process.cwd(), 'src', 'notification', 'templates', 'submission.hbs');
+    // Resolved relative to this module, not the process CWD, so the template
+    // is found regardless of where the process was started from (and in dist/,
+    // where nest-cli copies the .hbs files alongside the compiled output).
+    const templatePath = join(__dirname, 'templates', 'submission.hbs');
     const templateSource = readFileSync(templatePath, 'utf-8');
     this.submissionTemplate = handlebars.compile(templateSource);
   }

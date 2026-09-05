@@ -1,0 +1,57 @@
+cdb1d703c9cbd5e6dc05eef81a3c43fe
+"use strict";
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AsapScheduler = void 0;
+var AsyncScheduler_1 = require("./AsyncScheduler");
+var AsapScheduler = function (_super) {
+  __extends(AsapScheduler, _super);
+  function AsapScheduler() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+  AsapScheduler.prototype.flush = function (action) {
+    this._active = true;
+    var flushId = this._scheduled;
+    this._scheduled = undefined;
+    var actions = this.actions;
+    var error;
+    action = action || actions.shift();
+    do {
+      if (error = action.execute(action.state, action.delay)) {
+        break;
+      }
+    } while ((action = actions[0]) && action.id === flushId && actions.shift());
+    this._active = false;
+    if (error) {
+      while ((action = actions[0]) && action.id === flushId && actions.shift()) {
+        action.unsubscribe();
+      }
+      throw error;
+    }
+  };
+  return AsapScheduler;
+}(AsyncScheduler_1.AsyncScheduler);
+exports.AsapScheduler = AsapScheduler;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJBc3luY1NjaGVkdWxlcl8xIiwicmVxdWlyZSIsIkFzYXBTY2hlZHVsZXIiLCJfc3VwZXIiLCJfX2V4dGVuZHMiLCJwcm90b3R5cGUiLCJmbHVzaCIsImFjdGlvbiIsIl9hY3RpdmUiLCJmbHVzaElkIiwiX3NjaGVkdWxlZCIsInVuZGVmaW5lZCIsImFjdGlvbnMiLCJlcnJvciIsInNoaWZ0IiwiZXhlY3V0ZSIsInN0YXRlIiwiZGVsYXkiLCJpZCIsInVuc3Vic2NyaWJlIiwiQXN5bmNTY2hlZHVsZXIiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL3NjaGVkdWxlci9Bc2FwU2NoZWR1bGVyLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLElBQUFBLGdCQUFBLEdBQUFDLE9BQUE7QUFFQSxJQUFBQyxhQUFBLGFBQUFDLE1BQUE7RUFBbUNDLFNBQUEsQ0FBQUYsYUFBQSxFQUFBQyxNQUFBO0VBQW5DLFNBQUFELGNBQUE7O0VBa0NBO0VBakNTQSxhQUFBLENBQUFHLFNBQUEsQ0FBQUMsS0FBSyxHQUFaLFVBQWFDLE1BQXlCO0lBQ3BDLElBQUksQ0FBQ0MsT0FBTyxHQUFHLElBQUk7SUFVbkIsSUFBTUMsT0FBTyxHQUFHLElBQUksQ0FBQ0MsVUFBVTtJQUMvQixJQUFJLENBQUNBLFVBQVUsR0FBR0MsU0FBUztJQUVuQixJQUFBQyxPQUFPLEdBQUssSUFBSSxDQUFBQSxPQUFUO0lBQ2YsSUFBSUMsS0FBVTtJQUNkTixNQUFNLEdBQUdBLE1BQU0sSUFBSUssT0FBTyxDQUFDRSxLQUFLLEVBQUc7SUFFbkMsR0FBRztNQUNELElBQUtELEtBQUssR0FBR04sTUFBTSxDQUFDUSxPQUFPLENBQUNSLE1BQU0sQ0FBQ1MsS0FBSyxFQUFFVCxNQUFNLENBQUNVLEtBQUssQ0FBQyxFQUFHO1FBQ3hEOztLQUVILFFBQVEsQ0FBQ1YsTUFBTSxHQUFHSyxPQUFPLENBQUMsQ0FBQyxDQUFDLEtBQUtMLE1BQU0sQ0FBQ1csRUFBRSxLQUFLVCxPQUFPLElBQUlHLE9BQU8sQ0FBQ0UsS0FBSyxFQUFFO0lBRTFFLElBQUksQ0FBQ04sT0FBTyxHQUFHLEtBQUs7SUFFcEIsSUFBSUssS0FBSyxFQUFFO01BQ1QsT0FBTyxDQUFDTixNQUFNLEdBQUdLLE9BQU8sQ0FBQyxDQUFDLENBQUMsS0FBS0wsTUFBTSxDQUFDVyxFQUFFLEtBQUtULE9BQU8sSUFBSUcsT0FBTyxDQUFDRSxLQUFLLEVBQUUsRUFBRTtRQUN4RVAsTUFBTSxDQUFDWSxXQUFXLEVBQUU7O01BRXRCLE1BQU1OLEtBQUs7O0VBRWYsQ0FBQztFQUNILE9BQUFYLGFBQUM7QUFBRCxDQUFDLENBbENrQ0YsZ0JBQUEsQ0FBQW9CLGNBQWM7QUFBcENDLE9BQUEsQ0FBQW5CLGFBQUEsR0FBQUEsYUFBQSIsImlnbm9yZUxpc3QiOltdfQ==

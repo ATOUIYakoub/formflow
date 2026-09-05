@@ -1,0 +1,19 @@
+ff2b8c6eb27d3a50f6a8881ea65575c2
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createErrorClass = void 0;
+function createErrorClass(createImpl) {
+  var _super = function (instance) {
+    Error.call(instance);
+    instance.stack = new Error().stack;
+  };
+  var ctorFunc = createImpl(_super);
+  ctorFunc.prototype = Object.create(Error.prototype);
+  ctorFunc.prototype.constructor = ctorFunc;
+  return ctorFunc;
+}
+exports.createErrorClass = createErrorClass;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjcmVhdGVFcnJvckNsYXNzIiwiY3JlYXRlSW1wbCIsIl9zdXBlciIsImluc3RhbmNlIiwiRXJyb3IiLCJjYWxsIiwic3RhY2siLCJjdG9yRnVuYyIsInByb3RvdHlwZSIsIk9iamVjdCIsImNyZWF0ZSIsImNvbnN0cnVjdG9yIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL2NyZWF0ZUVycm9yQ2xhc3MudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQVNBLFNBQWdCQSxnQkFBZ0JBLENBQUlDLFVBQWdDO0VBQ2xFLElBQU1DLE1BQU0sR0FBRyxTQUFBQSxDQUFDQyxRQUFhO0lBQzNCQyxLQUFLLENBQUNDLElBQUksQ0FBQ0YsUUFBUSxDQUFDO0lBQ3BCQSxRQUFRLENBQUNHLEtBQUssR0FBRyxJQUFJRixLQUFLLEVBQUUsQ0FBQ0UsS0FBSztFQUNwQyxDQUFDO0VBRUQsSUFBTUMsUUFBUSxHQUFHTixVQUFVLENBQUNDLE1BQU0sQ0FBQztFQUNuQ0ssUUFBUSxDQUFDQyxTQUFTLEdBQUdDLE1BQU0sQ0FBQ0MsTUFBTSxDQUFDTixLQUFLLENBQUNJLFNBQVMsQ0FBQztFQUNuREQsUUFBUSxDQUFDQyxTQUFTLENBQUNHLFdBQVcsR0FBR0osUUFBUTtFQUN6QyxPQUFPQSxRQUFRO0FBQ2pCO0FBVkFLLE9BQUEsQ0FBQVosZ0JBQUEsR0FBQUEsZ0JBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

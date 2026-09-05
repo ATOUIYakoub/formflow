@@ -1,0 +1,75 @@
+f73506b6a7ce23e3b70d00c2d83d13e8
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var NotificationProcessor_1;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NotificationProcessor = void 0;
+const bullmq_1 = require("@nestjs/bullmq");
+const bullmq_2 = require("bullmq");
+const common_1 = require("@nestjs/common");
+const email_service_1 = require("./email.service");
+let NotificationProcessor = NotificationProcessor_1 = class NotificationProcessor extends bullmq_1.WorkerHost {
+    constructor(emailService) {
+        super();
+        this.emailService = emailService;
+        this.logger = new common_1.Logger(NotificationProcessor_1.name);
+    }
+    async process(job) {
+        const { type, to, data } = job.data;
+        this.logger.log(`Processing notification job ${job.id} of type ${type} for ${to}`);
+        try {
+            switch (type) {
+                case 'submission':
+                    await this.emailService.sendSubmissionNotification(to, data);
+                    break;
+                default:
+                    this.logger.warn(`Unknown notification type: ${type}`);
+            }
+        }
+        catch (error) {
+            this.logger.error(`Failed to process notification job ${job.id}:`, error);
+            throw error;
+        }
+    }
+    onCompleted(job) {
+        this.logger.log(`Notification job ${job.id} completed`);
+    }
+    onFailed(job, error) {
+        this.logger.error(`Notification job ${job?.id} failed:`, error);
+    }
+    onProgress(job, progress) {
+        this.logger.debug(`Notification job ${job.id} progress: ${progress}%`);
+    }
+};
+exports.NotificationProcessor = NotificationProcessor;
+__decorate([
+    (0, bullmq_1.OnWorkerEvent)('completed'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [bullmq_2.Job]),
+    __metadata("design:returntype", void 0)
+], NotificationProcessor.prototype, "onCompleted", null);
+__decorate([
+    (0, bullmq_1.OnWorkerEvent)('failed'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Error]),
+    __metadata("design:returntype", void 0)
+], NotificationProcessor.prototype, "onFailed", null);
+__decorate([
+    (0, bullmq_1.OnWorkerEvent)('progress'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [bullmq_2.Job, Number]),
+    __metadata("design:returntype", void 0)
+], NotificationProcessor.prototype, "onProgress", null);
+exports.NotificationProcessor = NotificationProcessor = NotificationProcessor_1 = __decorate([
+    (0, bullmq_1.Processor)('notifications', { concurrency: 5 }),
+    __metadata("design:paramtypes", [email_service_1.EmailService])
+], NotificationProcessor);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcbm90aWZpY2F0aW9uXFxub3RpZmljYXRpb24ucHJvY2Vzc29yLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7QUFBQSwyQ0FBc0U7QUFDdEUsbUNBQTZCO0FBQzdCLDJDQUF3QztBQUN4QyxtREFBK0M7QUFJeEMsSUFBTSxxQkFBcUIsNkJBQTNCLE1BQU0scUJBQXNCLFNBQVEsbUJBQVU7SUFHbkQsWUFBNkIsWUFBMEI7UUFDckQsS0FBSyxFQUFFLENBQUM7UUFEbUIsaUJBQVksR0FBWixZQUFZLENBQWM7UUFGdEMsV0FBTSxHQUFHLElBQUksZUFBTSxDQUFDLHVCQUFxQixDQUFDLElBQUksQ0FBQyxDQUFDO0lBSWpFLENBQUM7SUFFRCxLQUFLLENBQUMsT0FBTyxDQUFDLEdBQTZCO1FBQ3pDLE1BQU0sRUFBRSxJQUFJLEVBQUUsRUFBRSxFQUFFLElBQUksRUFBRSxHQUFHLEdBQUcsQ0FBQyxJQUFJLENBQUM7UUFFcEMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsK0JBQStCLEdBQUcsQ0FBQyxFQUFFLFlBQVksSUFBSSxRQUFRLEVBQUUsRUFBRSxDQUFDLENBQUM7UUFFbkYsSUFBSSxDQUFDO1lBQ0gsUUFBUSxJQUFJLEVBQUUsQ0FBQztnQkFDYixLQUFLLFlBQVk7b0JBQ2YsTUFBTSxJQUFJLENBQUMsWUFBWSxDQUFDLDBCQUEwQixDQUFDLEVBQUUsRUFBRSxJQUFJLENBQUMsQ0FBQztvQkFDN0QsTUFBTTtnQkFDUjtvQkFDRSxJQUFJLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyw4QkFBOEIsSUFBSSxFQUFFLENBQUMsQ0FBQztZQUMzRCxDQUFDO1FBQ0gsQ0FBQztRQUFDLE9BQU8sS0FBSyxFQUFFLENBQUM7WUFDZixJQUFJLENBQUMsTUFBTSxDQUFDLEtBQUssQ0FBQyxzQ0FBc0MsR0FBRyxDQUFDLEVBQUUsR0FBRyxFQUFFLEtBQUssQ0FBQyxDQUFDO1lBQzFFLE1BQU0sS0FBSyxDQUFDO1FBQ2QsQ0FBQztJQUNILENBQUM7SUFHRCxXQUFXLENBQUMsR0FBUTtRQUNsQixJQUFJLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxvQkFBb0IsR0FBRyxDQUFDLEVBQUUsWUFBWSxDQUFDLENBQUM7SUFDMUQsQ0FBQztJQUdELFFBQVEsQ0FBQyxHQUFvQixFQUFFLEtBQVk7UUFDekMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsb0JBQW9CLEdBQUcsRUFBRSxFQUFFLFVBQVUsRUFBRSxLQUFLLENBQUMsQ0FBQztJQUNsRSxDQUFDO0lBR0QsVUFBVSxDQUFDLEdBQVEsRUFBRSxRQUFnQjtRQUNuQyxJQUFJLENBQUMsTUFBTSxDQUFDLEtBQUssQ0FBQyxvQkFBb0IsR0FBRyxDQUFDLEVBQUUsY0FBYyxRQUFRLEdBQUcsQ0FBQyxDQUFDO0lBQ3pFLENBQUM7Q0FDRixDQUFBO0FBeENZLHNEQUFxQjtBQTJCaEM7SUFEQyxJQUFBLHNCQUFhLEVBQUMsV0FBVyxDQUFDOztxQ0FDVixZQUFHOzt3REFFbkI7QUFHRDtJQURDLElBQUEsc0JBQWEsRUFBQyxRQUFRLENBQUM7OzZDQUNjLEtBQUs7O3FEQUUxQztBQUdEO0lBREMsSUFBQSxzQkFBYSxFQUFDLFVBQVUsQ0FBQzs7cUNBQ1YsWUFBRzs7dURBRWxCO2dDQXZDVSxxQkFBcUI7SUFEakMsSUFBQSxrQkFBUyxFQUFDLGVBQWUsRUFBRSxFQUFFLFdBQVcsRUFBRSxDQUFDLEVBQUUsQ0FBQztxQ0FJRiw0QkFBWTtHQUg1QyxxQkFBcUIsQ0F3Q2pDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcWWFrb3ViXFxEb2N1bWVudHNcXFByb2plY3RzXFxmb3JtZmxvd1xcYXBwc1xcYXBpXFxzcmNcXG5vdGlmaWNhdGlvblxcbm90aWZpY2F0aW9uLnByb2Nlc3Nvci50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBQcm9jZXNzb3IsIFdvcmtlckhvc3QsIE9uV29ya2VyRXZlbnQgfSBmcm9tICdAbmVzdGpzL2J1bGxtcSc7XG5pbXBvcnQgeyBKb2IgfSBmcm9tICdidWxsbXEnO1xuaW1wb3J0IHsgTG9nZ2VyIH0gZnJvbSAnQG5lc3Rqcy9jb21tb24nO1xuaW1wb3J0IHsgRW1haWxTZXJ2aWNlIH0gZnJvbSAnLi9lbWFpbC5zZXJ2aWNlJztcbmltcG9ydCB7IE5vdGlmaWNhdGlvbkpvYkRhdGEgfSBmcm9tICcuL25vdGlmaWNhdGlvbi5zZXJ2aWNlJztcblxuQFByb2Nlc3Nvcignbm90aWZpY2F0aW9ucycsIHsgY29uY3VycmVuY3k6IDUgfSlcbmV4cG9ydCBjbGFzcyBOb3RpZmljYXRpb25Qcm9jZXNzb3IgZXh0ZW5kcyBXb3JrZXJIb3N0IHtcbiAgcHJpdmF0ZSByZWFkb25seSBsb2dnZXIgPSBuZXcgTG9nZ2VyKE5vdGlmaWNhdGlvblByb2Nlc3Nvci5uYW1lKTtcblxuICBjb25zdHJ1Y3Rvcihwcml2YXRlIHJlYWRvbmx5IGVtYWlsU2VydmljZTogRW1haWxTZXJ2aWNlKSB7XG4gICAgc3VwZXIoKTtcbiAgfVxuXG4gIGFzeW5jIHByb2Nlc3Moam9iOiBKb2I8Tm90aWZpY2F0aW9uSm9iRGF0YT4pOiBQcm9taXNlPHZvaWQ+IHtcbiAgICBjb25zdCB7IHR5cGUsIHRvLCBkYXRhIH0gPSBqb2IuZGF0YTtcblxuICAgIHRoaXMubG9nZ2VyLmxvZyhgUHJvY2Vzc2luZyBub3RpZmljYXRpb24gam9iICR7am9iLmlkfSBvZiB0eXBlICR7dHlwZX0gZm9yICR7dG99YCk7XG5cbiAgICB0cnkge1xuICAgICAgc3dpdGNoICh0eXBlKSB7XG4gICAgICAgIGNhc2UgJ3N1Ym1pc3Npb24nOlxuICAgICAgICAgIGF3YWl0IHRoaXMuZW1haWxTZXJ2aWNlLnNlbmRTdWJtaXNzaW9uTm90aWZpY2F0aW9uKHRvLCBkYXRhKTtcbiAgICAgICAgICBicmVhaztcbiAgICAgICAgZGVmYXVsdDpcbiAgICAgICAgICB0aGlzLmxvZ2dlci53YXJuKGBVbmtub3duIG5vdGlmaWNhdGlvbiB0eXBlOiAke3R5cGV9YCk7XG4gICAgICB9XG4gICAgfSBjYXRjaCAoZXJyb3IpIHtcbiAgICAgIHRoaXMubG9nZ2VyLmVycm9yKGBGYWlsZWQgdG8gcHJvY2VzcyBub3RpZmljYXRpb24gam9iICR7am9iLmlkfTpgLCBlcnJvcik7XG4gICAgICB0aHJvdyBlcnJvcjtcbiAgICB9XG4gIH1cblxuICBAT25Xb3JrZXJFdmVudCgnY29tcGxldGVkJylcbiAgb25Db21wbGV0ZWQoam9iOiBKb2IpIHtcbiAgICB0aGlzLmxvZ2dlci5sb2coYE5vdGlmaWNhdGlvbiBqb2IgJHtqb2IuaWR9IGNvbXBsZXRlZGApO1xuICB9XG5cbiAgQE9uV29ya2VyRXZlbnQoJ2ZhaWxlZCcpXG4gIG9uRmFpbGVkKGpvYjogSm9iIHwgdW5kZWZpbmVkLCBlcnJvcjogRXJyb3IpIHtcbiAgICB0aGlzLmxvZ2dlci5lcnJvcihgTm90aWZpY2F0aW9uIGpvYiAke2pvYj8uaWR9IGZhaWxlZDpgLCBlcnJvcik7XG4gIH1cblxuICBAT25Xb3JrZXJFdmVudCgncHJvZ3Jlc3MnKVxuICBvblByb2dyZXNzKGpvYjogSm9iLCBwcm9ncmVzczogbnVtYmVyKSB7XG4gICAgdGhpcy5sb2dnZXIuZGVidWcoYE5vdGlmaWNhdGlvbiBqb2IgJHtqb2IuaWR9IHByb2dyZXNzOiAke3Byb2dyZXNzfSVgKTtcbiAgfVxufSJdLCJ2ZXJzaW9uIjozfQ==

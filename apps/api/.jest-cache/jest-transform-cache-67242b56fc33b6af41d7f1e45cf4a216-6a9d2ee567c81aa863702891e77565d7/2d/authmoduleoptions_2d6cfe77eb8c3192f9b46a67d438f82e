@@ -1,0 +1,14 @@
+6c5c08a6800e380423d8b9b8e3dfba31
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AuthModuleOptions = void 0;
+class AuthModuleOptions {
+  defaultStrategy;
+  session;
+  property;
+}
+exports.AuthModuleOptions = AuthModuleOptions;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJBdXRoTW9kdWxlT3B0aW9ucyIsImRlZmF1bHRTdHJhdGVneSIsInNlc3Npb24iLCJwcm9wZXJ0eSIsImV4cG9ydHMiXSwic291cmNlcyI6WyJhdXRoLW1vZHVsZS5vcHRpb25zLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjbGFzcyBBdXRoTW9kdWxlT3B0aW9ucyB7XG4gICAgZGVmYXVsdFN0cmF0ZWd5O1xuICAgIHNlc3Npb247XG4gICAgcHJvcGVydHk7XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFPLE1BQU1BLGlCQUFpQixDQUFDO0VBQzNCQyxlQUFlO0VBQ2ZDLE9BQU87RUFDUEMsUUFBUTtBQUNaO0FBQUNDLE9BQUEsQ0FBQUosaUJBQUEsR0FBQUEsaUJBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

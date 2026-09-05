@@ -1,0 +1,18 @@
+8d9722b5f61a5ec1bd855026c503307a
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.weeks = exports.days = exports.hours = exports.minutes = exports.seconds = void 0;
+const seconds = howMany => howMany * 1000;
+exports.seconds = seconds;
+const minutes = howMany => 60 * howMany * (0, exports.seconds)(1);
+exports.minutes = minutes;
+const hours = howMany => 60 * howMany * (0, exports.minutes)(1);
+exports.hours = hours;
+const days = howMany => 24 * howMany * (0, exports.hours)(1);
+exports.days = days;
+const weeks = howMany => 7 * howMany * (0, exports.days)(1);
+exports.weeks = weeks;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJzZWNvbmRzIiwiaG93TWFueSIsImV4cG9ydHMiLCJtaW51dGVzIiwiaG91cnMiLCJkYXlzIiwid2Vla3MiXSwic291cmNlcyI6WyIuLi9zcmMvdXRpbGl0aWVzLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBTyxNQUFNQSxPQUFPLEdBQUlDLE9BQWUsSUFBS0EsT0FBTyxHQUFHLElBQUk7QUFBN0NDLE9BQUEsQ0FBQUYsT0FBTyxHQUFBQSxPQUFBO0FBQ2IsTUFBTUcsT0FBTyxHQUFJRixPQUFlLElBQUssRUFBRSxHQUFHQSxPQUFPLEdBQUcsSUFBQUMsT0FBQSxDQUFBRixPQUFPLEVBQUMsQ0FBQyxDQUFDO0FBQXhERSxPQUFBLENBQUFDLE9BQU8sR0FBQUEsT0FBQTtBQUNiLE1BQU1DLEtBQUssR0FBSUgsT0FBZSxJQUFLLEVBQUUsR0FBR0EsT0FBTyxHQUFHLElBQUFDLE9BQUEsQ0FBQUMsT0FBTyxFQUFDLENBQUMsQ0FBQztBQUF0REQsT0FBQSxDQUFBRSxLQUFLLEdBQUFBLEtBQUE7QUFDWCxNQUFNQyxJQUFJLEdBQUlKLE9BQWUsSUFBSyxFQUFFLEdBQUdBLE9BQU8sR0FBRyxJQUFBQyxPQUFBLENBQUFFLEtBQUssRUFBQyxDQUFDLENBQUM7QUFBbkRGLE9BQUEsQ0FBQUcsSUFBSSxHQUFBQSxJQUFBO0FBQ1YsTUFBTUMsS0FBSyxHQUFJTCxPQUFlLElBQUssQ0FBQyxHQUFHQSxPQUFPLEdBQUcsSUFBQUMsT0FBQSxDQUFBRyxJQUFJLEVBQUMsQ0FBQyxDQUFDO0FBQWxESCxPQUFBLENBQUFJLEtBQUssR0FBQUEsS0FBQSIsImlnbm9yZUxpc3QiOltdfQ==

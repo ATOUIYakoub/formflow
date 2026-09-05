@@ -11,7 +11,7 @@ export class HealthController {
   @ApiOperation({ summary: 'Health check' })
   @ApiResponse({ status: 200, description: 'Service is healthy' })
   async check() {
-    let database = 'disconnected';
+    let database: 'connected' | 'disconnected';
 
     try {
       await this.prisma.$queryRaw`SELECT 1`;

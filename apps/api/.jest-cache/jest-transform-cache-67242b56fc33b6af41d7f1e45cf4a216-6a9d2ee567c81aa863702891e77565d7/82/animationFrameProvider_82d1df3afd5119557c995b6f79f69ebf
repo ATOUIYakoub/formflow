@@ -1,0 +1,70 @@
+9ff0bf87f565228f80b78a6399fe70a6
+"use strict";
+
+var __read = void 0 && (void 0).__read || function (o, n) {
+  var m = typeof Symbol === "function" && o[Symbol.iterator];
+  if (!m) return o;
+  var i = m.call(o),
+    r,
+    ar = [],
+    e;
+  try {
+    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+  } catch (error) {
+    e = {
+      error: error
+    };
+  } finally {
+    try {
+      if (r && !r.done && (m = i["return"])) m.call(i);
+    } finally {
+      if (e) throw e.error;
+    }
+  }
+  return ar;
+};
+var __spreadArray = void 0 && (void 0).__spreadArray || function (to, from) {
+  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) to[j] = from[i];
+  return to;
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.animationFrameProvider = void 0;
+var Subscription_1 = require("../Subscription");
+exports.animationFrameProvider = {
+  schedule: function (callback) {
+    var request = requestAnimationFrame;
+    var cancel = cancelAnimationFrame;
+    var delegate = exports.animationFrameProvider.delegate;
+    if (delegate) {
+      request = delegate.requestAnimationFrame;
+      cancel = delegate.cancelAnimationFrame;
+    }
+    var handle = request(function (timestamp) {
+      cancel = undefined;
+      callback(timestamp);
+    });
+    return new Subscription_1.Subscription(function () {
+      return cancel === null || cancel === void 0 ? void 0 : cancel(handle);
+    });
+  },
+  requestAnimationFrame: function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+      args[_i] = arguments[_i];
+    }
+    var delegate = exports.animationFrameProvider.delegate;
+    return ((delegate === null || delegate === void 0 ? void 0 : delegate.requestAnimationFrame) || requestAnimationFrame).apply(void 0, __spreadArray([], __read(args)));
+  },
+  cancelAnimationFrame: function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+      args[_i] = arguments[_i];
+    }
+    var delegate = exports.animationFrameProvider.delegate;
+    return ((delegate === null || delegate === void 0 ? void 0 : delegate.cancelAnimationFrame) || cancelAnimationFrame).apply(void 0, __spreadArray([], __read(args)));
+  },
+  delegate: undefined
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJTdWJzY3JpcHRpb25fMSIsInJlcXVpcmUiLCJleHBvcnRzIiwiYW5pbWF0aW9uRnJhbWVQcm92aWRlciIsInNjaGVkdWxlIiwiY2FsbGJhY2siLCJyZXF1ZXN0IiwicmVxdWVzdEFuaW1hdGlvbkZyYW1lIiwiY2FuY2VsIiwiY2FuY2VsQW5pbWF0aW9uRnJhbWUiLCJkZWxlZ2F0ZSIsImhhbmRsZSIsInRpbWVzdGFtcCIsInVuZGVmaW5lZCIsIlN1YnNjcmlwdGlvbiIsImFyZ3MiLCJfaSIsImFyZ3VtZW50cyIsImxlbmd0aCIsImFwcGx5IiwiX19zcHJlYWRBcnJheSIsIl9fcmVhZCJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9zY2hlZHVsZXIvYW5pbWF0aW9uRnJhbWVQcm92aWRlci50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxJQUFBQSxjQUFBLEdBQUFDLE9BQUE7QUFjYUMsT0FBQSxDQUFBQyxzQkFBc0IsR0FBMkI7RUFHNURDLFFBQVEsRUFBUixTQUFBQSxDQUFTQyxRQUFRO0lBQ2YsSUFBSUMsT0FBTyxHQUFHQyxxQkFBcUI7SUFDbkMsSUFBSUMsTUFBTSxHQUE0Q0Msb0JBQW9CO0lBQ2xFLElBQUFDLFFBQVEsR0FBS1IsT0FBQSxDQUFBQyxzQkFBc0IsQ0FBQU8sUUFBM0I7SUFDaEIsSUFBSUEsUUFBUSxFQUFFO01BQ1pKLE9BQU8sR0FBR0ksUUFBUSxDQUFDSCxxQkFBcUI7TUFDeENDLE1BQU0sR0FBR0UsUUFBUSxDQUFDRCxvQkFBb0I7O0lBRXhDLElBQU1FLE1BQU0sR0FBR0wsT0FBTyxDQUFDLFVBQUNNLFNBQVM7TUFJL0JKLE1BQU0sR0FBR0ssU0FBUztNQUNsQlIsUUFBUSxDQUFDTyxTQUFTLENBQUM7SUFDckIsQ0FBQyxDQUFDO0lBQ0YsT0FBTyxJQUFJWixjQUFBLENBQUFjLFlBQVksQ0FBQztNQUFNLE9BQUFOLE1BQU0sYUFBTkEsTUFBTSx1QkFBTkEsTUFBTSxDQUFHRyxNQUFNLENBQUM7SUFBaEIsQ0FBZ0IsQ0FBQztFQUNqRCxDQUFDO0VBQ0RKLHFCQUFxQixXQUFBQSxDQUFBO0lBQUMsSUFBQVEsSUFBQTtTQUFBLElBQUFDLEVBQUEsSUFBTyxFQUFQQSxFQUFBLEdBQUFDLFNBQUEsQ0FBQUMsTUFBTyxFQUFQRixFQUFBLEVBQU87TUFBUEQsSUFBQSxDQUFBQyxFQUFBLElBQUFDLFNBQUEsQ0FBQUQsRUFBQTs7SUFDWixJQUFBTixRQUFRLEdBQUtSLE9BQUEsQ0FBQUMsc0JBQXNCLENBQUFPLFFBQTNCO0lBQ2hCLE9BQU8sQ0FBQyxDQUFBQSxRQUFRLGFBQVJBLFFBQVEsdUJBQVJBLFFBQVEsQ0FBRUgscUJBQXFCLEtBQUlBLHFCQUFxQixFQUFDWSxLQUFBLFNBQUFDLGFBQUEsS0FBQUMsTUFBQSxDQUFJTixJQUFJO0VBQzNFLENBQUM7RUFDRE4sb0JBQW9CLFdBQUFBLENBQUE7SUFBQyxJQUFBTSxJQUFBO1NBQUEsSUFBQUMsRUFBQSxJQUFPLEVBQVBBLEVBQUEsR0FBQUMsU0FBQSxDQUFBQyxNQUFPLEVBQVBGLEVBQUEsRUFBTztNQUFQRCxJQUFBLENBQUFDLEVBQUEsSUFBQUMsU0FBQSxDQUFBRCxFQUFBOztJQUNYLElBQUFOLFFBQVEsR0FBS1IsT0FBQSxDQUFBQyxzQkFBc0IsQ0FBQU8sUUFBM0I7SUFDaEIsT0FBTyxDQUFDLENBQUFBLFFBQVEsYUFBUkEsUUFBUSx1QkFBUkEsUUFBUSxDQUFFRCxvQkFBb0IsS0FBSUEsb0JBQW9CLEVBQUNVLEtBQUEsU0FBQUMsYUFBQSxLQUFBQyxNQUFBLENBQUlOLElBQUk7RUFDekUsQ0FBQztFQUNETCxRQUFRLEVBQUVHO0NBQ1giLCJpZ25vcmVMaXN0IjpbXX0=

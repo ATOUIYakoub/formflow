@@ -1,0 +1,16 @@
+ba9f7d372236889cd0e23e419edb19d3
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.EmptyError = void 0;
+var createErrorClass_1 = require("./createErrorClass");
+exports.EmptyError = createErrorClass_1.createErrorClass(function (_super) {
+  return function EmptyErrorImpl() {
+    _super(this);
+    this.name = 'EmptyError';
+    this.message = 'no elements in sequence';
+  };
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjcmVhdGVFcnJvckNsYXNzXzEiLCJyZXF1aXJlIiwiZXhwb3J0cyIsIkVtcHR5RXJyb3IiLCJjcmVhdGVFcnJvckNsYXNzIiwiX3N1cGVyIiwiRW1wdHlFcnJvckltcGwiLCJuYW1lIiwibWVzc2FnZSJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL0VtcHR5RXJyb3IudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUFBLGtCQUFBLEdBQUFDLE9BQUE7QUFzQmFDLE9BQUEsQ0FBQUMsVUFBVSxHQUFtQkgsa0JBQUEsQ0FBQUksZ0JBQWdCLENBQ3hELFVBQUNDLE1BQU07RUFDTCxnQkFBU0MsY0FBY0EsQ0FBQTtJQUNyQkQsTUFBTSxDQUFDLElBQUksQ0FBQztJQUNaLElBQUksQ0FBQ0UsSUFBSSxHQUFHLFlBQVk7SUFDeEIsSUFBSSxDQUFDQyxPQUFPLEdBQUcseUJBQXlCO0VBQzFDLENBQUM7QUFKRCxDQUlDLENBQ0oiLCJpZ25vcmVMaXN0IjpbXX0=

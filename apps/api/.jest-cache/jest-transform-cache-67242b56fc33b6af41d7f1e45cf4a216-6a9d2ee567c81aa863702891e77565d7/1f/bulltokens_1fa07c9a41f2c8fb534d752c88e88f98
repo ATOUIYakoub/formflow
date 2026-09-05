@@ -1,0 +1,10 @@
+ab2e1dec11703ace42b703923abd1e89
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.JOB_REF = void 0;
+var _core = require("@nestjs/core");
+const JOB_REF = exports.JOB_REF = _core.REQUEST;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfY29yZSIsInJlcXVpcmUiLCJKT0JfUkVGIiwiZXhwb3J0cyIsIlJFUVVFU1QiXSwic291cmNlcyI6WyJidWxsLnRva2Vucy5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBSRVFVRVNUIH0gZnJvbSAnQG5lc3Rqcy9jb3JlJztcbmV4cG9ydCBjb25zdCBKT0JfUkVGID0gUkVRVUVTVDtcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsSUFBQUEsS0FBQSxHQUFBQyxPQUFBO0FBQ08sTUFBTUMsT0FBTyxHQUFBQyxPQUFBLENBQUFELE9BQUEsR0FBR0UsYUFBTyIsImlnbm9yZUxpc3QiOltdfQ==

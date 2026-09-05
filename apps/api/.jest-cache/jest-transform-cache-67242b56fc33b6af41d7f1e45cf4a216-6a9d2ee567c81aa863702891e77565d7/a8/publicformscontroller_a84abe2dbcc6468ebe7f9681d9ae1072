@@ -1,0 +1,78 @@
+d8ea6c03a3cf66e3acce63690a9397df
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PublicFormsController = void 0;
+const common_1 = require("@nestjs/common");
+const forms_service_1 = require("./forms.service");
+const analytics_service_1 = require("./analytics.service");
+const throttler_1 = require("@nestjs/throttler");
+const validation_pipe_1 = require("../common/pipes/validation.pipe");
+class SubmitFormDto {
+}
+let PublicFormsController = class PublicFormsController {
+    constructor(formsService, analyticsService) {
+        this.formsService = formsService;
+        this.analyticsService = analyticsService;
+    }
+    async getPublicForm(slug, _referer) {
+        const form = await this.formsService.getPublicForm(slug);
+        await this.analyticsService.trackView(form.id);
+        return form;
+    }
+    async trackStart(slug) {
+        const form = await this.formsService.getPublicForm(slug);
+        await this.analyticsService.trackStart(form.id);
+        return { success: true };
+    }
+    async submitForm(slug, body) {
+        return this.formsService.submitPublicForm(slug, body.answers);
+    }
+};
+exports.PublicFormsController = PublicFormsController;
+__decorate([
+    (0, common_1.Get)(':slug'),
+    (0, throttler_1.Throttle)({ default: { limit: 30, ttl: 60000 } }) // 30 views per minute
+    ,
+    __param(0, (0, common_1.Param)('slug')),
+    __param(1, (0, common_1.Headers)('referer')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], PublicFormsController.prototype, "getPublicForm", null);
+__decorate([
+    (0, common_1.Post)(':slug/start'),
+    (0, throttler_1.Throttle)({ default: { limit: 30, ttl: 60000 } }) // 30 starts per minute
+    ,
+    __param(0, (0, common_1.Param)('slug')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PublicFormsController.prototype, "trackStart", null);
+__decorate([
+    (0, common_1.Post)(':slug/submissions'),
+    (0, throttler_1.Throttle)({ default: { limit: 10, ttl: 60000 } }) // 10 submissions per minute
+    ,
+    __param(0, (0, common_1.Param)('slug')),
+    __param(1, (0, common_1.Body)(new validation_pipe_1.ValidationPipe())),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, SubmitFormDto]),
+    __metadata("design:returntype", Promise)
+], PublicFormsController.prototype, "submitForm", null);
+exports.PublicFormsController = PublicFormsController = __decorate([
+    (0, common_1.Controller)('public/forms'),
+    __metadata("design:paramtypes", [forms_service_1.FormsService,
+        analytics_service_1.AnalyticsService])
+], PublicFormsController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcZm9ybXNcXHB1YmxpYy1mb3Jtcy5jb250cm9sbGVyLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQUFBLDJDQUE2RTtBQUM3RSxtREFBK0M7QUFDL0MsMkRBQXVEO0FBQ3ZELGlEQUE2QztBQUM3QyxxRUFBaUU7QUFFakUsTUFBTSxhQUFhO0NBRWxCO0FBR00sSUFBTSxxQkFBcUIsR0FBM0IsTUFBTSxxQkFBcUI7SUFDaEMsWUFDbUIsWUFBMEIsRUFDMUIsZ0JBQWtDO1FBRGxDLGlCQUFZLEdBQVosWUFBWSxDQUFjO1FBQzFCLHFCQUFnQixHQUFoQixnQkFBZ0IsQ0FBa0I7SUFDbEQsQ0FBQztJQUlFLEFBQU4sS0FBSyxDQUFDLGFBQWEsQ0FBZ0IsSUFBWSxFQUFzQixRQUFpQjtRQUNwRixNQUFNLElBQUksR0FBRyxNQUFNLElBQUksQ0FBQyxZQUFZLENBQUMsYUFBYSxDQUFDLElBQUksQ0FBQyxDQUFDO1FBQ3pELE1BQU0sSUFBSSxDQUFDLGdCQUFnQixDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMsRUFBRSxDQUFDLENBQUM7UUFDL0MsT0FBTyxJQUFJLENBQUM7SUFDZCxDQUFDO0lBSUssQUFBTixLQUFLLENBQUMsVUFBVSxDQUFnQixJQUFZO1FBQzFDLE1BQU0sSUFBSSxHQUFHLE1BQU0sSUFBSSxDQUFDLFlBQVksQ0FBQyxhQUFhLENBQUMsSUFBSSxDQUFDLENBQUM7UUFDekQsTUFBTSxJQUFJLENBQUMsZ0JBQWdCLENBQUMsVUFBVSxDQUFDLElBQUksQ0FBQyxFQUFFLENBQUMsQ0FBQztRQUNoRCxPQUFPLEVBQUUsT0FBTyxFQUFFLElBQUksRUFBRSxDQUFDO0lBQzNCLENBQUM7SUFJSyxBQUFOLEtBQUssQ0FBQyxVQUFVLENBQ0MsSUFBWSxFQUNDLElBQW1CO1FBRS9DLE9BQU8sSUFBSSxDQUFDLFlBQVksQ0FBQyxnQkFBZ0IsQ0FBQyxJQUFJLEVBQUUsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFDO0lBQ2hFLENBQUM7Q0FDRixDQUFBO0FBOUJZLHNEQUFxQjtBQVExQjtJQUZMLElBQUEsWUFBRyxFQUFDLE9BQU8sQ0FBQztJQUNaLElBQUEsb0JBQVEsRUFBQyxFQUFFLE9BQU8sRUFBRSxFQUFFLEtBQUssRUFBRSxFQUFFLEVBQUUsR0FBRyxFQUFFLEtBQUssRUFBRSxFQUFFLENBQUMsQ0FBQyxzQkFBc0I7O0lBQ25ELFdBQUEsSUFBQSxjQUFLLEVBQUMsTUFBTSxDQUFDLENBQUE7SUFBZ0IsV0FBQSxJQUFBLGdCQUFPLEVBQUMsU0FBUyxDQUFDLENBQUE7Ozs7MERBSW5FO0FBSUs7SUFGTCxJQUFBLGFBQUksRUFBQyxhQUFhLENBQUM7SUFDbkIsSUFBQSxvQkFBUSxFQUFDLEVBQUUsT0FBTyxFQUFFLEVBQUUsS0FBSyxFQUFFLEVBQUUsRUFBRSxHQUFHLEVBQUUsS0FBSyxFQUFFLEVBQUUsQ0FBQyxDQUFDLHVCQUF1Qjs7SUFDdkQsV0FBQSxJQUFBLGNBQUssRUFBQyxNQUFNLENBQUMsQ0FBQTs7Ozt1REFJOUI7QUFJSztJQUZMLElBQUEsYUFBSSxFQUFDLG1CQUFtQixDQUFDO0lBQ3pCLElBQUEsb0JBQVEsRUFBQyxFQUFFLE9BQU8sRUFBRSxFQUFFLEtBQUssRUFBRSxFQUFFLEVBQUUsR0FBRyxFQUFFLEtBQUssRUFBRSxFQUFFLENBQUMsQ0FBQyw0QkFBNEI7O0lBRTNFLFdBQUEsSUFBQSxjQUFLLEVBQUMsTUFBTSxDQUFDLENBQUE7SUFDYixXQUFBLElBQUEsYUFBSSxFQUFDLElBQUksZ0NBQWMsRUFBRSxDQUFDLENBQUE7OzZDQUFPLGFBQWE7O3VEQUdoRDtnQ0E3QlUscUJBQXFCO0lBRGpDLElBQUEsbUJBQVUsRUFBQyxjQUFjLENBQUM7cUNBR1EsNEJBQVk7UUFDUixvQ0FBZ0I7R0FIMUMscUJBQXFCLENBOEJqQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXFlha291YlxcRG9jdW1lbnRzXFxQcm9qZWN0c1xcZm9ybWZsb3dcXGFwcHNcXGFwaVxcc3JjXFxmb3Jtc1xccHVibGljLWZvcm1zLmNvbnRyb2xsZXIudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgQ29udHJvbGxlciwgR2V0LCBQb3N0LCBCb2R5LCBQYXJhbSwgSGVhZGVycyB9IGZyb20gJ0BuZXN0anMvY29tbW9uJztcbmltcG9ydCB7IEZvcm1zU2VydmljZSB9IGZyb20gJy4vZm9ybXMuc2VydmljZSc7XG5pbXBvcnQgeyBBbmFseXRpY3NTZXJ2aWNlIH0gZnJvbSAnLi9hbmFseXRpY3Muc2VydmljZSc7XG5pbXBvcnQgeyBUaHJvdHRsZSB9IGZyb20gJ0BuZXN0anMvdGhyb3R0bGVyJztcbmltcG9ydCB7IFZhbGlkYXRpb25QaXBlIH0gZnJvbSAnLi4vY29tbW9uL3BpcGVzL3ZhbGlkYXRpb24ucGlwZSc7XG5cbmNsYXNzIFN1Ym1pdEZvcm1EdG8ge1xuICBhbnN3ZXJzOiB7IGZpZWxkSWQ6IHN0cmluZzsgdmFsdWU6IGFueSB9W107XG59XG5cbkBDb250cm9sbGVyKCdwdWJsaWMvZm9ybXMnKVxuZXhwb3J0IGNsYXNzIFB1YmxpY0Zvcm1zQ29udHJvbGxlciB7XG4gIGNvbnN0cnVjdG9yKFxuICAgIHByaXZhdGUgcmVhZG9ubHkgZm9ybXNTZXJ2aWNlOiBGb3Jtc1NlcnZpY2UsXG4gICAgcHJpdmF0ZSByZWFkb25seSBhbmFseXRpY3NTZXJ2aWNlOiBBbmFseXRpY3NTZXJ2aWNlXG4gICkge31cblxuICBAR2V0KCc6c2x1ZycpXG4gIEBUaHJvdHRsZSh7IGRlZmF1bHQ6IHsgbGltaXQ6IDMwLCB0dGw6IDYwMDAwIH0gfSkgLy8gMzAgdmlld3MgcGVyIG1pbnV0ZVxuICBhc3luYyBnZXRQdWJsaWNGb3JtKEBQYXJhbSgnc2x1ZycpIHNsdWc6IHN0cmluZywgQEhlYWRlcnMoJ3JlZmVyZXInKSBfcmVmZXJlcj86IHN0cmluZykge1xuICAgIGNvbnN0IGZvcm0gPSBhd2FpdCB0aGlzLmZvcm1zU2VydmljZS5nZXRQdWJsaWNGb3JtKHNsdWcpO1xuICAgIGF3YWl0IHRoaXMuYW5hbHl0aWNzU2VydmljZS50cmFja1ZpZXcoZm9ybS5pZCk7XG4gICAgcmV0dXJuIGZvcm07XG4gIH1cblxuICBAUG9zdCgnOnNsdWcvc3RhcnQnKVxuICBAVGhyb3R0bGUoeyBkZWZhdWx0OiB7IGxpbWl0OiAzMCwgdHRsOiA2MDAwMCB9IH0pIC8vIDMwIHN0YXJ0cyBwZXIgbWludXRlXG4gIGFzeW5jIHRyYWNrU3RhcnQoQFBhcmFtKCdzbHVnJykgc2x1Zzogc3RyaW5nKSB7XG4gICAgY29uc3QgZm9ybSA9IGF3YWl0IHRoaXMuZm9ybXNTZXJ2aWNlLmdldFB1YmxpY0Zvcm0oc2x1Zyk7XG4gICAgYXdhaXQgdGhpcy5hbmFseXRpY3NTZXJ2aWNlLnRyYWNrU3RhcnQoZm9ybS5pZCk7XG4gICAgcmV0dXJuIHsgc3VjY2VzczogdHJ1ZSB9O1xuICB9XG5cbiAgQFBvc3QoJzpzbHVnL3N1Ym1pc3Npb25zJylcbiAgQFRocm90dGxlKHsgZGVmYXVsdDogeyBsaW1pdDogMTAsIHR0bDogNjAwMDAgfSB9KSAvLyAxMCBzdWJtaXNzaW9ucyBwZXIgbWludXRlXG4gIGFzeW5jIHN1Ym1pdEZvcm0oXG4gICAgQFBhcmFtKCdzbHVnJykgc2x1Zzogc3RyaW5nLFxuICAgIEBCb2R5KG5ldyBWYWxpZGF0aW9uUGlwZSgpKSBib2R5OiBTdWJtaXRGb3JtRHRvXG4gICkge1xuICAgIHJldHVybiB0aGlzLmZvcm1zU2VydmljZS5zdWJtaXRQdWJsaWNGb3JtKHNsdWcsIGJvZHkuYW5zd2Vycyk7XG4gIH1cbn1cbiJdLCJ2ZXJzaW9uIjozfQ==

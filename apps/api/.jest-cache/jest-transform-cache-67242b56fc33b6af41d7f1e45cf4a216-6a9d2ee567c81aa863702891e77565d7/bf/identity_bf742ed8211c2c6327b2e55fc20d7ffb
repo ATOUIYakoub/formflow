@@ -1,0 +1,12 @@
+386d637f93c99beb67a1a6112fd8bb7b
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.identity = void 0;
+function identity(x) {
+  return x;
+}
+exports.identity = identity;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJpZGVudGl0eSIsIngiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL3V0aWwvaWRlbnRpdHkudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQTBDQSxTQUFnQkEsUUFBUUEsQ0FBSUMsQ0FBSTtFQUM5QixPQUFPQSxDQUFDO0FBQ1Y7QUFGQUMsT0FBQSxDQUFBRixRQUFBLEdBQUFBLFFBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

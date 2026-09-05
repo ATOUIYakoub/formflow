@@ -1,0 +1,15 @@
+51168f7697ed764773213e8d5135409b
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getRegistrationToken = getRegistrationToken;
+var _configConstants = require("../config.constants.js");
+/**
+ * @publicApi
+ */
+function getRegistrationToken(config) {
+  return config[_configConstants.PARTIAL_CONFIGURATION_KEY];
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfY29uZmlnQ29uc3RhbnRzIiwicmVxdWlyZSIsImdldFJlZ2lzdHJhdGlvblRva2VuIiwiY29uZmlnIiwiUEFSVElBTF9DT05GSUdVUkFUSU9OX0tFWSJdLCJzb3VyY2VzIjpbImdldC1yZWdpc3RyYXRpb24tdG9rZW4udXRpbC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBQQVJUSUFMX0NPTkZJR1VSQVRJT05fS0VZIH0gZnJvbSAnLi4vY29uZmlnLmNvbnN0YW50cy5qcyc7XG4vKipcbiAqIEBwdWJsaWNBcGlcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIGdldFJlZ2lzdHJhdGlvblRva2VuKGNvbmZpZykge1xuICAgIHJldHVybiBjb25maWdbUEFSVElBTF9DT05GSUdVUkFUSU9OX0tFWV07XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUFBLGdCQUFBLEdBQUFDLE9BQUE7QUFDQTtBQUNBO0FBQ0E7QUFDTyxTQUFTQyxvQkFBb0JBLENBQUNDLE1BQU0sRUFBRTtFQUN6QyxPQUFPQSxNQUFNLENBQUNDLDBDQUF5QixDQUFDO0FBQzVDIiwiaWdub3JlTGlzdCI6W119

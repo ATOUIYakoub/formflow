@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import { ThrottlerModule } from '@nestjs/throttler';
 
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
@@ -86,11 +85,11 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
-  const port = process.env.API_PORT || 3002;
-  await app.listen(port, '127.0.0.1');
+  const port = Number(process.env.PORT) || Number(process.env.API_PORT) || 3002;
+  await app.listen(port, '0.0.0.0');
 
-  console.log(`🚀 FormFlow API running on http://localhost:${port}`);
-  console.log(`📚 Swagger docs at http://localhost:${port}/api/docs`);
+  console.log(`🚀 FormFlow API running on http://0.0.0.0:${port}`);
+  console.log(`📚 Swagger docs at http://0.0.0.0:${port}/api/docs`);
 }
 
 bootstrap();

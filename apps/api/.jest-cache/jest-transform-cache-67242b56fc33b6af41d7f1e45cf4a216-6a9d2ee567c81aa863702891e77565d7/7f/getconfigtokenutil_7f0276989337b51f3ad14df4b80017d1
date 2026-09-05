@@ -1,0 +1,14 @@
+134e4de84ea7d41d49f68d145fa1efce
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getConfigToken = getConfigToken;
+/**
+ * @publicApi
+ */
+function getConfigToken(token) {
+  return `CONFIGURATION(${token.toString()})`;
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJnZXRDb25maWdUb2tlbiIsInRva2VuIiwidG9TdHJpbmciXSwic291cmNlcyI6WyJnZXQtY29uZmlnLXRva2VuLnV0aWwuanMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAcHVibGljQXBpXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBnZXRDb25maWdUb2tlbih0b2tlbikge1xuICAgIHJldHVybiBgQ09ORklHVVJBVElPTigke3Rva2VuLnRvU3RyaW5nKCl9KWA7XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBO0FBQ0E7QUFDQTtBQUNPLFNBQVNBLGNBQWNBLENBQUNDLEtBQUssRUFBRTtFQUNsQyxPQUFPLGlCQUFpQkEsS0FBSyxDQUFDQyxRQUFRLENBQUMsQ0FBQyxHQUFHO0FBQy9DIiwiaWdub3JlTGlzdCI6W119

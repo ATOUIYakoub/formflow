@@ -1,0 +1,25 @@
+c8c08d866c351aa468e3df8ad80b0d69
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.scanInternals = void 0;
+var OperatorSubscriber_1 = require("./OperatorSubscriber");
+function scanInternals(accumulator, seed, hasSeed, emitOnNext, emitBeforeComplete) {
+  return function (source, subscriber) {
+    var hasState = hasSeed;
+    var state = seed;
+    var index = 0;
+    source.subscribe(OperatorSubscriber_1.createOperatorSubscriber(subscriber, function (value) {
+      var i = index++;
+      state = hasState ? accumulator(state, value, i) : (hasState = true, value);
+      emitOnNext && subscriber.next(state);
+    }, emitBeforeComplete && function () {
+      hasState && subscriber.next(state);
+      subscriber.complete();
+    }));
+  };
+}
+exports.scanInternals = scanInternals;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJPcGVyYXRvclN1YnNjcmliZXJfMSIsInJlcXVpcmUiLCJzY2FuSW50ZXJuYWxzIiwiYWNjdW11bGF0b3IiLCJzZWVkIiwiaGFzU2VlZCIsImVtaXRPbk5leHQiLCJlbWl0QmVmb3JlQ29tcGxldGUiLCJzb3VyY2UiLCJzdWJzY3JpYmVyIiwiaGFzU3RhdGUiLCJzdGF0ZSIsImluZGV4Iiwic3Vic2NyaWJlIiwiY3JlYXRlT3BlcmF0b3JTdWJzY3JpYmVyIiwidmFsdWUiLCJpIiwibmV4dCIsImNvbXBsZXRlIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvc2NhbkludGVybmFscy50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBRUEsSUFBQUEsb0JBQUEsR0FBQUMsT0FBQTtBQVdBLFNBQWdCQyxhQUFhQSxDQUMzQkMsV0FBMkQsRUFDM0RDLElBQU8sRUFDUEMsT0FBZ0IsRUFDaEJDLFVBQW1CLEVBQ25CQyxrQkFBcUM7RUFFckMsT0FBTyxVQUFDQyxNQUFxQixFQUFFQyxVQUEyQjtJQUl4RCxJQUFJQyxRQUFRLEdBQUdMLE9BQU87SUFJdEIsSUFBSU0sS0FBSyxHQUFRUCxJQUFJO0lBRXJCLElBQUlRLEtBQUssR0FBRyxDQUFDO0lBR2JKLE1BQU0sQ0FBQ0ssU0FBUyxDQUNkYixvQkFBQSxDQUFBYyx3QkFBd0IsQ0FDdEJMLFVBQVUsRUFDVixVQUFDTSxLQUFLO01BRUosSUFBTUMsQ0FBQyxHQUFHSixLQUFLLEVBQUU7TUFFakJELEtBQUssR0FBR0QsUUFBUSxHQUVaUCxXQUFXLENBQUNRLEtBQUssRUFBRUksS0FBSyxFQUFFQyxDQUFDLENBQUMsSUFJMUJOLFFBQVEsR0FBRyxJQUFJLEVBQUdLLEtBQUssQ0FBQztNQUc5QlQsVUFBVSxJQUFJRyxVQUFVLENBQUNRLElBQUksQ0FBQ04sS0FBSyxDQUFDO0lBQ3RDLENBQUMsRUFHREosa0JBQWtCLElBQ2Y7TUFDQ0csUUFBUSxJQUFJRCxVQUFVLENBQUNRLElBQUksQ0FBQ04sS0FBSyxDQUFDO01BQ2xDRixVQUFVLENBQUNTLFFBQVEsRUFBRTtJQUN2QixDQUFFLENBQ0wsQ0FDRjtFQUNILENBQUM7QUFDSDtBQWhEQUMsT0FBQSxDQUFBakIsYUFBQSxHQUFBQSxhQUFBIiwiaWdub3JlTGlzdCI6W119

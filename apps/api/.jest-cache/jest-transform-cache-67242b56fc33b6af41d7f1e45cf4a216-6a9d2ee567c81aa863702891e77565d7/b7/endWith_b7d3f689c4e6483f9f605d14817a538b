@@ -1,0 +1,46 @@
+c27822b05ead2d8496d4b8de0393a739
+"use strict";
+
+var __read = void 0 && (void 0).__read || function (o, n) {
+  var m = typeof Symbol === "function" && o[Symbol.iterator];
+  if (!m) return o;
+  var i = m.call(o),
+    r,
+    ar = [],
+    e;
+  try {
+    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+  } catch (error) {
+    e = {
+      error: error
+    };
+  } finally {
+    try {
+      if (r && !r.done && (m = i["return"])) m.call(i);
+    } finally {
+      if (e) throw e.error;
+    }
+  }
+  return ar;
+};
+var __spreadArray = void 0 && (void 0).__spreadArray || function (to, from) {
+  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) to[j] = from[i];
+  return to;
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.endWith = void 0;
+var concat_1 = require("../observable/concat");
+var of_1 = require("../observable/of");
+function endWith() {
+  var values = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    values[_i] = arguments[_i];
+  }
+  return function (source) {
+    return concat_1.concat(source, of_1.of.apply(void 0, __spreadArray([], __read(values))));
+  };
+}
+exports.endWith = endWith;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb25jYXRfMSIsInJlcXVpcmUiLCJvZl8xIiwiZW5kV2l0aCIsInZhbHVlcyIsIl9pIiwiYXJndW1lbnRzIiwibGVuZ3RoIiwic291cmNlIiwiY29uY2F0Iiwib2YiLCJhcHBseSIsIl9fc3ByZWFkQXJyYXkiLCJfX3JlYWQiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9lbmRXaXRoLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUVBLElBQUFBLFFBQUEsR0FBQUMsT0FBQTtBQUNBLElBQUFDLElBQUEsR0FBQUQsT0FBQTtBQThEQSxTQUFnQkUsT0FBT0EsQ0FBQTtFQUFJLElBQUFDLE1BQUE7T0FBQSxJQUFBQyxFQUFBLElBQW1DLEVBQW5DQSxFQUFBLEdBQUFDLFNBQUEsQ0FBQUMsTUFBbUMsRUFBbkNGLEVBQUEsRUFBbUM7SUFBbkNELE1BQUEsQ0FBQUMsRUFBQSxJQUFBQyxTQUFBLENBQUFELEVBQUE7O0VBQ3pCLE9BQU8sVUFBQ0csTUFBcUI7SUFBSyxPQUFBUixRQUFBLENBQUFTLE1BQU0sQ0FBQ0QsTUFBTSxFQUFFTixJQUFBLENBQUFRLEVBQUUsQ0FBQUMsS0FBQSxTQUFBQyxhQUFBLEtBQUFDLE1BQUEsQ0FBSVQsTUFBTSxJQUFtQjtFQUE5QyxDQUE4QztBQUNsRjtBQUZBVSxPQUFBLENBQUFYLE9BQUEsR0FBQUEsT0FBQSIsImlnbm9yZUxpc3QiOltdfQ==

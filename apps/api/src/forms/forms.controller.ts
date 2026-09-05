@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, HttpCode, HttpStatus } from '@nestjs/common';
 import { FormsService } from './forms.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Request } from 'express';
@@ -32,12 +32,14 @@ export class FormsController {
   }
 
   @Post(':id/fields')
+  @HttpCode(HttpStatus.OK)
   saveFields(@Param('id') id: string, @Body(new ValidationPipe()) dto: SaveFieldsDto, @Req() req: Request) {
     const userId = (req.user as any).id;
     return this.formsService.saveFields(id, dto.fields, userId);
   }
 
   @Post(':id/rules')
+  @HttpCode(HttpStatus.OK)
   saveRules(
     @Param('id') id: string,
     @Body(new ValidationPipe()) dto: SaveRulesDto,
@@ -60,12 +62,14 @@ export class FormsController {
   }
 
   @Post(':id/publish')
+  @HttpCode(HttpStatus.OK)
   publish(@Param('id') id: string, @Req() req: Request) {
     const userId = (req.user as any).id;
     return this.formsService.publish(id, userId);
   }
 
   @Post(':id/unpublish')
+  @HttpCode(HttpStatus.OK)
   unpublish(@Param('id') id: string, @Req() req: Request) {
     const userId = (req.user as any).id;
     return this.formsService.unpublish(id, userId);

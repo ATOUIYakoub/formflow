@@ -1,0 +1,32 @@
+2df35fe3c77a77a72cb321ffc0d5581e
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CreateFormDto = void 0;
+const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
+class CreateFormDto {
+}
+exports.CreateFormDto = CreateFormDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Contact Form', maxLength: 200 }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(200, { message: 'Form name too long' }),
+    __metadata("design:type", String)
+], CreateFormDto.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: 'A simple contact form', maxLength: 1000 }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(1000, { message: 'Description too long' }),
+    __metadata("design:type", String)
+], CreateFormDto.prototype, "description", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcZm9ybXNcXGR0b1xcY3JlYXRlLWZvcm0uZHRvLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7OztBQUFBLHFEQUFrRTtBQUNsRSw2Q0FBbUU7QUFFbkUsTUFBYSxhQUFhO0NBV3pCO0FBWEQsc0NBV0M7QUFQQztJQUhDLElBQUEscUJBQVcsRUFBQyxFQUFFLE9BQU8sRUFBRSxjQUFjLEVBQUUsU0FBUyxFQUFFLEdBQUcsRUFBRSxDQUFDO0lBQ3hELElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsMkJBQVMsRUFBQyxHQUFHLEVBQUUsRUFBRSxPQUFPLEVBQUUsb0JBQW9CLEVBQUUsQ0FBQzs7MkNBQ3JDO0FBTWI7SUFKQyxJQUFBLDZCQUFtQixFQUFDLEVBQUUsT0FBTyxFQUFFLHVCQUF1QixFQUFFLFNBQVMsRUFBRSxJQUFJLEVBQUUsQ0FBQztJQUMxRSxJQUFBLDRCQUFVLEdBQUU7SUFDWixJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDJCQUFTLEVBQUMsSUFBSSxFQUFFLEVBQUUsT0FBTyxFQUFFLHNCQUFzQixFQUFFLENBQUM7O2tEQUNoQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXFlha291YlxcRG9jdW1lbnRzXFxQcm9qZWN0c1xcZm9ybWZsb3dcXGFwcHNcXGFwaVxcc3JjXFxmb3Jtc1xcZHRvXFxjcmVhdGUtZm9ybS5kdG8udHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgSXNTdHJpbmcsIElzT3B0aW9uYWwsIE1heExlbmd0aCB9IGZyb20gJ2NsYXNzLXZhbGlkYXRvcic7XG5pbXBvcnQgeyBBcGlQcm9wZXJ0eSwgQXBpUHJvcGVydHlPcHRpb25hbCB9IGZyb20gJ0BuZXN0anMvc3dhZ2dlcic7XG5cbmV4cG9ydCBjbGFzcyBDcmVhdGVGb3JtRHRvIHtcbiAgQEFwaVByb3BlcnR5KHsgZXhhbXBsZTogJ0NvbnRhY3QgRm9ybScsIG1heExlbmd0aDogMjAwIH0pXG4gIEBJc1N0cmluZygpXG4gIEBNYXhMZW5ndGgoMjAwLCB7IG1lc3NhZ2U6ICdGb3JtIG5hbWUgdG9vIGxvbmcnIH0pXG4gIG5hbWU6IHN0cmluZztcblxuICBAQXBpUHJvcGVydHlPcHRpb25hbCh7IGV4YW1wbGU6ICdBIHNpbXBsZSBjb250YWN0IGZvcm0nLCBtYXhMZW5ndGg6IDEwMDAgfSlcbiAgQElzT3B0aW9uYWwoKVxuICBASXNTdHJpbmcoKVxuICBATWF4TGVuZ3RoKDEwMDAsIHsgbWVzc2FnZTogJ0Rlc2NyaXB0aW9uIHRvbyBsb25nJyB9KVxuICBkZXNjcmlwdGlvbj86IHN0cmluZztcbn0iXSwidmVyc2lvbiI6M30=

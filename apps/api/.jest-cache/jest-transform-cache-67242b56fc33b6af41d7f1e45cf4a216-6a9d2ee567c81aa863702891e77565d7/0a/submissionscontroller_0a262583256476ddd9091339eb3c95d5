@@ -1,0 +1,72 @@
+4dd4ad9cda4f1ddf2fd0202079e5aa2b
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SubmissionsController = void 0;
+const common_1 = require("@nestjs/common");
+const submissions_service_1 = require("./submissions.service");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const validation_pipe_1 = require("../common/pipes/validation.pipe");
+const list_submissions_dto_1 = require("./dto/list-submissions.dto");
+let SubmissionsController = class SubmissionsController {
+    constructor(submissionsService) {
+        this.submissionsService = submissionsService;
+    }
+    list(formId, query, req) {
+        const userId = req.user.id;
+        return this.submissionsService.list(formId, userId, query);
+    }
+    findOne(formId, submissionId, req) {
+        const userId = req.user.id;
+        return this.submissionsService.findOne(formId, submissionId, userId);
+    }
+    remove(formId, submissionId, req) {
+        const userId = req.user.id;
+        return this.submissionsService.remove(formId, submissionId, userId);
+    }
+};
+exports.SubmissionsController = SubmissionsController;
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Param)('formId')),
+    __param(1, (0, common_1.Query)(new validation_pipe_1.ValidationPipe())),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, list_submissions_dto_1.ListSubmissionsQueryDto, Object]),
+    __metadata("design:returntype", void 0)
+], SubmissionsController.prototype, "list", null);
+__decorate([
+    (0, common_1.Get)(':submissionId'),
+    __param(0, (0, common_1.Param)('formId')),
+    __param(1, (0, common_1.Param)('submissionId')),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, Object]),
+    __metadata("design:returntype", void 0)
+], SubmissionsController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Delete)(':submissionId'),
+    __param(0, (0, common_1.Param)('formId')),
+    __param(1, (0, common_1.Param)('submissionId')),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, Object]),
+    __metadata("design:returntype", void 0)
+], SubmissionsController.prototype, "remove", null);
+exports.SubmissionsController = SubmissionsController = __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Controller)('forms/:formId/submissions'),
+    __metadata("design:paramtypes", [submissions_service_1.SubmissionsService])
+], SubmissionsController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcZm9ybXNcXHN1Ym1pc3Npb25zLmNvbnRyb2xsZXIudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsMkNBQXVGO0FBQ3ZGLCtEQUEyRDtBQUMzRCwyREFBc0Q7QUFFdEQscUVBQWlFO0FBQ2pFLHFFQUFxRTtBQUk5RCxJQUFNLHFCQUFxQixHQUEzQixNQUFNLHFCQUFxQjtJQUNoQyxZQUE2QixrQkFBc0M7UUFBdEMsdUJBQWtCLEdBQWxCLGtCQUFrQixDQUFvQjtJQUFHLENBQUM7SUFHdkUsSUFBSSxDQUNlLE1BQWMsRUFDRixLQUE4QixFQUNwRCxHQUFZO1FBRW5CLE1BQU0sTUFBTSxHQUFJLEdBQUcsQ0FBQyxJQUFZLENBQUMsRUFBRSxDQUFDO1FBQ3BDLE9BQU8sSUFBSSxDQUFDLGtCQUFrQixDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLEtBQUssQ0FBQyxDQUFDO0lBQzdELENBQUM7SUFHRCxPQUFPLENBQ1ksTUFBYyxFQUNSLFlBQW9CLEVBQ3BDLEdBQVk7UUFFbkIsTUFBTSxNQUFNLEdBQUksR0FBRyxDQUFDLElBQVksQ0FBQyxFQUFFLENBQUM7UUFDcEMsT0FBTyxJQUFJLENBQUMsa0JBQWtCLENBQUMsT0FBTyxDQUFDLE1BQU0sRUFBRSxZQUFZLEVBQUUsTUFBTSxDQUFDLENBQUM7SUFDdkUsQ0FBQztJQUdELE1BQU0sQ0FDYSxNQUFjLEVBQ1IsWUFBb0IsRUFDcEMsR0FBWTtRQUVuQixNQUFNLE1BQU0sR0FBSSxHQUFHLENBQUMsSUFBWSxDQUFDLEVBQUUsQ0FBQztRQUNwQyxPQUFPLElBQUksQ0FBQyxrQkFBa0IsQ0FBQyxNQUFNLENBQUMsTUFBTSxFQUFFLFlBQVksRUFBRSxNQUFNLENBQUMsQ0FBQztJQUN0RSxDQUFDO0NBQ0YsQ0FBQTtBQWhDWSxzREFBcUI7QUFJaEM7SUFEQyxJQUFBLFlBQUcsR0FBRTtJQUVILFdBQUEsSUFBQSxjQUFLLEVBQUMsUUFBUSxDQUFDLENBQUE7SUFDZixXQUFBLElBQUEsY0FBSyxFQUFDLElBQUksZ0NBQWMsRUFBRSxDQUFDLENBQUE7SUFDM0IsV0FBQSxJQUFBLFlBQUcsR0FBRSxDQUFBOzs2Q0FEOEIsOENBQXVCOztpREFLNUQ7QUFHRDtJQURDLElBQUEsWUFBRyxFQUFDLGVBQWUsQ0FBQztJQUVsQixXQUFBLElBQUEsY0FBSyxFQUFDLFFBQVEsQ0FBQyxDQUFBO0lBQ2YsV0FBQSxJQUFBLGNBQUssRUFBQyxjQUFjLENBQUMsQ0FBQTtJQUNyQixXQUFBLElBQUEsWUFBRyxHQUFFLENBQUE7Ozs7b0RBSVA7QUFHRDtJQURDLElBQUEsZUFBTSxFQUFDLGVBQWUsQ0FBQztJQUVyQixXQUFBLElBQUEsY0FBSyxFQUFDLFFBQVEsQ0FBQyxDQUFBO0lBQ2YsV0FBQSxJQUFBLGNBQUssRUFBQyxjQUFjLENBQUMsQ0FBQTtJQUNyQixXQUFBLElBQUEsWUFBRyxHQUFFLENBQUE7Ozs7bURBSVA7Z0NBL0JVLHFCQUFxQjtJQUZqQyxJQUFBLGtCQUFTLEVBQUMsNkJBQVksQ0FBQztJQUN2QixJQUFBLG1CQUFVLEVBQUMsMkJBQTJCLENBQUM7cUNBRVcsd0NBQWtCO0dBRHhELHFCQUFxQixDQWdDakMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcZm9ybXNcXHN1Ym1pc3Npb25zLmNvbnRyb2xsZXIudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgQ29udHJvbGxlciwgR2V0LCBEZWxldGUsIFBhcmFtLCBRdWVyeSwgVXNlR3VhcmRzLCBSZXEgfSBmcm9tICdAbmVzdGpzL2NvbW1vbic7XG5pbXBvcnQgeyBTdWJtaXNzaW9uc1NlcnZpY2UgfSBmcm9tICcuL3N1Ym1pc3Npb25zLnNlcnZpY2UnO1xuaW1wb3J0IHsgSnd0QXV0aEd1YXJkIH0gZnJvbSAnLi4vYXV0aC9qd3QtYXV0aC5ndWFyZCc7XG5pbXBvcnQgeyBSZXF1ZXN0IH0gZnJvbSAnZXhwcmVzcyc7XG5pbXBvcnQgeyBWYWxpZGF0aW9uUGlwZSB9IGZyb20gJy4uL2NvbW1vbi9waXBlcy92YWxpZGF0aW9uLnBpcGUnO1xuaW1wb3J0IHsgTGlzdFN1Ym1pc3Npb25zUXVlcnlEdG8gfSBmcm9tICcuL2R0by9saXN0LXN1Ym1pc3Npb25zLmR0byc7XG5cbkBVc2VHdWFyZHMoSnd0QXV0aEd1YXJkKVxuQENvbnRyb2xsZXIoJ2Zvcm1zLzpmb3JtSWQvc3VibWlzc2lvbnMnKVxuZXhwb3J0IGNsYXNzIFN1Ym1pc3Npb25zQ29udHJvbGxlciB7XG4gIGNvbnN0cnVjdG9yKHByaXZhdGUgcmVhZG9ubHkgc3VibWlzc2lvbnNTZXJ2aWNlOiBTdWJtaXNzaW9uc1NlcnZpY2UpIHt9XG5cbiAgQEdldCgpXG4gIGxpc3QoXG4gICAgQFBhcmFtKCdmb3JtSWQnKSBmb3JtSWQ6IHN0cmluZyxcbiAgICBAUXVlcnkobmV3IFZhbGlkYXRpb25QaXBlKCkpIHF1ZXJ5OiBMaXN0U3VibWlzc2lvbnNRdWVyeUR0byxcbiAgICBAUmVxKCkgcmVxOiBSZXF1ZXN0XG4gICkge1xuICAgIGNvbnN0IHVzZXJJZCA9IChyZXEudXNlciBhcyBhbnkpLmlkO1xuICAgIHJldHVybiB0aGlzLnN1Ym1pc3Npb25zU2VydmljZS5saXN0KGZvcm1JZCwgdXNlcklkLCBxdWVyeSk7XG4gIH1cblxuICBAR2V0KCc6c3VibWlzc2lvbklkJylcbiAgZmluZE9uZShcbiAgICBAUGFyYW0oJ2Zvcm1JZCcpIGZvcm1JZDogc3RyaW5nLFxuICAgIEBQYXJhbSgnc3VibWlzc2lvbklkJykgc3VibWlzc2lvbklkOiBzdHJpbmcsXG4gICAgQFJlcSgpIHJlcTogUmVxdWVzdFxuICApIHtcbiAgICBjb25zdCB1c2VySWQgPSAocmVxLnVzZXIgYXMgYW55KS5pZDtcbiAgICByZXR1cm4gdGhpcy5zdWJtaXNzaW9uc1NlcnZpY2UuZmluZE9uZShmb3JtSWQsIHN1Ym1pc3Npb25JZCwgdXNlcklkKTtcbiAgfVxuXG4gIEBEZWxldGUoJzpzdWJtaXNzaW9uSWQnKVxuICByZW1vdmUoXG4gICAgQFBhcmFtKCdmb3JtSWQnKSBmb3JtSWQ6IHN0cmluZyxcbiAgICBAUGFyYW0oJ3N1Ym1pc3Npb25JZCcpIHN1Ym1pc3Npb25JZDogc3RyaW5nLFxuICAgIEBSZXEoKSByZXE6IFJlcXVlc3RcbiAgKSB7XG4gICAgY29uc3QgdXNlcklkID0gKHJlcS51c2VyIGFzIGFueSkuaWQ7XG4gICAgcmV0dXJuIHRoaXMuc3VibWlzc2lvbnNTZXJ2aWNlLnJlbW92ZShmb3JtSWQsIHN1Ym1pc3Npb25JZCwgdXNlcklkKTtcbiAgfVxufVxuIl0sInZlcnNpb24iOjN9

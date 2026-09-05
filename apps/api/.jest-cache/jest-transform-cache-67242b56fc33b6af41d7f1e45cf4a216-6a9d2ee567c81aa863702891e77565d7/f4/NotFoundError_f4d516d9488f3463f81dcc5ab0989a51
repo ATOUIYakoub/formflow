@@ -1,0 +1,16 @@
+1a9d5d45f4f635c5a7e87b420909602f
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.NotFoundError = void 0;
+var createErrorClass_1 = require("./createErrorClass");
+exports.NotFoundError = createErrorClass_1.createErrorClass(function (_super) {
+  return function NotFoundErrorImpl(message) {
+    _super(this);
+    this.name = 'NotFoundError';
+    this.message = message;
+  };
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjcmVhdGVFcnJvckNsYXNzXzEiLCJyZXF1aXJlIiwiZXhwb3J0cyIsIk5vdEZvdW5kRXJyb3IiLCJjcmVhdGVFcnJvckNsYXNzIiwiX3N1cGVyIiwiTm90Rm91bmRFcnJvckltcGwiLCJtZXNzYWdlIiwibmFtZSJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL05vdEZvdW5kRXJyb3IudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUFBLGtCQUFBLEdBQUFDLE9BQUE7QUFrQmFDLE9BQUEsQ0FBQUMsYUFBYSxHQUFzQkgsa0JBQUEsQ0FBQUksZ0JBQWdCLENBQzlELFVBQUNDLE1BQU07RUFDTCxnQkFBU0MsaUJBQWlCQSxDQUFZQyxPQUFlO0lBQ25ERixNQUFNLENBQUMsSUFBSSxDQUFDO0lBQ1osSUFBSSxDQUFDRyxJQUFJLEdBQUcsZUFBZTtJQUMzQixJQUFJLENBQUNELE9BQU8sR0FBR0EsT0FBTztFQUN4QixDQUFDO0FBSkQsQ0FJQyxDQUNKIiwiaWdub3JlTGlzdCI6W119

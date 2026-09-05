@@ -1,0 +1,12 @@
+937cfc7a143ced2da138be084e6e7ee4
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.sha256 = sha256;
+const crypto = require("node:crypto");
+function sha256(text) {
+  return crypto.createHash('sha256').update(text).digest('hex');
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJleHBvcnRzIiwic2hhMjU2IiwiY3J5cHRvIiwicmVxdWlyZSIsInRleHQiLCJjcmVhdGVIYXNoIiwidXBkYXRlIiwiZGlnZXN0Il0sInNvdXJjZXMiOlsiLi4vc3JjL2hhc2gudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7O0FBRUFBLE9BQUEsQ0FBQUMsTUFBQSxHQUFBQSxNQUFBO0FBRkEsTUFBQUMsTUFBQSxHQUFBQyxPQUFBO0FBRUEsU0FBZ0JGLE1BQU1BLENBQUNHLElBQVk7RUFDakMsT0FBT0YsTUFBTSxDQUFDRyxVQUFVLENBQUMsUUFBUSxDQUFDLENBQUNDLE1BQU0sQ0FBQ0YsSUFBSSxDQUFDLENBQUNHLE1BQU0sQ0FBQyxLQUFLLENBQUM7QUFDL0QiLCJpZ25vcmVMaXN0IjpbXX0=

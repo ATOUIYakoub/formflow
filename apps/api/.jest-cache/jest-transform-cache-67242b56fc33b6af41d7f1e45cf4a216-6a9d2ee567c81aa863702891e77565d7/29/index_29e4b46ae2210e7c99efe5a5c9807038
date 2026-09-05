@@ -1,0 +1,5 @@
+f52ad399be5b4c7e642b74f2125f8aa5
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+tslib_1.__exportStar(require("./serialize-options.decorator"), exports);

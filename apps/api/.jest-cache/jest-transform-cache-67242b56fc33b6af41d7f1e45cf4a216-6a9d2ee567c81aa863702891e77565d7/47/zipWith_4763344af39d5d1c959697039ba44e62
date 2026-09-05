@@ -1,0 +1,43 @@
+a19dbe2b92e8ecef12afe38b51704f9c
+"use strict";
+
+var __read = void 0 && (void 0).__read || function (o, n) {
+  var m = typeof Symbol === "function" && o[Symbol.iterator];
+  if (!m) return o;
+  var i = m.call(o),
+    r,
+    ar = [],
+    e;
+  try {
+    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+  } catch (error) {
+    e = {
+      error: error
+    };
+  } finally {
+    try {
+      if (r && !r.done && (m = i["return"])) m.call(i);
+    } finally {
+      if (e) throw e.error;
+    }
+  }
+  return ar;
+};
+var __spreadArray = void 0 && (void 0).__spreadArray || function (to, from) {
+  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) to[j] = from[i];
+  return to;
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.zipWith = void 0;
+var zip_1 = require("./zip");
+function zipWith() {
+  var otherInputs = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    otherInputs[_i] = arguments[_i];
+  }
+  return zip_1.zip.apply(void 0, __spreadArray([], __read(otherInputs)));
+}
+exports.zipWith = zipWith;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ6aXBfMSIsInJlcXVpcmUiLCJ6aXBXaXRoIiwib3RoZXJJbnB1dHMiLCJfaSIsImFyZ3VtZW50cyIsImxlbmd0aCIsInppcCIsImFwcGx5IiwiX19zcHJlYWRBcnJheSIsIl9fcmVhZCIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvb3BlcmF0b3JzL3ppcFdpdGgudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQ0EsSUFBQUEsS0FBQSxHQUFBQyxPQUFBO0FBeUJBLFNBQWdCQyxPQUFPQSxDQUFBO0VBQWtDLElBQUFDLFdBQUE7T0FBQSxJQUFBQyxFQUFBLElBQTRDLEVBQTVDQSxFQUFBLEdBQUFDLFNBQUEsQ0FBQUMsTUFBNEMsRUFBNUNGLEVBQUEsRUFBNEM7SUFBNUNELFdBQUEsQ0FBQUMsRUFBQSxJQUFBQyxTQUFBLENBQUFELEVBQUE7O0VBQ3ZELE9BQU9KLEtBQUEsQ0FBQU8sR0FBRyxDQUFBQyxLQUFBLFNBQUFDLGFBQUEsS0FBQUMsTUFBQSxDQUFJUCxXQUFXO0FBQzNCO0FBRkFRLE9BQUEsQ0FBQVQsT0FBQSxHQUFBQSxPQUFBIiwiaWdub3JlTGlzdCI6W119

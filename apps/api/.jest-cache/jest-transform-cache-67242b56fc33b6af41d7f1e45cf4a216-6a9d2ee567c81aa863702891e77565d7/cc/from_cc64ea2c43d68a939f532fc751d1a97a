@@ -1,0 +1,14 @@
+b8d2e03642d9d0752aab6de0fb60d635
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.from = void 0;
+var scheduled_1 = require("../scheduled/scheduled");
+var innerFrom_1 = require("./innerFrom");
+function from(input, scheduler) {
+  return scheduler ? scheduled_1.scheduled(input, scheduler) : innerFrom_1.innerFrom(input);
+}
+exports.from = from;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJzY2hlZHVsZWRfMSIsInJlcXVpcmUiLCJpbm5lckZyb21fMSIsImZyb20iLCJpbnB1dCIsInNjaGVkdWxlciIsInNjaGVkdWxlZCIsImlubmVyRnJvbSIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvb2JzZXJ2YWJsZS9mcm9tLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFQSxJQUFBQSxXQUFBLEdBQUFDLE9BQUE7QUFDQSxJQUFBQyxXQUFBLEdBQUFELE9BQUE7QUFrR0EsU0FBZ0JFLElBQUlBLENBQUlDLEtBQXlCLEVBQUVDLFNBQXlCO0VBQzFFLE9BQU9BLFNBQVMsR0FBR0wsV0FBQSxDQUFBTSxTQUFTLENBQUNGLEtBQUssRUFBRUMsU0FBUyxDQUFDLEdBQUdILFdBQUEsQ0FBQUssU0FBUyxDQUFDSCxLQUFLLENBQUM7QUFDbkU7QUFGQUksT0FBQSxDQUFBTCxJQUFBLEdBQUFBLElBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

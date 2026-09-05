@@ -1,0 +1,1 @@
+{"version":3,"names":["AuthModuleOptions","defaultStrategy","session","property","exports"],"sources":["auth-module.options.js"],"sourcesContent":["export class AuthModuleOptions {\n    defaultStrategy;\n    session;\n    property;\n}\n"],"mappings":";;;;;;AAAO,MAAMA,iBAAiB,CAAC;EAC3BC,eAAe;EACfC,OAAO;EACPC,QAAQ;AACZ;AAACC,OAAA,CAAAJ,iBAAA,GAAAA,iBAAA","ignoreList":[]}

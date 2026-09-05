@@ -1,0 +1,73 @@
+b98062482d58b9ea6ec4ec2e086f9380
+"use strict";
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AsyncSubject = void 0;
+var Subject_1 = require("./Subject");
+var AsyncSubject = function (_super) {
+  __extends(AsyncSubject, _super);
+  function AsyncSubject() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+    _this._value = null;
+    _this._hasValue = false;
+    _this._isComplete = false;
+    return _this;
+  }
+  AsyncSubject.prototype._checkFinalizedStatuses = function (subscriber) {
+    var _a = this,
+      hasError = _a.hasError,
+      _hasValue = _a._hasValue,
+      _value = _a._value,
+      thrownError = _a.thrownError,
+      isStopped = _a.isStopped,
+      _isComplete = _a._isComplete;
+    if (hasError) {
+      subscriber.error(thrownError);
+    } else if (isStopped || _isComplete) {
+      _hasValue && subscriber.next(_value);
+      subscriber.complete();
+    }
+  };
+  AsyncSubject.prototype.next = function (value) {
+    if (!this.isStopped) {
+      this._value = value;
+      this._hasValue = true;
+    }
+  };
+  AsyncSubject.prototype.complete = function () {
+    var _a = this,
+      _hasValue = _a._hasValue,
+      _value = _a._value,
+      _isComplete = _a._isComplete;
+    if (!_isComplete) {
+      this._isComplete = true;
+      _hasValue && _super.prototype.next.call(this, _value);
+      _super.prototype.complete.call(this);
+    }
+  };
+  return AsyncSubject;
+}(Subject_1.Subject);
+exports.AsyncSubject = AsyncSubject;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJTdWJqZWN0XzEiLCJyZXF1aXJlIiwiQXN5bmNTdWJqZWN0IiwiX3N1cGVyIiwiX19leHRlbmRzIiwiX3RoaXMiLCJhcHBseSIsImFyZ3VtZW50cyIsIl92YWx1ZSIsIl9oYXNWYWx1ZSIsIl9pc0NvbXBsZXRlIiwicHJvdG90eXBlIiwiX2NoZWNrRmluYWxpemVkU3RhdHVzZXMiLCJzdWJzY3JpYmVyIiwiX2EiLCJoYXNFcnJvciIsInRocm93bkVycm9yIiwiaXNTdG9wcGVkIiwiZXJyb3IiLCJuZXh0IiwiY29tcGxldGUiLCJ2YWx1ZSIsImNhbGwiLCJTdWJqZWN0IiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9pbnRlcm5hbC9Bc3luY1N1YmplY3QudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsSUFBQUEsU0FBQSxHQUFBQyxPQUFBO0FBT0EsSUFBQUMsWUFBQSxhQUFBQyxNQUFBO0VBQXFDQyxTQUFBLENBQUFGLFlBQUEsRUFBQUMsTUFBQTtFQUFyQyxTQUFBRCxhQUFBO0lBQUEsSUFBQUcsS0FBQSxHQUFBRixNQUFBLGFBQUFBLE1BQUEsQ0FBQUcsS0FBQSxPQUFBQyxTQUFBO0lBQ1VGLEtBQUEsQ0FBQUcsTUFBTSxHQUFhLElBQUk7SUFDdkJILEtBQUEsQ0FBQUksU0FBUyxHQUFHLEtBQUs7SUFDakJKLEtBQUEsQ0FBQUssV0FBVyxHQUFHLEtBQUs7O0VBNEI3QjtFQXpCWVIsWUFBQSxDQUFBUyxTQUFBLENBQUFDLHVCQUF1QixHQUFqQyxVQUFrQ0MsVUFBeUI7SUFDbkQsSUFBQUMsRUFBQSxHQUF1RSxJQUFJO01BQXpFQyxRQUFRLEdBQUFELEVBQUEsQ0FBQUMsUUFBQTtNQUFFTixTQUFTLEdBQUFLLEVBQUEsQ0FBQUwsU0FBQTtNQUFFRCxNQUFNLEdBQUFNLEVBQUEsQ0FBQU4sTUFBQTtNQUFFUSxXQUFXLEdBQUFGLEVBQUEsQ0FBQUUsV0FBQTtNQUFFQyxTQUFTLEdBQUFILEVBQUEsQ0FBQUcsU0FBQTtNQUFFUCxXQUFXLEdBQUFJLEVBQUEsQ0FBQUosV0FBUztJQUNqRixJQUFJSyxRQUFRLEVBQUU7TUFDWkYsVUFBVSxDQUFDSyxLQUFLLENBQUNGLFdBQVcsQ0FBQztLQUM5QixNQUFNLElBQUlDLFNBQVMsSUFBSVAsV0FBVyxFQUFFO01BQ25DRCxTQUFTLElBQUlJLFVBQVUsQ0FBQ00sSUFBSSxDQUFDWCxNQUFPLENBQUM7TUFDckNLLFVBQVUsQ0FBQ08sUUFBUSxFQUFFOztFQUV6QixDQUFDO0VBRURsQixZQUFBLENBQUFTLFNBQUEsQ0FBQVEsSUFBSSxHQUFKLFVBQUtFLEtBQVE7SUFDWCxJQUFJLENBQUMsSUFBSSxDQUFDSixTQUFTLEVBQUU7TUFDbkIsSUFBSSxDQUFDVCxNQUFNLEdBQUdhLEtBQUs7TUFDbkIsSUFBSSxDQUFDWixTQUFTLEdBQUcsSUFBSTs7RUFFekIsQ0FBQztFQUVEUCxZQUFBLENBQUFTLFNBQUEsQ0FBQVMsUUFBUSxHQUFSO0lBQ1EsSUFBQU4sRUFBQSxHQUFxQyxJQUFJO01BQXZDTCxTQUFTLEdBQUFLLEVBQUEsQ0FBQUwsU0FBQTtNQUFFRCxNQUFNLEdBQUFNLEVBQUEsQ0FBQU4sTUFBQTtNQUFFRSxXQUFXLEdBQUFJLEVBQUEsQ0FBQUosV0FBUztJQUMvQyxJQUFJLENBQUNBLFdBQVcsRUFBRTtNQUNoQixJQUFJLENBQUNBLFdBQVcsR0FBRyxJQUFJO01BQ3ZCRCxTQUFTLElBQUlOLE1BQUEsQ0FBQVEsU0FBQSxDQUFNUSxJQUFJLENBQUFHLElBQUEsT0FBQ2QsTUFBTyxDQUFDO01BQ2hDTCxNQUFBLENBQUFRLFNBQUEsQ0FBTVMsUUFBUSxDQUFBRSxJQUFBLE1BQUU7O0VBRXBCLENBQUM7RUFDSCxPQUFBcEIsWUFBQztBQUFELENBQUMsQ0EvQm9DRixTQUFBLENBQUF1QixPQUFPO0FBQS9CQyxPQUFBLENBQUF0QixZQUFBLEdBQUFBLFlBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

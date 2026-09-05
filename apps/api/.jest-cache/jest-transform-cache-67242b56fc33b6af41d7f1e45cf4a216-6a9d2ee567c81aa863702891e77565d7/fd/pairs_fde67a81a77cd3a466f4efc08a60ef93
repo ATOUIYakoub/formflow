@@ -1,0 +1,13 @@
+70e9d2aabb1b99c2dae37539bb429ac2
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.pairs = void 0;
+var from_1 = require("./from");
+function pairs(obj, scheduler) {
+  return from_1.from(Object.entries(obj), scheduler);
+}
+exports.pairs = pairs;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJmcm9tXzEiLCJyZXF1aXJlIiwicGFpcnMiLCJvYmoiLCJzY2hlZHVsZXIiLCJmcm9tIiwiT2JqZWN0IiwiZW50cmllcyIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvb2JzZXJ2YWJsZS9wYWlycy50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBRUEsSUFBQUEsTUFBQSxHQUFBQyxPQUFBO0FBMkVBLFNBQWdCQyxLQUFLQSxDQUFDQyxHQUFRLEVBQUVDLFNBQXlCO0VBQ3ZELE9BQU9KLE1BQUEsQ0FBQUssSUFBSSxDQUFDQyxNQUFNLENBQUNDLE9BQU8sQ0FBQ0osR0FBRyxDQUFDLEVBQUVDLFNBQWdCLENBQUM7QUFDcEQ7QUFGQUksT0FBQSxDQUFBTixLQUFBLEdBQUFBLEtBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

@@ -107,7 +107,7 @@ export default function FormsListPage() {
           </div>
           <h3 className="text-[16px] font-semibold text-zinc-900 mb-1">No forms yet</h3>
           <p className="text-[14px] text-zinc-500 mb-6 max-w-sm">
-            You haven't created any forms. Create your first form to start collecting responses.
+            You haven&apos;t created any forms. Create your first form to start collecting responses.
           </p>
           <Link
             href="/dashboard/forms/new"

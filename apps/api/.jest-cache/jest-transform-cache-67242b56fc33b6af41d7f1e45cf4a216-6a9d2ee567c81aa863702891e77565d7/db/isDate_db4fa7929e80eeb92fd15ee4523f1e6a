@@ -1,0 +1,12 @@
+b23da2496b9a10bbe545c70f051b56d5
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isValidDate = void 0;
+function isValidDate(value) {
+  return value instanceof Date && !isNaN(value);
+}
+exports.isValidDate = isValidDate;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJpc1ZhbGlkRGF0ZSIsInZhbHVlIiwiRGF0ZSIsImlzTmFOIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL2lzRGF0ZS50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBT0EsU0FBZ0JBLFdBQVdBLENBQUNDLEtBQVU7RUFDcEMsT0FBT0EsS0FBSyxZQUFZQyxJQUFJLElBQUksQ0FBQ0MsS0FBSyxDQUFDRixLQUFZLENBQUM7QUFDdEQ7QUFGQUcsT0FBQSxDQUFBSixXQUFBLEdBQUFBLFdBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

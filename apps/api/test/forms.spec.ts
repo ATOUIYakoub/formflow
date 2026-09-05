@@ -1,17 +1,20 @@
 import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { createTestApp, registerAndLogin, createForm, cleanupTestData, extractUserIdFromToken } from './utils';
+import * as request from 'supertest';
+import {
+  createTestApp,
+  registerAndLogin,
+  createForm,
+  cleanupTestData,
+} from './utils';
 
 describe('Forms', () => {
   let app: INestApplication;
   let userToken: string;
-  let userId: string;
 
   beforeAll(async () => {
     app = await createTestApp();
     const auth = await registerAndLogin(app, `forms-${Date.now()}@example.com`);
     userToken = auth.accessToken;
-    userId = extractUserIdFromToken(userToken);
   });
 
   afterAll(async () => {
@@ -56,7 +59,10 @@ describe('Forms', () => {
     });
 
     it('should not show other users forms', async () => {
-      const otherAuth = await registerAndLogin(app, `other-${Date.now()}@example.com`);
+      const otherAuth = await registerAndLogin(
+        app,
+        `other-${Date.now()}@example.com`,
+      );
       await createForm(app, otherAuth.accessToken, { name: 'Other User Form' });
 
       const res = await request(app.getHttpServer())
@@ -64,7 +70,9 @@ describe('Forms', () => {
         .set('Cookie', `jwt=${userToken}`)
         .expect(200);
 
-      const otherForm = res.body.find((f: any) => f.name === 'Other User Form');
+      const otherForm = res.body.find(
+        (f: any) => f.name === 'Other User Form',
+      );
       expect(otherForm).toBeUndefined();
     });
   });
@@ -90,8 +98,13 @@ describe('Forms', () => {
     });
 
     it('should 403 for other user form', async () => {
-      const otherAuth = await registerAndLogin(app, `other2-${Date.now()}@example.com`);
-      const otherForm = await createForm(app, otherAuth.accessToken, { name: 'Private' });
+      const otherAuth = await registerAndLogin(
+        app,
+        `other2-${Date.now()}@example.com`,
+      );
+      const otherForm = await createForm(app, otherAuth.accessToken, {
+        name: 'Private',
+      });
 
       await request(app.getHttpServer())
         .get(`/api/forms/${otherForm.id}`)
@@ -115,8 +128,13 @@ describe('Forms', () => {
     });
 
     it('should 403 for other user form', async () => {
-      const otherAuth = await registerAndLogin(app, `other3-${Date.now()}@example.com`);
-      const otherForm = await createForm(app, otherAuth.accessToken, { name: 'Private' });
+      const otherAuth = await registerAndLogin(
+        app,
+        `other3-${Date.now()}@example.com`,
+      );
+      const otherForm = await createForm(app, otherAuth.accessToken, {
+        name: 'Private',
+      });
 
       await request(app.getHttpServer())
         .patch(`/api/forms/${otherForm.id}`)
@@ -142,8 +160,13 @@ describe('Forms', () => {
     });
 
     it('should 403 for other user form', async () => {
-      const otherAuth = await registerAndLogin(app, `other4-${Date.now()}@example.com`);
-      const otherForm = await createForm(app, otherAuth.accessToken, { name: 'Private' });
+      const otherAuth = await registerAndLogin(
+        app,
+        `other4-${Date.now()}@example.com`,
+      );
+      const otherForm = await createForm(app, otherAuth.accessToken, {
+        name: 'Private',
+      });
 
       await request(app.getHttpServer())
         .delete(`/api/forms/${otherForm.id}`)
@@ -167,8 +190,13 @@ describe('Forms', () => {
     });
 
     it('should 403 for other user form', async () => {
-      const otherAuth = await registerAndLogin(app, `other5-${Date.now()}@example.com`);
-      const otherForm = await createForm(app, otherAuth.accessToken, { name: 'Private' });
+      const otherAuth = await registerAndLogin(
+        app,
+        `other5-${Date.now()}@example.com`,
+      );
+      const otherForm = await createForm(app, otherAuth.accessToken, {
+        name: 'Private',
+      });
 
       await request(app.getHttpServer())
         .post(`/api/forms/${otherForm.id}/publish`)

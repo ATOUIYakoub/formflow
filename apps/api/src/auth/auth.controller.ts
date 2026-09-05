@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Res, Get, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, Body, Res, Get, UseGuards, Req, HttpCode, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response, Request } from 'express';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -24,6 +24,7 @@ export class AuthController {
   }
 
   @Post('login')
+  @HttpCode(HttpStatus.OK)
   @Throttle({ default: { limit: 10, ttl: 60000 } }) // 10 per minute
   @ApiOperation({ summary: 'Log in and receive a cookie' })
   async login(@Body(new ValidationPipe()) dto: LoginDto, @Res({ passthrough: true }) res: Response) {
@@ -34,6 +35,7 @@ export class AuthController {
   }
 
   @Post('logout')
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Log out and clear the cookie' })
   async logout(@Res({ passthrough: true }) res: Response) {
     res.cookie('jwt', '', {

@@ -1,0 +1,21 @@
+f86437d5fcadd8fc662e98cbcd780abe
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.OnQueueEvent = void 0;
+var _common = require("@nestjs/common");
+var _bullConstants = require("../bull.constants.js");
+/**
+ * Registers a queue event listener.
+ * Class that contains queue event listeners must be annotated
+ * with the "QueueEventsListener" decorator.
+ *
+ * @publicApi
+ */
+const OnQueueEvent = eventName => (0, _common.SetMetadata)(_bullConstants.ON_QUEUE_EVENT_METADATA, {
+  eventName
+});
+exports.OnQueueEvent = OnQueueEvent;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfY29tbW9uIiwicmVxdWlyZSIsIl9idWxsQ29uc3RhbnRzIiwiT25RdWV1ZUV2ZW50IiwiZXZlbnROYW1lIiwiU2V0TWV0YWRhdGEiLCJPTl9RVUVVRV9FVkVOVF9NRVRBREFUQSIsImV4cG9ydHMiXSwic291cmNlcyI6WyJvbi1xdWV1ZS1ldmVudC5kZWNvcmF0b3IuanMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgU2V0TWV0YWRhdGEgfSBmcm9tICdAbmVzdGpzL2NvbW1vbic7XG5pbXBvcnQgeyBPTl9RVUVVRV9FVkVOVF9NRVRBREFUQSB9IGZyb20gJy4uL2J1bGwuY29uc3RhbnRzLmpzJztcbi8qKlxuICogUmVnaXN0ZXJzIGEgcXVldWUgZXZlbnQgbGlzdGVuZXIuXG4gKiBDbGFzcyB0aGF0IGNvbnRhaW5zIHF1ZXVlIGV2ZW50IGxpc3RlbmVycyBtdXN0IGJlIGFubm90YXRlZFxuICogd2l0aCB0aGUgXCJRdWV1ZUV2ZW50c0xpc3RlbmVyXCIgZGVjb3JhdG9yLlxuICpcbiAqIEBwdWJsaWNBcGlcbiAqL1xuZXhwb3J0IGNvbnN0IE9uUXVldWVFdmVudCA9IChldmVudE5hbWUpID0+IFNldE1ldGFkYXRhKE9OX1FVRVVFX0VWRU5UX01FVEFEQVRBLCB7IGV2ZW50TmFtZSB9KTtcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsSUFBQUEsT0FBQSxHQUFBQyxPQUFBO0FBQ0EsSUFBQUMsY0FBQSxHQUFBRCxPQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDTyxNQUFNRSxZQUFZLEdBQUlDLFNBQVMsSUFBSyxJQUFBQyxtQkFBVyxFQUFDQyxzQ0FBdUIsRUFBRTtFQUFFRjtBQUFVLENBQUMsQ0FBQztBQUFDRyxPQUFBLENBQUFKLFlBQUEsR0FBQUEsWUFBQSIsImlnbm9yZUxpc3QiOltdfQ==

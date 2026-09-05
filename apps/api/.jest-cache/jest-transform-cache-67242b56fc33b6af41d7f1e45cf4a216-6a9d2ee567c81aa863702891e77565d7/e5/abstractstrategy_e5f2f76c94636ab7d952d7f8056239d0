@@ -1,0 +1,10 @@
+288dacedff5b0ab73253f6a08be1e474
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AbstractStrategy = void 0;
+class AbstractStrategy {}
+exports.AbstractStrategy = AbstractStrategy;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJBYnN0cmFjdFN0cmF0ZWd5IiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbImFic3RyYWN0LnN0cmF0ZWd5LmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjbGFzcyBBYnN0cmFjdFN0cmF0ZWd5IHtcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQU8sTUFBTUEsZ0JBQWdCLENBQUM7QUFDN0JDLE9BQUEsQ0FBQUQsZ0JBQUEsR0FBQUEsZ0JBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

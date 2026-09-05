@@ -1,0 +1,19 @@
+dffd53c3c35afd52659874a44f902dd3
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.publishBehavior = void 0;
+var BehaviorSubject_1 = require("../BehaviorSubject");
+var ConnectableObservable_1 = require("../observable/ConnectableObservable");
+function publishBehavior(initialValue) {
+  return function (source) {
+    var subject = new BehaviorSubject_1.BehaviorSubject(initialValue);
+    return new ConnectableObservable_1.ConnectableObservable(source, function () {
+      return subject;
+    });
+  };
+}
+exports.publishBehavior = publishBehavior;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJCZWhhdmlvclN1YmplY3RfMSIsInJlcXVpcmUiLCJDb25uZWN0YWJsZU9ic2VydmFibGVfMSIsInB1Ymxpc2hCZWhhdmlvciIsImluaXRpYWxWYWx1ZSIsInNvdXJjZSIsInN1YmplY3QiLCJCZWhhdmlvclN1YmplY3QiLCJDb25uZWN0YWJsZU9ic2VydmFibGUiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9wdWJsaXNoQmVoYXZpb3IudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBLElBQUFBLGlCQUFBLEdBQUFDLE9BQUE7QUFDQSxJQUFBQyx1QkFBQSxHQUFBRCxPQUFBO0FBaUJBLFNBQWdCRSxlQUFlQSxDQUFJQyxZQUFlO0VBRWhELE9BQU8sVUFBQ0MsTUFBTTtJQUNaLElBQU1DLE9BQU8sR0FBRyxJQUFJTixpQkFBQSxDQUFBTyxlQUFlLENBQUlILFlBQVksQ0FBQztJQUNwRCxPQUFPLElBQUlGLHVCQUFBLENBQUFNLHFCQUFxQixDQUFDSCxNQUFNLEVBQUU7TUFBTSxPQUFBQyxPQUFPO0lBQVAsQ0FBTyxDQUFDO0VBQ3pELENBQUM7QUFDSDtBQU5BRyxPQUFBLENBQUFOLGVBQUEsR0FBQUEsZUFBQSIsImlnbm9yZUxpc3QiOltdfQ==

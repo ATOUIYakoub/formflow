@@ -1,0 +1,15 @@
+a2e3d766958c5d88a234875adaf76549
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.mapTo = void 0;
+var map_1 = require("./map");
+function mapTo(value) {
+  return map_1.map(function () {
+    return value;
+  });
+}
+exports.mapTo = mapTo;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJtYXBfMSIsInJlcXVpcmUiLCJtYXBUbyIsInZhbHVlIiwibWFwIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvbWFwVG8udHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBLElBQUFBLEtBQUEsR0FBQUMsT0FBQTtBQTRDQSxTQUFnQkMsS0FBS0EsQ0FBSUMsS0FBUTtFQUMvQixPQUFPSCxLQUFBLENBQUFJLEdBQUcsQ0FBQztJQUFNLE9BQUFELEtBQUs7RUFBTCxDQUFLLENBQUM7QUFDekI7QUFGQUUsT0FBQSxDQUFBSCxLQUFBLEdBQUFBLEtBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

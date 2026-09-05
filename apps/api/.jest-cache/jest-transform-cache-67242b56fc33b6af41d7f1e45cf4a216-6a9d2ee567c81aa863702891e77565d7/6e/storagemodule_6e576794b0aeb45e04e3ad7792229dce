@@ -1,0 +1,29 @@
+7d43a516cdaa2206701998242d3b3be7
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.StorageModule = exports.STORAGE_PROVIDER = void 0;
+const common_1 = require("@nestjs/common");
+const local_storage_provider_1 = require("./local-storage.provider");
+exports.STORAGE_PROVIDER = 'STORAGE_PROVIDER';
+let StorageModule = class StorageModule {
+};
+exports.StorageModule = StorageModule;
+exports.StorageModule = StorageModule = __decorate([
+    (0, common_1.Module)({
+        controllers: [require('./upload.controller').UploadController],
+        providers: [
+            {
+                provide: exports.STORAGE_PROVIDER,
+                useClass: local_storage_provider_1.LocalStorageProvider,
+            },
+        ],
+        exports: [exports.STORAGE_PROVIDER],
+    })
+], StorageModule);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxZYWtvdWJcXERvY3VtZW50c1xcUHJvamVjdHNcXGZvcm1mbG93XFxhcHBzXFxhcGlcXHNyY1xcc3RvcmFnZVxcc3RvcmFnZS5tb2R1bGUudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBQUEsMkNBQXdDO0FBQ3hDLHFFQUFnRTtBQUVuRCxRQUFBLGdCQUFnQixHQUFHLGtCQUFrQixDQUFDO0FBWTVDLElBQU0sYUFBYSxHQUFuQixNQUFNLGFBQWE7Q0FBRyxDQUFBO0FBQWhCLHNDQUFhO3dCQUFiLGFBQWE7SUFWekIsSUFBQSxlQUFNLEVBQUM7UUFDTixXQUFXLEVBQUUsQ0FBQyxPQUFPLENBQUMscUJBQXFCLENBQUMsQ0FBQyxnQkFBZ0IsQ0FBQztRQUM5RCxTQUFTLEVBQUU7WUFDVDtnQkFDRSxPQUFPLEVBQUUsd0JBQWdCO2dCQUN6QixRQUFRLEVBQUUsNkNBQW9CO2FBQy9CO1NBQ0Y7UUFDRCxPQUFPLEVBQUUsQ0FBQyx3QkFBZ0IsQ0FBQztLQUM1QixDQUFDO0dBQ1csYUFBYSxDQUFHIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcWWFrb3ViXFxEb2N1bWVudHNcXFByb2plY3RzXFxmb3JtZmxvd1xcYXBwc1xcYXBpXFxzcmNcXHN0b3JhZ2VcXHN0b3JhZ2UubW9kdWxlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IE1vZHVsZSB9IGZyb20gJ0BuZXN0anMvY29tbW9uJztcbmltcG9ydCB7IExvY2FsU3RvcmFnZVByb3ZpZGVyIH0gZnJvbSAnLi9sb2NhbC1zdG9yYWdlLnByb3ZpZGVyJztcblxuZXhwb3J0IGNvbnN0IFNUT1JBR0VfUFJPVklERVIgPSAnU1RPUkFHRV9QUk9WSURFUic7XG5cbkBNb2R1bGUoe1xuICBjb250cm9sbGVyczogW3JlcXVpcmUoJy4vdXBsb2FkLmNvbnRyb2xsZXInKS5VcGxvYWRDb250cm9sbGVyXSxcbiAgcHJvdmlkZXJzOiBbXG4gICAge1xuICAgICAgcHJvdmlkZTogU1RPUkFHRV9QUk9WSURFUixcbiAgICAgIHVzZUNsYXNzOiBMb2NhbFN0b3JhZ2VQcm92aWRlcixcbiAgICB9LFxuICBdLFxuICBleHBvcnRzOiBbU1RPUkFHRV9QUk9WSURFUl0sXG59KVxuZXhwb3J0IGNsYXNzIFN0b3JhZ2VNb2R1bGUge30iXSwidmVyc2lvbiI6M30=

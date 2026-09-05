@@ -1,0 +1,65 @@
+7f1cd379a1dc85830ec5fb1d86de8522
+"use strict";
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.BehaviorSubject = void 0;
+var Subject_1 = require("./Subject");
+var BehaviorSubject = function (_super) {
+  __extends(BehaviorSubject, _super);
+  function BehaviorSubject(_value) {
+    var _this = _super.call(this) || this;
+    _this._value = _value;
+    return _this;
+  }
+  Object.defineProperty(BehaviorSubject.prototype, "value", {
+    get: function () {
+      return this.getValue();
+    },
+    enumerable: false,
+    configurable: true
+  });
+  BehaviorSubject.prototype._subscribe = function (subscriber) {
+    var subscription = _super.prototype._subscribe.call(this, subscriber);
+    !subscription.closed && subscriber.next(this._value);
+    return subscription;
+  };
+  BehaviorSubject.prototype.getValue = function () {
+    var _a = this,
+      hasError = _a.hasError,
+      thrownError = _a.thrownError,
+      _value = _a._value;
+    if (hasError) {
+      throw thrownError;
+    }
+    this._throwIfClosed();
+    return _value;
+  };
+  BehaviorSubject.prototype.next = function (value) {
+    _super.prototype.next.call(this, this._value = value);
+  };
+  return BehaviorSubject;
+}(Subject_1.Subject);
+exports.BehaviorSubject = BehaviorSubject;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJTdWJqZWN0XzEiLCJyZXF1aXJlIiwiQmVoYXZpb3JTdWJqZWN0IiwiX3N1cGVyIiwiX19leHRlbmRzIiwiX3ZhbHVlIiwiX3RoaXMiLCJjYWxsIiwiT2JqZWN0IiwiZGVmaW5lUHJvcGVydHkiLCJwcm90b3R5cGUiLCJnZXQiLCJnZXRWYWx1ZSIsIl9zdWJzY3JpYmUiLCJzdWJzY3JpYmVyIiwic3Vic2NyaXB0aW9uIiwiY2xvc2VkIiwibmV4dCIsIl9hIiwiaGFzRXJyb3IiLCJ0aHJvd25FcnJvciIsIl90aHJvd0lmQ2xvc2VkIiwidmFsdWUiLCJTdWJqZWN0IiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9pbnRlcm5hbC9CZWhhdmlvclN1YmplY3QudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsSUFBQUEsU0FBQSxHQUFBQyxPQUFBO0FBUUEsSUFBQUMsZUFBQSxhQUFBQyxNQUFBO0VBQXdDQyxTQUFBLENBQUFGLGVBQUEsRUFBQUMsTUFBQTtFQUN0QyxTQUFBRCxnQkFBb0JHLE1BQVM7SUFBN0IsSUFBQUMsS0FBQSxHQUNFSCxNQUFBLENBQUFJLElBQUEsTUFBTztJQURXRCxLQUFBLENBQUFELE1BQU0sR0FBTkEsTUFBTTs7RUFFMUI7RUFFQUcsTUFBQSxDQUFBQyxjQUFBLENBQUlQLGVBQUEsQ0FBQVEsU0FBQSxTQUFLO1NBQVQsU0FBQUMsQ0FBQTtNQUNFLE9BQU8sSUFBSSxDQUFDQyxRQUFRLEVBQUU7SUFDeEIsQ0FBQzs7OztFQUdTVixlQUFBLENBQUFRLFNBQUEsQ0FBQUcsVUFBVSxHQUFwQixVQUFxQkMsVUFBeUI7SUFDNUMsSUFBTUMsWUFBWSxHQUFHWixNQUFBLENBQUFPLFNBQUEsQ0FBTUcsVUFBVSxDQUFBTixJQUFBLE9BQUNPLFVBQVUsQ0FBQztJQUNqRCxDQUFDQyxZQUFZLENBQUNDLE1BQU0sSUFBSUYsVUFBVSxDQUFDRyxJQUFJLENBQUMsSUFBSSxDQUFDWixNQUFNLENBQUM7SUFDcEQsT0FBT1UsWUFBWTtFQUNyQixDQUFDO0VBRURiLGVBQUEsQ0FBQVEsU0FBQSxDQUFBRSxRQUFRLEdBQVI7SUFDUSxJQUFBTSxFQUFBLEdBQW9DLElBQUk7TUFBdENDLFFBQVEsR0FBQUQsRUFBQSxDQUFBQyxRQUFBO01BQUVDLFdBQVcsR0FBQUYsRUFBQSxDQUFBRSxXQUFBO01BQUVmLE1BQU0sR0FBQWEsRUFBQSxDQUFBYixNQUFTO0lBQzlDLElBQUljLFFBQVEsRUFBRTtNQUNaLE1BQU1DLFdBQVc7O0lBRW5CLElBQUksQ0FBQ0MsY0FBYyxFQUFFO0lBQ3JCLE9BQU9oQixNQUFNO0VBQ2YsQ0FBQztFQUVESCxlQUFBLENBQUFRLFNBQUEsQ0FBQU8sSUFBSSxHQUFKLFVBQUtLLEtBQVE7SUFDWG5CLE1BQUEsQ0FBQU8sU0FBQSxDQUFNTyxJQUFJLENBQUFWLElBQUEsT0FBRSxJQUFJLENBQUNGLE1BQU0sR0FBR2lCLEtBQU0sQ0FBQztFQUNuQyxDQUFDO0VBQ0gsT0FBQXBCLGVBQUM7QUFBRCxDQUFDLENBNUJ1Q0YsU0FBQSxDQUFBdUIsT0FBTztBQUFsQ0MsT0FBQSxDQUFBdEIsZUFBQSxHQUFBQSxlQUFBIiwiaWdub3JlTGlzdCI6W119

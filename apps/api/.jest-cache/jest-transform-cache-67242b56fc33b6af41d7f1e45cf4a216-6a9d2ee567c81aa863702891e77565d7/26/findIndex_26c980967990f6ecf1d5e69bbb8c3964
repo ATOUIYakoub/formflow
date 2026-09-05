@@ -1,0 +1,14 @@
+051e6457e9ab59f104addfc2c1e4e607
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.findIndex = void 0;
+var lift_1 = require("../util/lift");
+var find_1 = require("./find");
+function findIndex(predicate, thisArg) {
+  return lift_1.operate(find_1.createFind(predicate, thisArg, 'index'));
+}
+exports.findIndex = findIndex;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJsaWZ0XzEiLCJyZXF1aXJlIiwiZmluZF8xIiwiZmluZEluZGV4IiwicHJlZGljYXRlIiwidGhpc0FyZyIsIm9wZXJhdGUiLCJjcmVhdGVGaW5kIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvZmluZEluZGV4LnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFQSxJQUFBQSxNQUFBLEdBQUFDLE9BQUE7QUFDQSxJQUFBQyxNQUFBLEdBQUFELE9BQUE7QUFzREEsU0FBZ0JFLFNBQVNBLENBQ3ZCQyxTQUFzRSxFQUN0RUMsT0FBYTtFQUViLE9BQU9MLE1BQUEsQ0FBQU0sT0FBTyxDQUFDSixNQUFBLENBQUFLLFVBQVUsQ0FBQ0gsU0FBUyxFQUFFQyxPQUFPLEVBQUUsT0FBTyxDQUFDLENBQUM7QUFDekQ7QUFMQUcsT0FBQSxDQUFBTCxTQUFBLEdBQUFBLFNBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

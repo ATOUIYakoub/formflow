@@ -1,0 +1,29 @@
+6d70b28ff3e49f7f85fdc932a6d6ad77
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _invalidProcessorClassError = require("./invalid-processor-class.error.js");
+Object.keys(_invalidProcessorClassError).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _invalidProcessorClassError[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _invalidProcessorClassError[key];
+    }
+  });
+});
+var _invalidQueueEventsListenerClassError = require("./invalid-queue-events-listener-class.error.js");
+Object.keys(_invalidQueueEventsListenerClassError).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _invalidQueueEventsListenerClassError[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _invalidQueueEventsListenerClassError[key];
+    }
+  });
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfaW52YWxpZFByb2Nlc3NvckNsYXNzRXJyb3IiLCJyZXF1aXJlIiwiT2JqZWN0Iiwia2V5cyIsImZvckVhY2giLCJrZXkiLCJleHBvcnRzIiwiZGVmaW5lUHJvcGVydHkiLCJlbnVtZXJhYmxlIiwiZ2V0IiwiX2ludmFsaWRRdWV1ZUV2ZW50c0xpc3RlbmVyQ2xhc3NFcnJvciJdLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCAqIGZyb20gJy4vaW52YWxpZC1wcm9jZXNzb3ItY2xhc3MuZXJyb3IuanMnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnZhbGlkLXF1ZXVlLWV2ZW50cy1saXN0ZW5lci1jbGFzcy5lcnJvci5qcyc7XG4iXSwibWFwcGluZ3MiOiI7Ozs7O0FBQUEsSUFBQUEsMkJBQUEsR0FBQUMsT0FBQTtBQUFBQyxNQUFBLENBQUFDLElBQUEsQ0FBQUgsMkJBQUEsRUFBQUksT0FBQSxXQUFBQyxHQUFBO0VBQUEsSUFBQUEsR0FBQSxrQkFBQUEsR0FBQTtFQUFBLElBQUFBLEdBQUEsSUFBQUMsT0FBQSxJQUFBQSxPQUFBLENBQUFELEdBQUEsTUFBQUwsMkJBQUEsQ0FBQUssR0FBQTtFQUFBSCxNQUFBLENBQUFLLGNBQUEsQ0FBQUQsT0FBQSxFQUFBRCxHQUFBO0lBQUFHLFVBQUE7SUFBQUMsR0FBQSxXQUFBQSxDQUFBO01BQUEsT0FBQVQsMkJBQUEsQ0FBQUssR0FBQTtJQUFBO0VBQUE7QUFBQTtBQUNBLElBQUFLLHFDQUFBLEdBQUFULE9BQUE7QUFBQUMsTUFBQSxDQUFBQyxJQUFBLENBQUFPLHFDQUFBLEVBQUFOLE9BQUEsV0FBQUMsR0FBQTtFQUFBLElBQUFBLEdBQUEsa0JBQUFBLEdBQUE7RUFBQSxJQUFBQSxHQUFBLElBQUFDLE9BQUEsSUFBQUEsT0FBQSxDQUFBRCxHQUFBLE1BQUFLLHFDQUFBLENBQUFMLEdBQUE7RUFBQUgsTUFBQSxDQUFBSyxjQUFBLENBQUFELE9BQUEsRUFBQUQsR0FBQTtJQUFBRyxVQUFBO0lBQUFDLEdBQUEsV0FBQUEsQ0FBQTtNQUFBLE9BQUFDLHFDQUFBLENBQUFMLEdBQUE7SUFBQTtFQUFBO0FBQUEiLCJpZ25vcmVMaXN0IjpbXX0=

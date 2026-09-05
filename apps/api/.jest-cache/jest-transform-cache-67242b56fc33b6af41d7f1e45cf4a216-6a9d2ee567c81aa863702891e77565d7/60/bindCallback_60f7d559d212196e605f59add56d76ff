@@ -1,0 +1,13 @@
+da926701c0f251e02ea0217a36dea814
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.bindCallback = void 0;
+var bindCallbackInternals_1 = require("./bindCallbackInternals");
+function bindCallback(callbackFunc, resultSelector, scheduler) {
+  return bindCallbackInternals_1.bindCallbackInternals(false, callbackFunc, resultSelector, scheduler);
+}
+exports.bindCallback = bindCallback;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJiaW5kQ2FsbGJhY2tJbnRlcm5hbHNfMSIsInJlcXVpcmUiLCJiaW5kQ2FsbGJhY2siLCJjYWxsYmFja0Z1bmMiLCJyZXN1bHRTZWxlY3RvciIsInNjaGVkdWxlciIsImJpbmRDYWxsYmFja0ludGVybmFscyIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvb2JzZXJ2YWJsZS9iaW5kQ2FsbGJhY2sudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUdBLElBQUFBLHVCQUFBLEdBQUFDLE9BQUE7QUEySUEsU0FBZ0JDLFlBQVlBLENBQzFCQyxZQUFrRSxFQUNsRUMsY0FBMEQsRUFDMURDLFNBQXlCO0VBRXpCLE9BQU9MLHVCQUFBLENBQUFNLHFCQUFxQixDQUFDLEtBQUssRUFBRUgsWUFBWSxFQUFFQyxjQUFjLEVBQUVDLFNBQVMsQ0FBQztBQUM5RTtBQU5BRSxPQUFBLENBQUFMLFlBQUEsR0FBQUEsWUFBQSIsImlnbm9yZUxpc3QiOltdfQ==

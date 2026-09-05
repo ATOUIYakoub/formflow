@@ -1,6 +1,11 @@
 import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { createTestApp, registerAndLogin, createForm, saveFields, cleanupTestData } from './utils';
+import * as request from 'supertest';
+import {
+  createTestApp,
+  registerAndLogin,
+  createForm,
+  cleanupTestData,
+} from './utils';
 
 describe('Fields', () => {
   let app: INestApplication;

@@ -1,0 +1,1 @@
+{"version":3,"names":["defaultOptions","exports","session","property"],"sources":["options.js"],"sourcesContent":["export const defaultOptions = {\n    session: false,\n    property: 'user'\n};\n"],"mappings":";;;;;;AAAO,MAAMA,cAAc,GAAAC,OAAA,CAAAD,cAAA,GAAG;EAC1BE,OAAO,EAAE,KAAK;EACdC,QAAQ,EAAE;AACd,CAAC","ignoreList":[]}

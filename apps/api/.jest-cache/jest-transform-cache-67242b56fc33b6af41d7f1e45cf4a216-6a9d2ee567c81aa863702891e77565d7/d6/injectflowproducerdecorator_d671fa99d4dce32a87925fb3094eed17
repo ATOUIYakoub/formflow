@@ -1,0 +1,18 @@
+e5bf9a3e979b4d484aea1077ec082dcd
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.InjectFlowProducer = void 0;
+var _common = require("@nestjs/common");
+var _index = require("../utils/index.js");
+/**
+ * Injects Bull's flow producer instance with the given name
+ * @param name flow producer name
+ *
+ * @publicApi
+ */
+const InjectFlowProducer = name => (0, _common.Inject)((0, _index.getFlowProducerToken)(name));
+exports.InjectFlowProducer = InjectFlowProducer;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfY29tbW9uIiwicmVxdWlyZSIsIl9pbmRleCIsIkluamVjdEZsb3dQcm9kdWNlciIsIm5hbWUiLCJJbmplY3QiLCJnZXRGbG93UHJvZHVjZXJUb2tlbiIsImV4cG9ydHMiXSwic291cmNlcyI6WyJpbmplY3QtZmxvdy1wcm9kdWNlci5kZWNvcmF0b3IuanMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgSW5qZWN0IH0gZnJvbSAnQG5lc3Rqcy9jb21tb24nO1xuaW1wb3J0IHsgZ2V0Rmxvd1Byb2R1Y2VyVG9rZW4gfSBmcm9tICcuLi91dGlscy9pbmRleC5qcyc7XG4vKipcbiAqIEluamVjdHMgQnVsbCdzIGZsb3cgcHJvZHVjZXIgaW5zdGFuY2Ugd2l0aCB0aGUgZ2l2ZW4gbmFtZVxuICogQHBhcmFtIG5hbWUgZmxvdyBwcm9kdWNlciBuYW1lXG4gKlxuICogQHB1YmxpY0FwaVxuICovXG5leHBvcnQgY29uc3QgSW5qZWN0Rmxvd1Byb2R1Y2VyID0gKG5hbWUpID0+IEluamVjdChnZXRGbG93UHJvZHVjZXJUb2tlbihuYW1lKSk7XG4iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUFBLE9BQUEsR0FBQUMsT0FBQTtBQUNBLElBQUFDLE1BQUEsR0FBQUQsT0FBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNPLE1BQU1FLGtCQUFrQixHQUFJQyxJQUFJLElBQUssSUFBQUMsY0FBTSxFQUFDLElBQUFDLDJCQUFvQixFQUFDRixJQUFJLENBQUMsQ0FBQztBQUFDRyxPQUFBLENBQUFKLGtCQUFBLEdBQUFBLGtCQUFBIiwiaWdub3JlTGlzdCI6W119

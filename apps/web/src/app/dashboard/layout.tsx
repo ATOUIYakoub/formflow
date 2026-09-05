@@ -18,7 +18,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         const userData = await api("/auth/me");
         setUser(userData);
         setIsLoading(false);
-      } catch (err) {
+      } catch {
         router.push("/login");
       }
     };

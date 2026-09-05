@@ -1,0 +1,18 @@
+273d70a6b7d899152d2d2eff31c06bfe
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.InjectQueue = void 0;
+var _bullShared = require("@nestjs/bull-shared");
+var _common = require("@nestjs/common");
+/**
+ * Injects Bull's queue instance with the given name
+ * @param name queue name
+ *
+ * @publicApi
+ */
+const InjectQueue = name => (0, _common.Inject)((0, _bullShared.getQueueToken)(name));
+exports.InjectQueue = InjectQueue;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfYnVsbFNoYXJlZCIsInJlcXVpcmUiLCJfY29tbW9uIiwiSW5qZWN0UXVldWUiLCJuYW1lIiwiSW5qZWN0IiwiZ2V0UXVldWVUb2tlbiIsImV4cG9ydHMiXSwic291cmNlcyI6WyJpbmplY3QtcXVldWUuZGVjb3JhdG9yLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGdldFF1ZXVlVG9rZW4gfSBmcm9tICdAbmVzdGpzL2J1bGwtc2hhcmVkJztcbmltcG9ydCB7IEluamVjdCB9IGZyb20gJ0BuZXN0anMvY29tbW9uJztcbi8qKlxuICogSW5qZWN0cyBCdWxsJ3MgcXVldWUgaW5zdGFuY2Ugd2l0aCB0aGUgZ2l2ZW4gbmFtZVxuICogQHBhcmFtIG5hbWUgcXVldWUgbmFtZVxuICpcbiAqIEBwdWJsaWNBcGlcbiAqL1xuZXhwb3J0IGNvbnN0IEluamVjdFF1ZXVlID0gKG5hbWUpID0+IEluamVjdChnZXRRdWV1ZVRva2VuKG5hbWUpKTtcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsSUFBQUEsV0FBQSxHQUFBQyxPQUFBO0FBQ0EsSUFBQUMsT0FBQSxHQUFBRCxPQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ08sTUFBTUUsV0FBVyxHQUFJQyxJQUFJLElBQUssSUFBQUMsY0FBTSxFQUFDLElBQUFDLHlCQUFhLEVBQUNGLElBQUksQ0FBQyxDQUFDO0FBQUNHLE9BQUEsQ0FBQUosV0FBQSxHQUFBQSxXQUFBIiwiaWdub3JlTGlzdCI6W119

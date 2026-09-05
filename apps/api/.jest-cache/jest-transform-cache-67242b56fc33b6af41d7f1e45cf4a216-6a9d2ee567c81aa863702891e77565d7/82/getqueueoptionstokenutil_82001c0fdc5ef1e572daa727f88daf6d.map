@@ -1,0 +1,1 @@
+{"version":3,"names":["getQueueOptionsToken","name"],"sources":["get-queue-options-token.util.js"],"sourcesContent":["export function getQueueOptionsToken(name) {\n    return name ? `BullMQQueueOptions_${name}` : 'BullMQQueueOptions_default';\n}\n"],"mappings":";;;;;;AAAO,SAASA,oBAAoBA,CAACC,IAAI,EAAE;EACvC,OAAOA,IAAI,GAAG,sBAAsBA,IAAI,EAAE,GAAG,4BAA4B;AAC7E","ignoreList":[]}

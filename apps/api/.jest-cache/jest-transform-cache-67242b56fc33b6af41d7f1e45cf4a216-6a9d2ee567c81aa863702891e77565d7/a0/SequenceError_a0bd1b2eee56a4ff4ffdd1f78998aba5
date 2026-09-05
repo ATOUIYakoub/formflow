@@ -1,0 +1,16 @@
+f522404c76234c3320c8c22f1443ea70
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SequenceError = void 0;
+var createErrorClass_1 = require("./createErrorClass");
+exports.SequenceError = createErrorClass_1.createErrorClass(function (_super) {
+  return function SequenceErrorImpl(message) {
+    _super(this);
+    this.name = 'SequenceError';
+    this.message = message;
+  };
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjcmVhdGVFcnJvckNsYXNzXzEiLCJyZXF1aXJlIiwiZXhwb3J0cyIsIlNlcXVlbmNlRXJyb3IiLCJjcmVhdGVFcnJvckNsYXNzIiwiX3N1cGVyIiwiU2VxdWVuY2VFcnJvckltcGwiLCJtZXNzYWdlIiwibmFtZSJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL1NlcXVlbmNlRXJyb3IudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUFBLGtCQUFBLEdBQUFDLE9BQUE7QUFrQmFDLE9BQUEsQ0FBQUMsYUFBYSxHQUFzQkgsa0JBQUEsQ0FBQUksZ0JBQWdCLENBQzlELFVBQUNDLE1BQU07RUFDTCxnQkFBU0MsaUJBQWlCQSxDQUFZQyxPQUFlO0lBQ25ERixNQUFNLENBQUMsSUFBSSxDQUFDO0lBQ1osSUFBSSxDQUFDRyxJQUFJLEdBQUcsZUFBZTtJQUMzQixJQUFJLENBQUNELE9BQU8sR0FBR0EsT0FBTztFQUN4QixDQUFDO0FBSkQsQ0FJQyxDQUNKIiwiaWdub3JlTGlzdCI6W119

@@ -1,0 +1,14 @@
+72ad5b0ad706382460e7e96c57f62a3e
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.concatMap = void 0;
+var mergeMap_1 = require("./mergeMap");
+var isFunction_1 = require("../util/isFunction");
+function concatMap(project, resultSelector) {
+  return isFunction_1.isFunction(resultSelector) ? mergeMap_1.mergeMap(project, resultSelector, 1) : mergeMap_1.mergeMap(project, 1);
+}
+exports.concatMap = concatMap;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJtZXJnZU1hcF8xIiwicmVxdWlyZSIsImlzRnVuY3Rpb25fMSIsImNvbmNhdE1hcCIsInByb2plY3QiLCJyZXN1bHRTZWxlY3RvciIsImlzRnVuY3Rpb24iLCJtZXJnZU1hcCIsImV4cG9ydHMiXSwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvaW50ZXJuYWwvb3BlcmF0b3JzL2NvbmNhdE1hcC50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsSUFBQUEsVUFBQSxHQUFBQyxPQUFBO0FBRUEsSUFBQUMsWUFBQSxHQUFBRCxPQUFBO0FBMkVBLFNBQWdCRSxTQUFTQSxDQUN2QkMsT0FBdUMsRUFDdkNDLGNBQTZHO0VBRTdHLE9BQU9ILFlBQUEsQ0FBQUksVUFBVSxDQUFDRCxjQUFjLENBQUMsR0FBR0wsVUFBQSxDQUFBTyxRQUFRLENBQUNILE9BQU8sRUFBRUMsY0FBYyxFQUFFLENBQUMsQ0FBQyxHQUFHTCxVQUFBLENBQUFPLFFBQVEsQ0FBQ0gsT0FBTyxFQUFFLENBQUMsQ0FBQztBQUNqRztBQUxBSSxPQUFBLENBQUFMLFNBQUEsR0FBQUEsU0FBQSIsImlnbm9yZUxpc3QiOltdfQ==

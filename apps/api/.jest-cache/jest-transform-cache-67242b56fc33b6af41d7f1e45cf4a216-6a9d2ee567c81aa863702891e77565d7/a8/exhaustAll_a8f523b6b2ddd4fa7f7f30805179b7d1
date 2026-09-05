@@ -1,0 +1,14 @@
+050f753265ff775dcb678e3c3a35868a
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.exhaustAll = void 0;
+var exhaustMap_1 = require("./exhaustMap");
+var identity_1 = require("../util/identity");
+function exhaustAll() {
+  return exhaustMap_1.exhaustMap(identity_1.identity);
+}
+exports.exhaustAll = exhaustAll;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJleGhhdXN0TWFwXzEiLCJyZXF1aXJlIiwiaWRlbnRpdHlfMSIsImV4aGF1c3RBbGwiLCJleGhhdXN0TWFwIiwiaWRlbnRpdHkiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2ludGVybmFsL29wZXJhdG9ycy9leGhhdXN0QWxsLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDQSxJQUFBQSxZQUFBLEdBQUFDLE9BQUE7QUFDQSxJQUFBQyxVQUFBLEdBQUFELE9BQUE7QUE4Q0EsU0FBZ0JFLFVBQVVBLENBQUE7RUFDeEIsT0FBT0gsWUFBQSxDQUFBSSxVQUFVLENBQUNGLFVBQUEsQ0FBQUcsUUFBUSxDQUFDO0FBQzdCO0FBRkFDLE9BQUEsQ0FBQUgsVUFBQSxHQUFBQSxVQUFBIiwiaWdub3JlTGlzdCI6W119

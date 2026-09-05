@@ -1,0 +1,15 @@
+40a3c6729c05a3dcb9cfed54d128b8d4
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.never = exports.NEVER = void 0;
+var Observable_1 = require("../Observable");
+var noop_1 = require("../util/noop");
+exports.NEVER = new Observable_1.Observable(noop_1.noop);
+function never() {
+  return exports.NEVER;
+}
+exports.never = never;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJPYnNlcnZhYmxlXzEiLCJyZXF1aXJlIiwibm9vcF8xIiwiZXhwb3J0cyIsIk5FVkVSIiwiT2JzZXJ2YWJsZSIsIm5vb3AiLCJuZXZlciJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9pbnRlcm5hbC9vYnNlcnZhYmxlL25ldmVyLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxJQUFBQSxZQUFBLEdBQUFDLE9BQUE7QUFDQSxJQUFBQyxNQUFBLEdBQUFELE9BQUE7QUFtQ2FFLE9BQUEsQ0FBQUMsS0FBSyxHQUFHLElBQUlKLFlBQUEsQ0FBQUssVUFBVSxDQUFRSCxNQUFBLENBQUFJLElBQUksQ0FBQztBQUtoRCxTQUFnQkMsS0FBS0EsQ0FBQTtFQUNuQixPQUFPSixPQUFBLENBQUFDLEtBQUs7QUFDZDtBQUZBRCxPQUFBLENBQUFJLEtBQUEsR0FBQUEsS0FBQSIsImlnbm9yZUxpc3QiOltdfQ==
