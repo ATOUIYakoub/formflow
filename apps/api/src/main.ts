@@ -3,8 +3,8 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
-import * as cookieParser from 'cookie-parser';
-import helmet from 'helmet';
+const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 import { join } from 'path';
 import { existsSync, mkdirSync } from 'fs';
 import { NestExpressApplication } from '@nestjs/platform-express';
