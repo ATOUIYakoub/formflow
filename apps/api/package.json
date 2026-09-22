@@ -5,7 +5,7 @@
   "description": "FormFlow API — NestJS backend",
   "scripts": {
     "dev": "nest start --watch",
-    "build": "nest build",
+    "build": "npm ls @types/passport-jwt && ls node_modules/@types 2>&1 | grep -i passport && nest build",
     "start": "nest start",
     "start:prod": "node dist/main",
     "lint": "eslint .",
@@ -44,6 +44,7 @@
     "nodemailer": "^9.0.6",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "@types/passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.0"
   },
@@ -59,7 +60,6 @@
     "@types/handlebars": "^4.0.40",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.0.0",
-    "@types/passport-jwt": "^4.0.1",
     "@types/supertest": "^7.2.1",
     "babel-jest": "^30.5.0",
     "eslint": "^9.39.5",
