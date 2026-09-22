@@ -164,6 +164,7 @@ export default function FormBuilderPage() {
   
   const [isLoading, setIsLoading] = useState(true);
   const [syncStatus, setSyncStatus] = useState<"Saved" | "Saving..." | "Unsaved changes">("Saved");
+  const [isToolboxOpen, setIsToolboxOpen] = useState(false);
   const isFirstRender = useRef(true);
 
   // DnD Sensors
@@ -233,6 +234,7 @@ export default function FormBuilderPage() {
     };
     setFields([...fields, newField]);
     setSelectedFieldId(newField.id);
+    setIsToolboxOpen(false); // Close toolbox on mobile after adding
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -377,14 +379,14 @@ export default function FormBuilderPage() {
   return (
     <div className="h-screen flex flex-col font-sans bg-[#F9F9F9] overflow-hidden">
       {/* Top Header */}
-      <header className="h-14 bg-white border-b border-zinc-200 px-4 flex justify-between items-center shrink-0">
-        <div className="flex items-center gap-4">
+      <header className="h-14 bg-white border-b border-zinc-200 px-4 flex justify-between items-center shrink-0 overflow-x-auto whitespace-nowrap">
+        <div className="flex items-center gap-4 shrink-0">
           <Link href="/dashboard/forms" className="w-8 h-8 flex items-center justify-center rounded hover:bg-zinc-100 text-zinc-500 transition-colors">
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.85355 3.14645C7.04882 3.34171 7.04882 3.65829 6.85355 3.85355L3.70711 7H12.5C12.7761 7 13 7.22386 13 7.5C13 7.77614 12.7761 8 12.5 8H3.70711L6.85355 11.1464C7.04882 11.3417 7.04882 11.6583 6.85355 11.8536C6.65829 12.0488 6.34171 12.0488 6.14645 11.8536L2.14645 7.85355C1.95118 7.65829 1.95118 7.34171 2.14645 7.14645L6.14645 3.14645C6.34171 2.95118 6.65829 2.95118 6.85355 3.14645Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
           </Link>
           <div className="h-4 w-[1px] bg-zinc-200"></div>
           <div className="flex items-center gap-2">
-            <h1 className="text-[14px] font-semibold text-zinc-900 truncate max-w-[200px]">{form?.name}</h1>
+            <h1 className="text-[14px] font-semibold text-zinc-900 truncate max-w-[120px] md:max-w-[200px]">{form?.name}</h1>
             {isPublished ? (
               <span className="px-1.5 py-0.5 rounded-md bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-wide">Published</span>
             ) : (
@@ -393,10 +395,10 @@ export default function FormBuilderPage() {
           </div>
         </div>
         
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 md:gap-6 ml-4 shrink-0">
           {/* Sync Status */}
           <div className="flex items-center gap-2">
-            <span className={`text-[12px] font-medium transition-colors ${syncStatus === 'Unsaved changes' ? 'text-amber-600' : 'text-zinc-400'}`}>
+            <span className={`text-[12px] font-medium transition-colors hidden sm:inline-block ${syncStatus === 'Unsaved changes' ? 'text-amber-600' : 'text-zinc-400'}`}>
               {syncStatus}
             </span>
             <div className="h-2 w-2 rounded-full bg-zinc-200 flex items-center justify-center">
@@ -418,20 +420,23 @@ export default function FormBuilderPage() {
               href={`/dashboard/forms/${id}/submissions`}
               className="px-3 py-1.5 bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 text-[13px] font-semibold rounded-md shadow-sm transition-colors"
             >
-              Submissions{form?._count?.submissions ? ` (${form._count.submissions})` : ""}
+              <span className="hidden sm:inline">Submissions</span>
+              <span className="sm:hidden">Subs</span>
+              {form?._count?.submissions ? ` (${form._count.submissions})` : ""}
             </Link>
             <Link
               href={`/dashboard/forms/${id}/analytics`}
               className="px-3 py-1.5 bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 text-[13px] font-semibold rounded-md shadow-sm transition-colors"
             >
-              Analytics
+              <span className="hidden sm:inline">Analytics</span>
+              <span className="sm:hidden">Stats</span>
             </Link>
           </div>
 
           <div className="h-4 w-[1px] bg-zinc-200"></div>
 
           {/* Publish Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 pr-4 md:pr-0">
             {isPublished ? (
               <>
                 <button
@@ -442,7 +447,7 @@ export default function FormBuilderPage() {
                 </button>
                 <button
                   onClick={handleUnpublish}
-                  className="px-3 py-1.5 text-zinc-500 hover:text-red-600 text-[13px] font-medium transition-colors"
+                  className="px-3 py-1.5 text-zinc-500 hover:text-red-600 text-[13px] font-medium transition-colors hidden sm:block"
                 >
                   Unpublish
                 </button>
@@ -460,11 +465,22 @@ export default function FormBuilderPage() {
       </header>
 
       {/* Main Workspace */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden relative">
         
         {/* Left Sidebar: Toolbox */}
-        <div className="w-[240px] bg-white border-r border-zinc-200 flex flex-col shrink-0 overflow-y-auto">
+        <div 
+          className={`w-[240px] bg-white border-r border-zinc-200 flex flex-col shrink-0 overflow-y-auto absolute md:static top-0 bottom-0 z-30 transition-transform duration-300 shadow-2xl md:shadow-none ${
+            isToolboxOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          }`}
+        >
           <div className="p-5 space-y-6">
+            <div className="flex items-center justify-between md:hidden mb-4">
+              <h2 className="text-[13px] font-bold text-zinc-900">Add Field</h2>
+              <button onClick={() => setIsToolboxOpen(false)} className="text-zinc-400 hover:text-zinc-900">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.557 2.99385 11.193 2.99385 10.9684 3.2184L7.49999 6.68682L4.03157 3.2184C3.80702 2.99385 3.44295 2.99385 3.2184 3.2184C2.99385 3.44295 2.99385 3.80702 3.2184 4.03157L6.68682 7.49999L3.2184 10.9684C2.99385 11.193 2.99385 11.557 3.2184 11.7816C3.44295 12.0062 3.80702 12.0062 4.03157 11.7816L7.49999 8.31316L10.9684 11.7816C11.193 12.0062 11.557 12.0062 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31316 7.49999L11.7816 4.03157Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
+              </button>
+            </div>
+            
             <div>
               <h2 className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-3">Basic Inputs</h2>
               <div className="space-y-1">
@@ -501,8 +517,16 @@ export default function FormBuilderPage() {
           </div>
         </div>
 
+        {/* Mobile Overlay */}
+        {isToolboxOpen && (
+          <div 
+            className="fixed inset-0 bg-black/20 z-20 md:hidden"
+            onClick={() => setIsToolboxOpen(false)}
+          />
+        )}
+
         {/* Center: Canvas */}
-        <div className="flex-1 overflow-y-auto p-8 md:p-16 relative" onClick={() => setSelectedFieldId(null)}>
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 md:p-16 relative" onClick={() => setSelectedFieldId(null)}>
           <div className="max-w-[640px] mx-auto pb-40">
             
             <div className="mb-12">
@@ -510,13 +534,13 @@ export default function FormBuilderPage() {
                  type="text"
                  value={form?.name || ""}
                  onChange={(e) => updateFormMeta({ name: e.target.value })}
-                 className="w-full text-[40px] font-bold text-zinc-900 bg-transparent outline-none placeholder:text-zinc-300 mb-2 rounded-lg px-2 -mx-2 hover:bg-zinc-100/70 focus:bg-white focus:ring-1 focus:ring-zinc-900 transition-colors"
+                 className="w-full text-[28px] sm:text-[40px] font-bold text-zinc-900 bg-transparent outline-none placeholder:text-zinc-300 mb-2 rounded-lg px-2 -mx-2 hover:bg-zinc-100/70 focus:bg-white focus:ring-1 focus:ring-zinc-900 transition-colors"
                  placeholder="Form Title"
               />
               <textarea
                  value={form?.description || ""}
                  onChange={(e) => updateFormMeta({ description: e.target.value })}
-                 className="w-full text-[16px] text-zinc-500 bg-transparent outline-none resize-none placeholder:text-zinc-300 rounded-lg px-2 -mx-2 py-1 hover:bg-zinc-100/70 focus:bg-white focus:ring-1 focus:ring-zinc-900 transition-colors"
+                 className="w-full text-[14px] sm:text-[16px] text-zinc-500 bg-transparent outline-none resize-none placeholder:text-zinc-300 rounded-lg px-2 -mx-2 py-1 hover:bg-zinc-100/70 focus:bg-white focus:ring-1 focus:ring-zinc-900 transition-colors"
                  placeholder="Add a description..."
                  rows={2}
               />
@@ -526,9 +550,15 @@ export default function FormBuilderPage() {
               <SortableContext items={fields} strategy={verticalListSortingStrategy}>
                 <div className="space-y-4">
                   {fields.length === 0 ? (
-                    <div className="text-center p-12 border-2 border-dashed border-zinc-200 rounded-2xl">
+                    <div className="text-center p-8 sm:p-12 border-2 border-dashed border-zinc-200 rounded-2xl">
                       <p className="text-[14px] text-zinc-500">This form is empty.</p>
-                      <p className="text-[13px] text-zinc-400 mt-1">Click a block on the left to add it here.</p>
+                      <p className="text-[13px] text-zinc-400 mt-1">Add a block to get started.</p>
+                      <button 
+                        onClick={() => setIsToolboxOpen(true)}
+                        className="md:hidden mt-4 px-4 py-2 bg-zinc-900 text-white text-[13px] font-semibold rounded-lg shadow-sm"
+                      >
+                        Add Field
+                      </button>
                     </div>
                   ) : (
                     fields.map((field) => (
@@ -557,8 +587,18 @@ export default function FormBuilderPage() {
           </div>
         </div>
 
+        {/* Mobile FAB to add fields (only shows if there are fields and toolbox is closed) */}
+        {fields.length > 0 && !isToolboxOpen && (
+          <button 
+            onClick={() => setIsToolboxOpen(true)}
+            className="md:hidden absolute bottom-6 right-6 z-10 w-14 h-14 bg-zinc-900 text-white rounded-full shadow-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        )}
+
         {/* Right Sidebar: Settings */}
-        <div className={`w-[320px] bg-white border-l border-zinc-200 flex flex-col shrink-0 overflow-y-auto transition-all ${selectedField ? 'translate-x-0 border-l' : 'translate-x-[320px] border-transparent'} absolute right-0 top-14 bottom-0 z-20 shadow-xl md:shadow-none md:static md:translate-x-0`} style={{ display: selectedField ? 'flex' : 'none' }}>
+        <div className={`w-full md:w-[320px] bg-white border-l border-zinc-200 flex flex-col shrink-0 overflow-y-auto transition-all ${selectedField ? 'translate-x-0 border-l' : 'translate-x-full border-transparent'} absolute right-0 top-0 bottom-0 z-40 shadow-2xl md:shadow-none md:static md:translate-x-0`} style={{ display: selectedField ? 'flex' : 'none' }}>
           <div className="h-14 border-b border-zinc-100 flex justify-between items-center px-5 shrink-0">
             <h2 className="text-[13px] font-bold text-zinc-900">Properties</h2>
             <button onClick={() => setSelectedFieldId(null)} className="text-zinc-400 hover:text-zinc-900">
