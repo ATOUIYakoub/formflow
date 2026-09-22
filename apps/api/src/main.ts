@@ -19,7 +19,7 @@ async function bootstrap() {
   app.use(helmet({
     contentSecurityPolicy: false, // Disable for API, enable for web views if needed
     crossOriginEmbedderPolicy: false,
-    crossOriginResourcePolicy: { policy: 'same-site' },
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
     dnsPrefetchControl: { allow: false },
     frameguard: { action: 'deny' },
     hidePoweredBy: true,
