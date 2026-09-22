@@ -16,7 +16,7 @@ export class AnalyticsController {
     @Req() req: Request,
     @Query(new ValidationPipe()) filters: AnalyticsFiltersDto
   ) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.analyticsService.getOverview(formId, userId, filters);
   }
 
@@ -26,7 +26,7 @@ export class AnalyticsController {
     @Req() req: Request,
     @Query(new ValidationPipe()) filters: AnalyticsFiltersDto
   ) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.analyticsService.getSubmissionsPerDay(formId, userId, filters);
   }
 
@@ -36,7 +36,7 @@ export class AnalyticsController {
     @Req() req: Request,
     @Query(new ValidationPipe()) filters: AnalyticsFiltersDto
   ) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.analyticsService.getViewsPerDay(formId, userId, filters);
   }
 
@@ -46,7 +46,7 @@ export class AnalyticsController {
     @Req() req: Request,
     @Query(new ValidationPipe()) filters: AnalyticsFiltersDto
   ) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.analyticsService.getStartsPerDay(formId, userId, filters);
   }
 }

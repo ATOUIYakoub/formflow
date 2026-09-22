@@ -15,26 +15,26 @@ export class FormsController {
 
   @Post()
   create(@Body(new ValidationPipe()) dto: CreateFormDto, @Req() req: Request) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.formsService.create(dto, userId);
   }
 
   @Get()
   findAll(@Req() req: Request) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.formsService.findAll(userId);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string, @Req() req: Request) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.formsService.findOne(id, userId);
   }
 
   @Post(':id/fields')
   @HttpCode(HttpStatus.OK)
   saveFields(@Param('id') id: string, @Body(new ValidationPipe()) dto: SaveFieldsDto, @Req() req: Request) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.formsService.saveFields(id, dto.fields, userId);
   }
 
@@ -45,33 +45,33 @@ export class FormsController {
     @Body(new ValidationPipe()) dto: SaveRulesDto,
     @Req() req: Request
   ) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.formsService.saveRules(id, dto.rules, userId);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body(new ValidationPipe()) dto: UpdateFormDto, @Req() req: Request) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.formsService.update(id, dto, userId);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string, @Req() req: Request) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.formsService.remove(id, userId);
   }
 
   @Post(':id/publish')
   @HttpCode(HttpStatus.OK)
   publish(@Param('id') id: string, @Req() req: Request) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.formsService.publish(id, userId);
   }
 
   @Post(':id/unpublish')
   @HttpCode(HttpStatus.OK)
   unpublish(@Param('id') id: string, @Req() req: Request) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.formsService.unpublish(id, userId);
   }
 }

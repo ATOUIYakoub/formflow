@@ -16,7 +16,7 @@ export class SubmissionsController {
     @Query(new ValidationPipe()) query: ListSubmissionsQueryDto,
     @Req() req: Request
   ) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.submissionsService.list(formId, userId, query);
   }
 
@@ -26,7 +26,7 @@ export class SubmissionsController {
     @Param('submissionId') submissionId: string,
     @Req() req: Request
   ) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.submissionsService.findOne(formId, submissionId, userId);
   }
 
@@ -36,7 +36,7 @@ export class SubmissionsController {
     @Param('submissionId') submissionId: string,
     @Req() req: Request
   ) {
-    const userId = (req.user as any).id;
+    const userId = req.user!.id;
     return this.submissionsService.remove(formId, submissionId, userId);
   }
 }
