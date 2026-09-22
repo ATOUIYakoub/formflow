@@ -367,7 +367,7 @@ export default function FormBuilderPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-zinc-50">
+      <div className="flex items-center justify-center h-[calc(100dvh-64px)] md:h-screen bg-zinc-50">
         <div className="animate-spin w-8 h-8 border-4 border-zinc-200 border-t-zinc-900 rounded-full"></div>
       </div>
     );
@@ -377,7 +377,7 @@ export default function FormBuilderPage() {
   const isPublished = form?.status === "PUBLISHED";
 
   return (
-    <div className="h-screen flex flex-col font-sans bg-[#F9F9F9] overflow-hidden">
+    <div className="h-[calc(100dvh-64px)] md:h-screen flex flex-col font-sans bg-[#F9F9F9] overflow-hidden">
       {/* Top Header */}
       <header className="h-14 bg-white border-b border-zinc-200 px-4 flex justify-between items-center shrink-0 overflow-x-auto whitespace-nowrap">
         <div className="flex items-center gap-4 shrink-0">
