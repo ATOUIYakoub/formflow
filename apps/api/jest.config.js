@@ -16,13 +16,13 @@ module.exports = {
   },
   transform: {
     '^.+\\.tsx?$': ['ts-jest', { useESM: false }],
-    'node_modules/@nestjs/.*': 'babel-jest',
-    'node_modules/@nestjs/config/.*': 'babel-jest',
-    'node_modules/rxjs/.*': 'babel-jest',
+    // Several @nestjs/* packages (config, jwt, passport, bullmq) ship ESM only.
+    // Jest runs the suite as CommonJS, so Babel transpiles them down.
+    // The separator class is required: on Windows these paths use backslashes
+    // and a `/`-only pattern silently never matches.
+    'node_modules[\\\\/](@nestjs|rxjs)[\\\\/].*\\.js$': 'babel-jest',
   },
-  transformIgnorePatterns: [
-    'node_modules/(?!(@nestjs|rxjs)/)',
-  ],
+  transformIgnorePatterns: ['node_modules[\\\\/](?!(@nestjs|rxjs)[\\\\/])'],
   cacheDirectory: '<rootDir>/.jest-cache',
   moduleDirectories: ['node_modules', '<rootDir>'],
 };

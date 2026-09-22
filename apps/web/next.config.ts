@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV !== "production";
+
 const nextConfig: NextConfig = {
-  // Proxy API requests to NestJS backend in development
+  reactStrictMode: true,
   async rewrites() {
+    if (!isDev) return [];
     return [
       {
         source: "/api/:path*",
