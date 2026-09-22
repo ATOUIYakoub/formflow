@@ -38,11 +38,12 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Log out and clear the cookie' })
   async logout(@Res({ passthrough: true }) res: Response) {
+    const isProd = process.env.NODE_ENV === 'production';
     res.cookie('jwt', '', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isProd,
       expires: new Date(0),
-      sameSite: 'strict',
+      sameSite: isProd ? 'none' : 'lax',
     });
     return { message: 'Logged out successfully' };
   }
@@ -55,11 +56,12 @@ export class AuthController {
   }
 
   private setCookie(res: Response, token: string) {
+    const isProd = process.env.NODE_ENV === 'production';
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isProd,
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-      sameSite: 'strict',
+      sameSite: isProd ? 'none' : 'lax',
     });
   }
 }
