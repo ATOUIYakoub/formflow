@@ -2,6 +2,11 @@
 
 A SaaS platform for creating and managing online forms.
 
+## Live Demo
+
+- **Frontend:** [https://formflow-eta-henna.vercel.app](https://formflow-eta-henna.vercel.app)
+- **API Swagger Docs:** [https://formflow-api-xc6d.onrender.com/api/docs](https://formflow-api-xc6d.onrender.com/api/docs)
+
 ## Tech Stack
 
 - **Frontend:** Next.js, React, TypeScript, Tailwind CSS
@@ -53,8 +58,9 @@ formflow/
    ```
 
    - Frontend: http://localhost:3000
-   - Backend API: http://localhost:3001/api
-   - Health check: http://localhost:3001/api/health
+   - Backend API: http://localhost:3002/api
+   - Health check: http://localhost:3002/api/health
+   - Swagger Docs: http://localhost:3002/api/docs
 
 ## Scripts
 
